@@ -1,0 +1,273 @@
+﻿"iisexpress.exe" (CLR v4.0.30319: DefaultDomain): Carregado "C:\Windows\Microsoft.Net\assembly\GAC_32\mscorlib\v4.0_4.0.0.0__b77a5c561934e089\mscorlib.dll". Carregamento de símbolos ignorado. O módulo está otimizado e a opção do depurador 'Apenas Meu Código' está habilitada.
+"iisexpress.exe" (CLR v4.0.30319: DefaultDomain): Carregado "C:\Windows\Microsoft.Net\assembly\GAC_32\System.Web\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Web.dll". Carregamento de símbolos ignorado. O módulo está otimizado e a opção do depurador 'Apenas Meu Código' está habilitada.
+"iisexpress.exe" (CLR v4.0.30319: DefaultDomain): Carregado "C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System\v4.0_4.0.0.0__b77a5c561934e089\System.dll". Carregamento de símbolos ignorado. O módulo está otimizado e a opção do depurador 'Apenas Meu Código' está habilitada.
+"iisexpress.exe" (CLR v4.0.30319: DefaultDomain): Carregado "C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Core\v4.0_4.0.0.0__b77a5c561934e089\System.Core.dll". Carregamento de símbolos ignorado. O módulo está otimizado e a opção do depurador 'Apenas Meu Código' está habilitada.
+"iisexpress.exe" (CLR v4.0.30319: DefaultDomain): Carregado "C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.ApplicationServices\v4.0_4.0.0.0__31bf3856ad364e35\System.Web.ApplicationServices.dll". Carregamento de símbolos ignorado. O módulo está otimizado e a opção do depurador 'Apenas Meu Código' está habilitada.
+"iisexpress.exe" (CLR v4.0.30319: DefaultDomain): Carregado "C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Configuration\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Configuration.dll". Carregamento de símbolos ignorado. O módulo está otimizado e a opção do depurador 'Apenas Meu Código' está habilitada.
+"iisexpress.exe" (CLR v4.0.30319: DefaultDomain): Carregado "C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Xml\v4.0_4.0.0.0__b77a5c561934e089\System.Xml.dll". Carregamento de símbolos ignorado. O módulo está otimizado e a opção do depurador 'Apenas Meu Código' está habilitada.
+"iisexpress.exe" (CLR v4.0.30319: Domain 2): Carregado "C:\Windows\Microsoft.Net\assembly\GAC_32\mscorlib\v4.0_4.0.0.0__b77a5c561934e089\mscorlib.dll". Carregamento de símbolos ignorado. O módulo está otimizado e a opção do depurador 'Apenas Meu Código' está habilitada.
+"iisexpress.exe" (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-132712711589250185): Carregado "C:\Windows\Microsoft.Net\assembly\GAC_32\System.Web\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Web.dll". Carregamento de símbolos ignorado. O módulo está otimizado e a opção do depurador 'Apenas Meu Código' está habilitada.
+"iisexpress.exe" (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-132712711589250185): Carregado "C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System\v4.0_4.0.0.0__b77a5c561934e089\System.dll". Carregamento de símbolos ignorado. O módulo está otimizado e a opção do depurador 'Apenas Meu Código' está habilitada.
+"iisexpress.exe" (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-132712711589250185): Carregado "C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Core\v4.0_4.0.0.0__b77a5c561934e089\System.Core.dll". Carregamento de símbolos ignorado. O módulo está otimizado e a opção do depurador 'Apenas Meu Código' está habilitada.
+"iisexpress.exe" (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-132712711589250185): Carregado "C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.ApplicationServices\v4.0_4.0.0.0__31bf3856ad364e35\System.Web.ApplicationServices.dll". Carregamento de símbolos ignorado. O módulo está otimizado e a opção do depurador 'Apenas Meu Código' está habilitada.
+"iisexpress.exe" (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-132712711589250185): Carregado "C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Configuration\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Configuration.dll". Carregamento de símbolos ignorado. O módulo está otimizado e a opção do depurador 'Apenas Meu Código' está habilitada.
+"iisexpress.exe" (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-132712711589250185): Carregado "C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Xml\v4.0_4.0.0.0__b77a5c561934e089\System.Xml.dll". Carregamento de símbolos ignorado. O módulo está otimizado e a opção do depurador 'Apenas Meu Código' está habilitada.
+"iisexpress.exe" (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-132712711589250185): Carregado "C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Runtime.Caching\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Runtime.Caching.dll". Carregamento de símbolos ignorado. O módulo está otimizado e a opção do depurador 'Apenas Meu Código' está habilitada.
+"iisexpress.exe" (CLR v4.0.30319: DefaultDomain): Carregado "C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Runtime.Caching\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Runtime.Caching.dll". Carregamento de símbolos ignorado. O módulo está otimizado e a opção do depurador 'Apenas Meu Código' está habilitada.
+"iisexpress.exe" (CLR v4.0.30319: DefaultDomain): Carregado "C:\Windows\Microsoft.Net\assembly\GAC_MSIL\mscorlib.resources\v4.0_4.0.0.0_pt-BR_b77a5c561934e089\mscorlib.resources.dll". O módulo foi criado sem símbolos.
+"iisexpress.exe" (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-132712711589250185): Carregado "C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.Build.Utilities.v4.0\v4.0_4.0.0.0__b03f5f7f11d50a3a\Microsoft.Build.Utilities.v4.0.dll". Carregamento de símbolos ignorado. O módulo está otimizado e a opção do depurador 'Apenas Meu Código' está habilitada.
+"iisexpress.exe" (CLR v4.0.30319: DefaultDomain): Carregado "C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.Build.Utilities.v4.0\v4.0_4.0.0.0__b03f5f7f11d50a3a\Microsoft.Build.Utilities.v4.0.dll". Carregamento de símbolos ignorado. O módulo está otimizado e a opção do depurador 'Apenas Meu Código' está habilitada.
+"iisexpress.exe" (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-132712711589250185): Carregado "C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.JScript\v4.0_10.0.0.0__b03f5f7f11d50a3a\Microsoft.JScript.dll". Carregamento de símbolos ignorado. O módulo está otimizado e a opção do depurador 'Apenas Meu Código' está habilitada.
+"iisexpress.exe" (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-132712711589250185): Carregado "C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.ServiceModel.Activation\v4.0_4.0.0.0__31bf3856ad364e35\System.ServiceModel.Activation.dll". Carregamento de símbolos ignorado. O módulo está otimizado e a opção do depurador 'Apenas Meu Código' está habilitada.
+"iisexpress.exe" (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-132712711589250185): Carregado "C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.Extensions\v4.0_4.0.0.0__31bf3856ad364e35\System.Web.Extensions.dll". Carregamento de símbolos ignorado. O módulo está otimizado e a opção do depurador 'Apenas Meu Código' está habilitada.
+"iisexpress.exe" (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-132712711589250185): Carregado "C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.ServiceModel.Internals\v4.0_4.0.0.0__31bf3856ad364e35\System.ServiceModel.Internals.dll". Carregamento de símbolos ignorado. O módulo está otimizado e a opção do depurador 'Apenas Meu Código' está habilitada.
+"iisexpress.exe" (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-132712711589250185): Carregado "C:\Windows\Microsoft.Net\assembly\GAC_MSIL\mscorlib.resources\v4.0_4.0.0.0_pt-BR_b77a5c561934e089\mscorlib.resources.dll". O módulo foi criado sem símbolos.
+"iisexpress.exe" (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-132712711589250185): Carregado "C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.ServiceModel\v4.0_4.0.0.0__b77a5c561934e089\System.ServiceModel.dll". Carregamento de símbolos ignorado. O módulo está otimizado e a opção do depurador 'Apenas Meu Código' está habilitada.
+"iisexpress.exe" (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-132712711589250185): Carregado "C:\Windows\Microsoft.Net\assembly\GAC_MSIL\SMDiagnostics\v4.0_4.0.0.0__b77a5c561934e089\SMDiagnostics.dll". Carregamento de símbolos ignorado. O módulo está otimizado e a opção do depurador 'Apenas Meu Código' está habilitada.
+O thread 0xd1a0 foi fechado com o código 0 (0x0).
+O thread 0xfbf4 foi fechado com o código 0 (0x0).
+O thread 0xfb68 foi fechado com o código 0 (0x0).
+O thread 0xe608 foi fechado com o código 0 (0x0).
+O thread 0x5614 foi fechado com o código 0 (0x0).
+O thread 0xbf7c foi fechado com o código 0 (0x0).
+O thread 0xbc7c foi fechado com o código 0 (0x0).
+O thread 0xf088 foi fechado com o código 0 (0x0).
+O thread 0xa3b8 foi fechado com o código 0 (0x0).
+O thread 0x8aac foi fechado com o código 0 (0x0).
+O thread 0xeaac foi fechado com o código 0 (0x0).
+O thread 0xc4c0 foi fechado com o código 0 (0x0).
+O thread 0xf61c foi fechado com o código 0 (0x0).
+O thread 0x96f4 foi fechado com o código 0 (0x0).
+O thread 0xe640 foi fechado com o código 0 (0x0).
+O thread 0x6938 foi fechado com o código 0 (0x0).
+O thread 0x7724 foi fechado com o código 0 (0x0).
+O thread 0xcdf8 foi fechado com o código 0 (0x0).
+O thread 0xe24 foi fechado com o código 0 (0x0).
+O thread 0xd27c foi fechado com o código 0 (0x0).
+O thread 0xafb0 foi fechado com o código 0 (0x0).
+O thread 0xdb04 foi fechado com o código 0 (0x0).
+O thread 0xf930 foi fechado com o código 0 (0x0).
+O thread 0xf350 foi fechado com o código 0 (0x0).
+O thread 0xdce0 foi fechado com o código 0 (0x0).
+O thread 0xd548 foi fechado com o código 0 (0x0).
+O thread 0xeeac foi fechado com o código 0 (0x0).
+O thread 0x6f9c foi fechado com o código 0 (0x0).
+O thread 0x5158 foi fechado com o código 0 (0x0).
+O thread 0xbce4 foi fechado com o código 0 (0x0).
+O thread 0xded0 foi fechado com o código 0 (0x0).
+O thread 0xccb4 foi fechado com o código 0 (0x0).
+O thread 0xd320 foi fechado com o código 0 (0x0).
+O thread 0xc770 foi fechado com o código 0 (0x0).
+O thread 0xd888 foi fechado com o código 0 (0x0).
+O thread 0x6708 foi fechado com o código 0 (0x0).
+O thread 0xf334 foi fechado com o código 0 (0x0).
+O thread 0xc718 foi fechado com o código 0 (0x0).
+O thread 0xf798 foi fechado com o código 0 (0x0).
+O thread 0x76f4 foi fechado com o código 0 (0x0).
+O thread 0x97d4 foi fechado com o código 0 (0x0).
+O thread 0xb048 foi fechado com o código 0 (0x0).
+O thread 0xd844 foi fechado com o código 0 (0x0).
+O thread 0xd94c foi fechado com o código 0 (0x0).
+O thread 0xf740 foi fechado com o código 0 (0x0).
+O thread 0x1048 foi fechado com o código 0 (0x0).
+O thread 0xe978 foi fechado com o código 0 (0x0).
+O thread 0xcb30 foi fechado com o código 0 (0x0).
+O thread 0xde70 foi fechado com o código 0 (0x0).
+O thread 0xcc38 foi fechado com o código 0 (0x0).
+O thread 0xcc48 foi fechado com o código 0 (0x0).
+O thread 0x8920 foi fechado com o código 0 (0x0).
+O thread 0xf354 foi fechado com o código 0 (0x0).
+O thread 0x2c14 foi fechado com o código 0 (0x0).
+O thread 0xeda0 foi fechado com o código 0 (0x0).
+O thread 0xa23c foi fechado com o código 0 (0x0).
+O thread 0xf5a8 foi fechado com o código 0 (0x0).
+O thread 0xebb4 foi fechado com o código 0 (0x0).
+O thread 0xd034 foi fechado com o código 0 (0x0).
+O thread 0xf9d4 foi fechado com o código 0 (0x0).
+O thread 0xefdc foi fechado com o código 0 (0x0).
+O thread 0xe2d4 foi fechado com o código 0 (0x0).
+O thread 0x825c foi fechado com o código 0 (0x0).
+O thread 0xc77c foi fechado com o código 0 (0x0).
+O thread 0xe664 foi fechado com o código 0 (0x0).
+O thread 0xeb8c foi fechado com o código 0 (0x0).
+O thread 0xf388 foi fechado com o código 0 (0x0).
+O thread 0xe370 foi fechado com o código 0 (0x0).
+O thread 0xd3f4 foi fechado com o código 0 (0x0).
+O thread 0xe490 foi fechado com o código 0 (0x0).
+O thread 0xe16c foi fechado com o código 0 (0x0).
+O thread 0xefd0 foi fechado com o código 0 (0x0).
+O thread 0xd154 foi fechado com o código 0 (0x0).
+O thread 0xb758 foi fechado com o código 0 (0x0).
+O thread 0xc600 foi fechado com o código 0 (0x0).
+O thread 0x492c foi fechado com o código 0 (0x0).
+O thread 0xc49c foi fechado com o código 0 (0x0).
+O thread 0xeb24 foi fechado com o código 0 (0x0).
+O thread 0xc030 foi fechado com o código 0 (0x0).
+O thread 0xec40 foi fechado com o código 0 (0x0).
+O thread 0xdda0 foi fechado com o código 0 (0x0).
+O thread 0xede8 foi fechado com o código 0 (0x0).
+O thread 0x4370 foi fechado com o código 0 (0x0).
+O thread 0xdf10 foi fechado com o código 0 (0x0).
+O thread 0xe73c foi fechado com o código 0 (0x0).
+O thread 0xec5c foi fechado com o código 0 (0x0).
+O thread 0xa518 foi fechado com o código 0 (0x0).
+O thread 0x84ac foi fechado com o código 0 (0x0).
+O thread 0xdc38 foi fechado com o código 0 (0x0).
+O thread 0xf724 foi fechado com o código 0 (0x0).
+O thread 0xfa58 foi fechado com o código 0 (0x0).
+O thread 0xcf84 foi fechado com o código 0 (0x0).
+O thread 0x2db8 foi fechado com o código 0 (0x0).
+O thread 0xc664 foi fechado com o código 0 (0x0).
+O thread 0xf118 foi fechado com o código 0 (0x0).
+O thread 0x2ac4 foi fechado com o código 0 (0x0).
+O thread 0xe04c foi fechado com o código 0 (0x0).
+O thread 0xd3a8 foi fechado com o código 0 (0x0).
+O thread 0x6724 foi fechado com o código 0 (0x0).
+O thread 0xa600 foi fechado com o código 0 (0x0).
+O thread 0x567c foi fechado com o código 0 (0x0).
+O thread 0xfaa4 foi fechado com o código 0 (0x0).
+O thread 0xd324 foi fechado com o código 0 (0x0).
+O thread 0xdfd0 foi fechado com o código 0 (0x0).
+O thread 0xc2f8 foi fechado com o código 0 (0x0).
+O thread 0x8b1c foi fechado com o código 0 (0x0).
+O thread 0xbc78 foi fechado com o código 0 (0x0).
+O thread 0xec78 foi fechado com o código 0 (0x0).
+O thread 0x4298 foi fechado com o código 0 (0x0).
+O thread 0xfab4 foi fechado com o código 0 (0x0).
+O thread 0xd654 foi fechado com o código 0 (0x0).
+O thread 0xc354 foi fechado com o código 0 (0x0).
+O thread 0xf58c foi fechado com o código 0 (0x0).
+O thread 0x9950 foi fechado com o código 0 (0x0).
+O thread 0xc7e0 foi fechado com o código 0 (0x0).
+O thread 0x5a4c foi fechado com o código 0 (0x0).
+O thread 0x33e8 foi fechado com o código 0 (0x0).
+O thread 0xe9f8 foi fechado com o código 0 (0x0).
+O thread 0xa970 foi fechado com o código 0 (0x0).
+O thread 0xb5ec foi fechado com o código 0 (0x0).
+O thread 0xacb8 foi fechado com o código 0 (0x0).
+O thread 0xc524 foi fechado com o código 0 (0x0).
+O thread 0xf308 foi fechado com o código 0 (0x0).
+O thread 0x87e0 foi fechado com o código 0 (0x0).
+O thread 0xeed4 foi fechado com o código 0 (0x0).
+O thread 0xebbc foi fechado com o código 0 (0x0).
+O thread 0x52dc foi fechado com o código 0 (0x0).
+O thread 0xf780 foi fechado com o código 0 (0x0).
+O thread 0xc9c8 foi fechado com o código 0 (0x0).
+O thread 0xafc4 foi fechado com o código 0 (0x0).
+O thread 0xf948 foi fechado com o código 0 (0x0).
+O thread 0xd634 foi fechado com o código 0 (0x0).
+O thread 0xdba0 foi fechado com o código 0 (0x0).
+O thread 0x3d3c foi fechado com o código 0 (0x0).
+O thread 0xb148 foi fechado com o código 0 (0x0).
+O thread 0x7b0c foi fechado com o código 0 (0x0).
+O thread 0xd5cc foi fechado com o código 0 (0x0).
+O thread 0xf51c foi fechado com o código 0 (0x0).
+O thread 0xb30 foi fechado com o código 0 (0x0).
+O thread 0xafd4 foi fechado com o código 0 (0x0).
+O thread 0xa2b4 foi fechado com o código 0 (0x0).
+O thread 0xf834 foi fechado com o código 0 (0x0).
+O thread 0x9f6c foi fechado com o código 0 (0x0).
+O thread 0xd1e0 foi fechado com o código 0 (0x0).
+O thread 0x9688 foi fechado com o código 0 (0x0).
+O thread 0x50c4 foi fechado com o código 0 (0x0).
+O thread 0xc3d8 foi fechado com o código 0 (0x0).
+O thread 0xb05c foi fechado com o código 0 (0x0).
+O thread 0x5614 foi fechado com o código 0 (0x0).
+O thread 0xbfbc foi fechado com o código 0 (0x0).
+O thread 0xd2c4 foi fechado com o código 0 (0x0).
+O thread 0xc4f0 foi fechado com o código 0 (0x0).
+O thread 0xdcfc foi fechado com o código 0 (0x0).
+O thread 0xd588 foi fechado com o código 0 (0x0).
+O thread 0xedec foi fechado com o código 0 (0x0).
+O thread 0x85e0 foi fechado com o código 0 (0x0).
+O thread 0xd04c foi fechado com o código 0 (0x0).
+O thread 0xe698 foi fechado com o código 0 (0x0).
+O thread 0xaf50 foi fechado com o código 0 (0x0).
+O thread 0xb9c4 foi fechado com o código 0 (0x0).
+O thread 0xa92c foi fechado com o código 0 (0x0).
+O thread 0xdb28 foi fechado com o código 0 (0x0).
+O thread 0xbe2c foi fechado com o código 0 (0x0).
+O thread 0xf390 foi fechado com o código 0 (0x0).
+O thread 0xf4d0 foi fechado com o código 0 (0x0).
+O thread 0xa340 foi fechado com o código 0 (0x0).
+O thread 0xa03c foi fechado com o código 0 (0x0).
+O thread 0xabe4 foi fechado com o código 0 (0x0).
+O thread 0xe624 foi fechado com o código 0 (0x0).
+O thread 0xfa70 foi fechado com o código 0 (0x0).
+O thread 0xc62c foi fechado com o código 0 (0x0).
+O thread 0xf784 foi fechado com o código 0 (0x0).
+O thread 0xd63c foi fechado com o código 0 (0x0).
+O thread 0xd398 foi fechado com o código 0 (0x0).
+O thread 0xc480 foi fechado com o código 0 (0x0).
+O thread 0xc04c foi fechado com o código 0 (0x0).
+O thread 0xb280 foi fechado com o código 0 (0x0).
+O thread 0x4e2c foi fechado com o código 0 (0x0).
+O thread 0xf364 foi fechado com o código 0 (0x0).
+O thread 0xbb0c foi fechado com o código 0 (0x0).
+O thread 0xc420 foi fechado com o código 0 (0x0).
+O thread 0x6acc foi fechado com o código 0 (0x0).
+O thread 0x69b0 foi fechado com o código 0 (0x0).
+O thread 0xea68 foi fechado com o código 0 (0x0).
+O thread 0x3dd0 foi fechado com o código 0 (0x0).
+O thread 0xf3ec foi fechado com o código 0 (0x0).
+O thread 0xc134 foi fechado com o código 0 (0x0).
+O thread 0xb424 foi fechado com o código 0 (0x0).
+O thread 0xe714 foi fechado com o código 0 (0x0).
+O thread 0xe9b4 foi fechado com o código 0 (0x0).
+O thread 0xef68 foi fechado com o código 0 (0x0).
+O thread 0xeb14 foi fechado com o código 0 (0x0).
+O thread 0x5384 foi fechado com o código 0 (0x0).
+O thread 0xd020 foi fechado com o código 0 (0x0).
+O thread 0xf574 foi fechado com o código 0 (0x0).
+O thread 0xc190 foi fechado com o código 0 (0x0).
+O thread 0xb9f4 foi fechado com o código 0 (0x0).
+O thread 0xe038 foi fechado com o código 0 (0x0).
+O thread 0xffb4 foi fechado com o código 0 (0x0).
+O thread 0x10298 foi fechado com o código 0 (0x0).
+O thread 0x3504 foi fechado com o código 0 (0x0).
+O thread 0xce98 foi fechado com o código 0 (0x0).
+O thread 0xf9f4 foi fechado com o código 0 (0x0).
+O thread 0x6840 foi fechado com o código 0 (0x0).
+O thread 0x91a4 foi fechado com o código 0 (0x0).
+O thread 0xe2e0 foi fechado com o código 0 (0x0).
+O thread 0xc368 foi fechado com o código 0 (0x0).
+O thread 0xdb44 foi fechado com o código 0 (0x0).
+O thread 0xc970 foi fechado com o código 0 (0x0).
+O thread 0x8ce0 foi fechado com o código 0 (0x0).
+O thread 0xaefc foi fechado com o código 0 (0x0).
+O thread 0x103f0 foi fechado com o código 0 (0x0).
+O thread 0xe07c foi fechado com o código 0 (0x0).
+O thread 0x1025c foi fechado com o código 0 (0x0).
+O thread 0xd460 foi fechado com o código 0 (0x0).
+O thread 0x102a4 foi fechado com o código 0 (0x0).
+O thread 0x468c foi fechado com o código 0 (0x0).
+O thread 0x9790 foi fechado com o código 0 (0x0).
+O thread 0x50c4 foi fechado com o código 0 (0x0).
+O thread 0x6b78 foi fechado com o código 0 (0x0).
+O thread 0xf754 foi fechado com o código 0 (0x0).
+O thread 0xb330 foi fechado com o código 0 (0x0).
+O thread 0xf4e8 foi fechado com o código 0 (0x0).
+O thread 0x10124 foi fechado com o código 0 (0x0).
+O thread 0xbc9c foi fechado com o código 0 (0x0).
+O thread 0x7d5c foi fechado com o código 0 (0x0).
+O thread 0x90a4 foi fechado com o código 0 (0x0).
+O thread 0xe808 foi fechado com o código 0 (0x0).
+O thread 0xd81c foi fechado com o código 0 (0x0).
+O thread 0xdcfc foi fechado com o código 0 (0x0).
+O thread 0x10120 foi fechado com o código 0 (0x0).
+O thread 0x15f4 foi fechado com o código 0 (0x0).
+O thread 0x102dc foi fechado com o código 0 (0x0).
+O thread 0xa0c8 foi fechado com o código 0 (0x0).
+O thread 0x1016c foi fechado com o código 0 (0x0).
+O thread 0xc958 foi fechado com o código 0 (0x0).
+O thread 0xec48 foi fechado com o código 0 (0x0).
+O thread 0x31f8 foi fechado com o código 0 (0x0).
+O thread 0xcd90 foi fechado com o código 0 (0x0).
+O thread 0x3a8c foi fechado com o código 0 (0x0).
+O thread 0xe964 foi fechado com o código 0 (0x0).
+O thread 0xc87c foi fechado com o código 0 (0x0).
+O thread 0xde38 foi fechado com o código 0 (0x0).
+O thread 0xf7dc foi fechado com o código 0 (0x0).
+O thread 0xef10 foi fechado com o código 0 (0x0).
+O thread 0x103f0 foi fechado com o código 0 (0x0).
+O programa "[60316] iisexpress.exe" foi fechado com o código -1 (0xffffffff).

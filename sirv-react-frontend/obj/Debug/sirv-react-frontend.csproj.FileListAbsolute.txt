@@ -1,0 +1,6 @@
+C:\Users\naube\sirv-rest-model-frontend\sirv-react-frontend\bin\sirv_react_frontend.dll.config
+C:\Users\naube\sirv-rest-model-frontend\sirv-react-frontend\bin\sirv_react_frontend.dll
+C:\Users\naube\sirv-rest-model-frontend\sirv-react-frontend\bin\sirv_react_frontend.pdb
+C:\Users\naube\sirv-rest-model-frontend\sirv-react-frontend\obj\Debug\sirv-react-frontend.csproj.CoreCompileInputs.cache
+C:\Users\naube\sirv-rest-model-frontend\sirv-react-frontend\obj\Debug\sirv_react_frontend.dll
+C:\Users\naube\sirv-rest-model-frontend\sirv-react-frontend\obj\Debug\sirv_react_frontend.pdb
