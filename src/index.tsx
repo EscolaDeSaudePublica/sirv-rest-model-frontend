@@ -6,7 +6,7 @@ import Slider from '@material-ui/core/Slider';
 import Image from 'material-ui-image'
 
 
-const domain='localhost:5100'
+const domain = process.env.REACT_APP_BASE_URL;
 
 
 const marks_dias = [
