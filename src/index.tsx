@@ -126,7 +126,7 @@ class FormSIRV extends React.Component {
 
 
     componentDidMount() {
-        fetch("http://" + domain + "/" + this.state.vaccine_efficacy + "/" + this.state.velocidade_vacinacao + "/" + this.state.quantidade_infectados + "/" + this.state.dias_nova_infeccao+"/ 0 / ")
+        fetch(domain + "/" + this.state.vaccine_efficacy + "/" + this.state.velocidade_vacinacao + "/" + this.state.quantidade_infectados + "/" + this.state.dias_nova_infeccao+"/ 0 / ")
             .then(res => res.text())
             .then((data) => {
                 console.log(data);
@@ -232,7 +232,7 @@ class FormSIRV extends React.Component {
                     </label><br />
                     <button onClick={() => { this.resetIframe(); }}>Simular</button><br />
 
-                    <iframe key={this.state.random} src={"http://" + domain + "/" + this.state.vaccine_efficacy + "/" + this.state.velocidade_vacinacao + "/" + this.state.quantidade_infectados + "/" + this.state.dias_nova_infeccao+"/ 0 / "} width="90%"
+                    <iframe key={this.state.random} src={domain + "/" + this.state.vaccine_efficacy + "/" + this.state.velocidade_vacinacao + "/" + this.state.quantidade_infectados + "/" + this.state.dias_nova_infeccao+"/ 0 / "} width="90%"
                         height="500px"></iframe>
 
                 
