@@ -1,16 +1,20 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
-import Image from 'material-ui-image'
 
 
-const domain = process.env.REACT_APP_BASE_URL;
+
+console.log(process.env.REACT_APP_BASE_URL_);
+const domain = process.env.REACT_APP_BASE_URL_;
 
 
 const marks_dias = [
 
+
+    {
+        value: 0,
+        label: '0',
+    },
 
 
     {
@@ -25,7 +29,7 @@ const marks_dias = [
 
     {
         value: 90,
-        label: '90 dias',
+        label: '90',
     },
 
 
@@ -36,18 +40,18 @@ const marks_infectados = [
 
 
     {
-        value: 0.001,
-        label: 'novos infectados 0.1 % da população',
+        value: 9000,
+        label: '9000 pessoas',
     },
 
     {
-        value: 0.01,
-        label: 'novos infectados 1 % da população',
+        value: 15000,
+        label: '15000 pessoas',
     },
 
     {
-        value: 0.02,
-        label: 'novos infectados 2 % da população',
+        value: 60000,
+        label: '60000',
     },
 
 
@@ -56,23 +60,23 @@ const marks_infectados = [
 
 const marks_velocidade = [
 
+    {
+        value: 0,
+        label: '0',
+    },
 
 
     {
-        value: 0.001,
-        label: '0.1 % da população por dia',
+        value: 24000,
+        label: '24000',
     },
 
     {
-        value: 0.01,
-        label: '1 % da população por dia',
+        value: 290000,
+        label: '290000',
     },
 
-    {
-        value: 0.02,
-        label: '2% da população por dia',
-    },
-
+  
 
 ];
 
@@ -125,15 +129,7 @@ class FormSIRV extends React.Component {
     
 
 
-    componentDidMount() {
-        fetch(domain + "/" + this.state.vaccine_efficacy + "/" + this.state.velocidade_vacinacao + "/" + this.state.quantidade_infectados + "/" + this.state.dias_nova_infeccao+"/ 0 / ")
-            .then(res => res.text())
-            .then((data) => {
-                console.log(data);
-                this.setState({ figure: data });
-            })
-            .catch(console.log) 
-    }
+ 
 
    
 
@@ -181,6 +177,7 @@ class FormSIRV extends React.Component {
                     step={0.05}
                     min={0}
                     max={1}
+                    valueLabelDisplay="auto"
                     aria-labelledby="vertical-slider"
                     marks={marks}
                     onChange={this.handleChange}
@@ -192,10 +189,11 @@ class FormSIRV extends React.Component {
                         Velocidade de  Vacinação:
                         <Slider
                             orientation="horizontal"
-                            defaultValue={0.001}
-                            step={0.001}
+                            defaultValue={9000}
+                            step={1}
                             min={0}
-                            max={0.020}
+                            max={300000}
+                            valueLabelDisplay="auto"
                             aria-labelledby="vertical-slider"
                             marks={marks_velocidade}
                             onChange={this.handleChange_velocidade}
@@ -207,9 +205,10 @@ class FormSIRV extends React.Component {
                         <Slider
                             orientation="horizontal"
                             defaultValue={0}
-                            step={0.001}
+                            step={1}
                             min={0}
-                            max={0.020}
+                            max={60000}
+                            valueLabelDisplay="auto"
                             aria-labelledby="vertical-slider"
                             marks={marks_infectados}
                             onChange={this.handleChange_quantidade_infectados}
@@ -222,17 +221,18 @@ class FormSIRV extends React.Component {
                         <Slider
                             orientation="horizontal"
                             defaultValue={0}
-                            step={10}
+                            step={1}
                             min={0}
                             max={90}
                             aria-labelledby="vertical-slider"
                             marks={marks_dias}
+                            valueLabelDisplay="auto"
                             onChange={this.handleChange_dias_nova_infeccao}
                         />
                     </label><br />
                     <button onClick={() => { this.resetIframe(); }}>Simular</button><br />
 
-                    <iframe key={this.state.random} src={domain + "/" + this.state.vaccine_efficacy + "/" + this.state.velocidade_vacinacao + "/" + this.state.quantidade_infectados + "/" + this.state.dias_nova_infeccao+"/ 0 / "} width="90%"
+                    <iframe key={this.state.random} src={process.env.REACT_APP_BASE_URL_ + "/" + this.state.vaccine_efficacy + "/" + (this.state.velocidade_vacinacao / 9000000) + "/" + (this.state.quantidade_infectados / 9000000) + "/" + this.state.dias_nova_infeccao+"/0/"} width="90%"
                         height="500px"></iframe>
 
                 
