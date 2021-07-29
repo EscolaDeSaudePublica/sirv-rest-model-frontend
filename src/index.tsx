@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { useRef, useLayoutEffect } from 'react';
 import Slider from '@material-ui/core/Slider';
 
 
@@ -64,16 +65,111 @@ const marks_velocidade = [
         value: 0,
         label: '0',
     },
-
+    {
+        value: 10000,
+        label: '10k',
+    },
+    {
+        value: 20000,
+        label: '20k',
+    },
+    {
+        value: 30000,
+        label: '30',
+    },
+    {
+        value: 40000,
+        label: '40k',
+    },
+    {
+        value: 50000,
+        label: '50k',
+    },
+    {
+        value: 60000,
+        label: '60k',
+    },
+    {
+        value: 70000,
+        label: '70k',
+    },
+    {
+        value: 80000,
+        label: '80k',
+    },
+    {
+        value: 90000,
+        label: '90k',
+    },
+    {
+        value: 100000,
+        label: '100k',
+    },
+    {
+        value: 110000,
+        label: '110k',
+    },
+    {
+        value: 120000,
+        label: '120k',
+    },
+    {
+        value: 130000,
+        label: '130k',
+    },
+    {
+        value: 140000,
+        label: '140k',
+    },
+    {
+        value: 150000,
+        label: '150k',
+    },
+    {
+        value: 160000,
+        label: '160k',
+    },
+    {
+        value: 160000,
+        label: '160k',
+    },
+    {
+        value: 170000,
+        label: '170k',
+    },
+    {
+        value: 180000,
+        label: '180k',
+    },
+    {
+        value: 190000,
+        label: '190k',
+    },
+    {
+        value: 200000,
+        label: '200k',
+    },
+    {
+        value: 250000,
+        label: '250k',
+    },
 
     {
-        value: 24000,
-        label: '24000',
+        value: 260000,
+        label: '260k',
+    },
+    {
+        value: 270000,
+        label: '270k',
+    },
+    {
+        value: 280000,
+        label: '280k',
     },
 
     {
         value: 290000,
-        label: '290000',
+        label: '290k',
     },
 
   
@@ -107,6 +203,15 @@ const marks = [
 
 
 class FormSIRV extends React.Component {
+    private stepInput: React.RefObject<HTMLSpanElement>;
+    
+    
+
+
+    constructor(props) {
+        super(props);
+        this.stepInput = React.createRef();
+    }
    
 
 
@@ -117,7 +222,15 @@ class FormSIRV extends React.Component {
         dias_nova_infeccao:10,
         random: 0,
         figure: '',
-        domain:'',
+        domain: '',
+        first_dose_efficacy: 0.5,
+        second_dose_efficacy: 0.5,
+        speed_first_dose: 9000,
+        speed_second_dose: 9000,
+
+        
+        
+   
 
         
     };
@@ -139,11 +252,71 @@ class FormSIRV extends React.Component {
     }
 
 
-    
+    calc_vaccine_efficacy() {
+
+        console.log('calc vaccine efficacy');
+        console.log('first dose efficacy ' + this.state.first_dose_efficacy);
+        console.log('second dose efficacy ' + this.state.second_dose_efficacy);
+        console.log('speed first dose ' + this.state.speed_first_dose);
+        console.log('speed second dose ' + this.state.speed_second_dose);
+
+        this.setState({
+            vaccine_efficacy: ((this.state.first_dose_efficacy *
+                this.state.speed_first_dose) + (this.state.second_dose_efficacy *
+                    this.state.speed_second_dose)) / (this.state.speed_first_dose +
+                        this.state.speed_second_dose
+                )
+
+        });
+
+
+        this.setState({
+            velocidade_vacinacao:(this.state.speed_first_dose +
+                        this.state.speed_second_dose
+                )
+
+        });
+
+
+        this.resetIframe();
+
+        console.log(this.state.vaccine_efficacy
+        );
+
+    }
 
     handleChange = (event, newValue) => {
-        this.setState({ vaccine_efficacy: newValue });
+
+       this.calc_vaccine_efficacy()
     };
+
+    handleChange_first_dose_efficacy = (event, newValue) => {
+        this.setState({ first_dose_efficacy: newValue });
+
+        this.calc_vaccine_efficacy()
+    };
+
+
+    handleChange_second_dose_efficacy = (event, newValue) => {
+        this.setState({ second_dose_efficacy: newValue });
+
+        this.calc_vaccine_efficacy()
+    };
+
+
+    handleChange_speed_first_dose = (event, newValue) => {
+        this.setState({ speed_first_dose: newValue });
+
+        this.calc_vaccine_efficacy()
+    };
+
+
+    handleChange_speed_second_dose = (event, newValue) => {
+        this.setState({ speed_second_dose: newValue });
+
+        this.calc_vaccine_efficacy()
+    };
+
 
     handleChange_velocidade = (event, newValue) => {
         this.setState({ velocidade_vacinacao: newValue });
@@ -156,6 +329,7 @@ class FormSIRV extends React.Component {
 
     handleChange_dias_nova_infeccao = (event, newValue) => {
         this.setState({ dias_nova_infeccao: newValue });
+
     };
 
     
@@ -166,12 +340,29 @@ class FormSIRV extends React.Component {
         return (
 
             <React.Fragment >
-            <div>
+                <div>
+
+                  <label>
+                        Percentual de Pessoas com a vacina Aztrazência:
+                   <Slider
+                            
+                            orientation="horizontal"
+                            defaultValue={0.5}
+                            step={0.05}
+                            min={0}
+                            max={1}
+                            valueLabelDisplay="auto"
+                            aria-labelledby="vertical-slider"
+                            onChange={this.handleChange}
+                        />
+                    </label><br />
            
 
                  <label>
-                        Eficácia da Vacina:
+                        Eficácia da Vacina (primeira dose):
                 <Slider
+
+                   
                     orientation="horizontal"
                     defaultValue={0.5}
                     step={0.05}
@@ -179,15 +370,31 @@ class FormSIRV extends React.Component {
                     max={1}
                     valueLabelDisplay="auto"
                     aria-labelledby="vertical-slider"
-                    marks={marks}
-                    onChange={this.handleChange}
+                            marks={marks}
+                            onChange={this.handleChange_first_dose_efficacy}
                     />
                     </label><br />
 
+                    <label>
+                        Eficácia da Vacina (segunda dose):
+                    <Slider
+                        
+                        orientation="horizontal"
+                        defaultValue={0.5}
+                        step={0.05}
+                        min={0}
+                        max={1}
+                        valueLabelDisplay="auto"
+                        aria-labelledby="vertical-slider"
+                            marks={marks}
+                            onChange={this.handleChange_second_dose_efficacy}
+                    />
+                    </label><br />
 
                     <label>
-                        Velocidade de  Vacinação:
+                        Velocidade de  Vacinação (primeira dose) (K pessoas por dia):
                         <Slider
+                          
                             orientation="horizontal"
                             defaultValue={9000}
                             step={1}
@@ -196,6 +403,39 @@ class FormSIRV extends React.Component {
                             valueLabelDisplay="auto"
                             aria-labelledby="vertical-slider"
                             marks={marks_velocidade}
+                            onChange={this.handleChange_speed_first_dose}
+                        />
+                    </label><br />
+
+
+                    <label>
+                        Velocidade de  Vacinação (segunda dose)(K pessoas por dia):
+                        <Slider
+                            
+                            orientation="horizontal"
+                            defaultValue={9000}
+                            step={1}
+                            min={0}
+                            max={300000}
+                            valueLabelDisplay="auto"
+                            aria-labelledby="vertical-slider"
+                            marks={marks_velocidade}
+                            onChange={this.handleChange_speed_second_dose}
+                        />
+                    </label><br />
+
+
+                    <label>
+                        Eficacia ponderada da vacina :
+                        <Slider
+                            value={this.state.vaccine_efficacy}
+                            orientation="horizontal"
+                            defaultValue={0.5}
+                            step={0.05}
+                            min={0}
+                            max={1}
+                            valueLabelDisplay="auto"
+                            marks={marks_velocidade}
                             onChange={this.handleChange_velocidade}
                         />
                     </label><br />
@@ -203,6 +443,7 @@ class FormSIRV extends React.Component {
                     <label>
                         Quantidade de novos infectados no modelo:
                         <Slider
+                            id='quantidade_de_infectados'
                             orientation="horizontal"
                             defaultValue={0}
                             step={1}
