@@ -202,21 +202,24 @@ const marks_velocidade = [
 
 const marks = [
 
-   
+    {
+        value: 0.25,
+        label: '25% ',
+    },
 
     {
         value: 0.5,
-        label: '50% de eficacia',
+        label: '50% ',
     },
 
     {
         value: 0.75,
-        label: '75% de eficacia',
+        label: '75% ',
     },
 
     {
         value: 0.90,
-        label: '90% de eficacia',
+        label: '90%',
     },
 
 
@@ -351,6 +354,15 @@ class FormSIRV extends React.Component {
         this.calc_vaccine_efficacy()
     };
 
+    handleChange_first_dose_speed_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+        this.setState({ speed_first_dose: event.target.value });
+
+        this.calc_vaccine_efficacy()
+
+    };
+
+
 
     handleChange_speed_second_dose = (event, newValue) => {
         this.setState({ speed_second_dose: newValue });
@@ -447,6 +459,8 @@ class FormSIRV extends React.Component {
 
                     <label>
                         Velocidade de  Vacinação (primeira dose) (K pessoas por dia):
+                         <TextField value={this.state.speed_first_dose}
+                            onChange={this.handleChange_first_dose_speed_text_input} />
                         <Slider
                           
                             orientation="horizontal"
@@ -491,7 +505,7 @@ class FormSIRV extends React.Component {
                             min={0}
                             max={1}
                             valueLabelDisplay="auto"
-                            marks={marks_velocidade}
+                            marks={marks}
                             onChange={this.handleChange_velocidade}
                         />
                     </label><br />
