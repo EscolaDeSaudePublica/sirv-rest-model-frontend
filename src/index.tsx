@@ -2,7 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { useRef, useLayoutEffect } from 'react';
 import Slider from '@material-ui/core/Slider';
-
+import TextField from '@material-ui/core/TextField';
 
 
 console.log(process.env.REACT_APP_BASE_URL_);
@@ -148,6 +148,30 @@ const marks_velocidade = [
     {
         value: 200000,
         label: '200k',
+    },
+    {
+        value: 210000,
+        label: '210k',
+    },
+    {
+        value: 220000,
+        label: '220k',
+    },
+    {
+        value: 230000,
+        label: '230k',
+    },
+    {
+        value: 240000,
+        label: '240k',
+    },
+    {
+        value: 250000,
+        label: '250k',
+    },
+    {
+        value: 260000,
+        label: '260k',
     },
     {
         value: 250000,
@@ -297,12 +321,29 @@ class FormSIRV extends React.Component {
     };
 
 
+    handleChange_first_dose_efficacy_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+        this.setState({ first_dose_efficacy: event.target.value });
+
+        this.calc_vaccine_efficacy()
+        
+    };
+
+
     handleChange_second_dose_efficacy = (event, newValue) => {
         this.setState({ second_dose_efficacy: newValue });
 
         this.calc_vaccine_efficacy()
     };
 
+
+    handleChange_second_dose_efficacy_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+        this.setState({ second_dose_efficacy: event.target.value });
+
+        this.calc_vaccine_efficacy()
+
+    };
 
     handleChange_speed_first_dose = (event, newValue) => {
         this.setState({ speed_first_dose: newValue });
@@ -315,6 +356,15 @@ class FormSIRV extends React.Component {
         this.setState({ speed_second_dose: newValue });
 
         this.calc_vaccine_efficacy()
+    };
+
+
+    handleChange_second_dose_speed_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+        this.setState({ speed_second_dose: event.target.value });
+
+        this.calc_vaccine_efficacy()
+
     };
 
 
@@ -360,9 +410,11 @@ class FormSIRV extends React.Component {
 
                  <label>
                         Eficácia da Vacina (primeira dose):
+                        <TextField value={this.state.first_dose_efficacy}
+                            onChange={this.handleChange_first_dose_efficacy_text_input} />
                 <Slider
 
-                   
+                    value={this.state.first_dose_efficacy}
                     orientation="horizontal"
                     defaultValue={0.5}
                     step={0.05}
@@ -377,8 +429,10 @@ class FormSIRV extends React.Component {
 
                     <label>
                         Eficácia da Vacina (segunda dose):
+                        <TextField value={this.state.second_dose_efficacy}
+                            onChange={this.handleChange_second_dose_efficacy_text_input} />
                     <Slider
-                        
+                        value={this.state.second_dose_efficacy}
                         orientation="horizontal"
                         defaultValue={0.5}
                         step={0.05}
@@ -410,8 +464,10 @@ class FormSIRV extends React.Component {
 
                     <label>
                         Velocidade de  Vacinação (segunda dose)(K pessoas por dia):
+                        <TextField value={this.state.speed_second_dose}
+                            onChange={this.handleChange_second_dose_speed_text_input} />
                         <Slider
-                            
+                            value={this.state.speed_second_dose}
                             orientation="horizontal"
                             defaultValue={9000}
                             step={1}
