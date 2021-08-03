@@ -1,6 +1,13 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { useRef, useLayoutEffect } from 'react';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 import Slider from '@material-ui/core/Slider';
 import TextField from '@material-ui/core/TextField';
 
@@ -243,6 +250,22 @@ class FormSIRV extends React.Component {
 
 
     state = {
+        number_of_people_with_astrazenica_1: 1000.0,
+        number_of_people_with_pfizer_1: 1000.0,
+        number_of_people_with_coronavac_1: 1000.0,
+        number_of_people_with_janssen_1: 1000.0,
+        number_of_people_with_astrazenica_2: 1000.0,
+        number_of_people_with_pfizer_2: 1000.0,
+        number_of_people_with_coronavac_2: 1000.0,
+        number_of_people_with_janssen_2: 1000.0,
+        eficacia_pfizer_1: 0.487,
+        eficacia_pfizer_2: 0.95,
+        eficacia_astrazenica_1: 0.77,
+        eficacia_astrazenica_2: 0.941,
+        eficacia_coronavac_1:0,
+        eficacia_coronavac_2: 0.507,
+        eficacia_janssen_1: 0.669,
+        eficacia_janssen_2: 0.669,
         vaccine_efficacy: 0.5,
         velocidade_vacinacao: 0.001,
         quantidade_infectados: 0,
@@ -254,6 +277,7 @@ class FormSIRV extends React.Component {
         second_dose_efficacy: 0.5,
         speed_first_dose: 9000,
         speed_second_dose: 9000,
+       
 
         
         
@@ -265,6 +289,9 @@ class FormSIRV extends React.Component {
     onChange = (e: React.FormEvent<HTMLInputElement>): void => {
         this.setState({ vaccine_efficacy: e.currentTarget.value });
     };
+
+
+
 
     
 
@@ -278,6 +305,38 @@ class FormSIRV extends React.Component {
         this.setState({ random: this.state.random + 1 });
     }
 
+
+    calc_vaccine_efficacy_with_vacine_data() {
+
+        console.log('calc vaccine efficacy with data');
+
+        var numerador = (this.state.eficacia_astrazenica_1 * this.state.number_of_people_with_astrazenica_1) +
+            (this.state.eficacia_pfizer_1 * this.state.number_of_people_with_pfizer_1) +
+            (this.state.eficacia_coronavac_1 * this.state.number_of_people_with_coronavac_1) +
+            (this.state.eficacia_janssen_1 * this.state.number_of_people_with_janssen_1);
+        console.log(numerador);
+
+
+        var denominador = (Number(this.state.number_of_people_with_astrazenica_1) + Number(this.state.number_of_people_with_pfizer_1) +
+            Number(this.state.number_of_people_with_coronavac_1) + Number(this.state.number_of_people_with_janssen_1));
+
+        console.log(denominador);
+        var first_dose_eff = (numerador / denominador)
+        console.log('first dose eff');
+        console.log(first_dose_eff);
+        var second_dose_eff = ((this.state.eficacia_astrazenica_2 * this.state.number_of_people_with_astrazenica_2) +
+            (this.state.eficacia_pfizer_2 * this.state.number_of_people_with_pfizer_2) +
+            (this.state.eficacia_coronavac_2 * this.state.number_of_people_with_coronavac_2) +
+            (this.state.eficacia_janssen_2 * this.state.number_of_people_with_janssen_2)) /
+            (Number(this.state.number_of_people_with_astrazenica_2) + Number(this.state.number_of_people_with_pfizer_2) +
+            Number(this.state.number_of_people_with_coronavac_2) + Number(this.state.number_of_people_with_janssen_2))
+
+        this.setState({ first_dose_efficacy: first_dose_eff });
+        this.setState({ second_dose_efficacy: second_dose_eff });
+
+        this.resetIframe();
+
+    }
 
     calc_vaccine_efficacy() {
 
@@ -333,6 +392,71 @@ class FormSIRV extends React.Component {
     };
 
 
+    handleChange_astrazenica_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+        this.setState({ number_of_people_with_astrazenica_1: event.target.value })
+        console.log('Number of people with astranenica');
+        console.log(this.state.number_of_people_with_astrazenica_1);
+        this.calc_vaccine_efficacy_with_vacine_data();
+    };
+
+
+
+    handleChange_pfizer_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+        this.setState({ number_of_people_with_pfizer_1: event.target.value });
+        this.calc_vaccine_efficacy_with_vacine_data();
+    };
+
+
+
+    handleChange_janssen_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+        this.setState({ number_of_people_with_janssen_1: event.target.value });
+        this.calc_vaccine_efficacy_with_vacine_data();
+    };
+
+
+
+    handleChange_coronavac_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+        this.setState({ number_of_people_with_coronavac_1: event.target.value });
+        this.calc_vaccine_efficacy_with_vacine_data();
+    };
+
+
+    handleChange_astrazenica_text_input_2 = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+        this.setState({ number_of_people_with_astrazenica_2: event.target.value });
+        this.calc_vaccine_efficacy_with_vacine_data();
+    };
+
+
+
+    handleChange_pfizer_text_input_2 = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+        this.setState({ number_of_people_with_pfizer_2: event.target.value });
+        this.calc_vaccine_efficacy_with_vacine_data();
+    };
+
+
+
+    handleChange_janssen_text_input_2 = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+        this.setState({ number_of_people_with_janssen_2: event.target.value });
+        this.calc_vaccine_efficacy_with_vacine_data();
+    };
+
+
+
+    handleChange_coronavac_text_input_2 = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+        this.setState({ number_of_people_with_coronavac_2: event.target.value });
+        this.calc_vaccine_efficacy_with_vacine_data();
+    };
+
+
+
     handleChange_second_dose_efficacy = (event, newValue) => {
         this.setState({ second_dose_efficacy: newValue });
 
@@ -379,6 +503,23 @@ class FormSIRV extends React.Component {
 
     };
 
+    handleChange_quantidade_infectados_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+        this.setState({ quantidade_infectados: event.target.value });
+
+       
+
+    };
+
+
+    handleChange_dias_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+        this.setState({ dias_nova_infeccao: event.target.value });
+
+        
+
+    };
+
 
     handleChange_velocidade = (event, newValue) => {
         this.setState({ velocidade_vacinacao: newValue });
@@ -404,147 +545,231 @@ class FormSIRV extends React.Component {
             <React.Fragment >
                 <div>
 
-                  <label>
-                        Percentual de Pessoas com a vacina Aztrazência:
-                   <Slider
-                            
-                            orientation="horizontal"
-                            defaultValue={0.5}
-                            step={0.05}
-                            min={0}
-                            max={1}
-                            valueLabelDisplay="auto"
-                            aria-labelledby="vertical-slider"
-                            onChange={this.handleChange}
-                        />
-                    </label><br />
+
+                  <TableContainer component={Paper}>
+                        <Table size="small" aria-label="a dense table">
+
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell>Número de Pessoas com a vacina Aztrazência (primeira dose):</TableCell>
+                                    <TableCell align="left"><TextField value={this.state.number_of_people_with_astrazenica_1}
+                                        onChange={this.handleChange_astrazenica_text_input} /></TableCell>
+                                   
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Número de Pessoas com a vacina Pfizer (primeira dose):</TableCell>
+                                    <TableCell align="left"><TextField value={this.state.number_of_people_with_pfizer_1}
+                                        onChange={this.handleChange_pfizer_text_input} /></TableCell>
+
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Número de Pessoas com a vacina Coronavac (primeira dose):</TableCell>
+                                    <TableCell align="left"><TextField value={this.state.number_of_people_with_coronavac_1}
+                                        onChange={this.handleChange_coronavac_text_input} /></TableCell>
+
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Número de Pessoas com a vacina Janssen (primeira dose):</TableCell>
+                                    <TableCell align="left"><TextField value={this.state.number_of_people_with_janssen_1}
+                                        onChange={this.handleChange_janssen_text_input} /></TableCell>
+
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Número de Pessoas com a vacina Aztrazência (segunda dose):</TableCell>
+                                    <TableCell align="left"><TextField value={this.state.number_of_people_with_astrazenica_2}
+                                        onChange={this.handleChange_astrazenica_text_input_2} /></TableCell>
+
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Número de Pessoas com a vacina Pfizer (segunda dose):</TableCell>
+                                    <TableCell align="left"><TextField value={this.state.number_of_people_with_pfizer_2}
+                                        onChange={this.handleChange_pfizer_text_input_2} /></TableCell>
+
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Número de Pessoas com a vacina Coronavac (segunda dose):</TableCell>
+                                    <TableCell align="left"><TextField value={this.state.number_of_people_with_coronavac_2}
+                                        onChange={this.handleChange_coronavac_text_input_2} /></TableCell>
+
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Número de Pessoas com a vacina Janssen (segunda dose):</TableCell>
+                                    <TableCell align="left"><TextField value={this.state.number_of_people_with_janssen_2}
+                                        onChange={this.handleChange_janssen_text_input_2} /></TableCell>
+
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell> Eficácia da Vacina (primeira dose):</TableCell>
+                                    <TableCell align="left"><TextField value={this.state.first_dose_efficacy}
+                                        onChange={this.handleChange_first_dose_efficacy_text_input} /></TableCell>
+
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell colSpan={2}>   <Slider
+
+                                        value={this.state.first_dose_efficacy}
+                                        orientation="horizontal"
+                                        defaultValue={0.5}
+                                        step={0.05}
+                                        min={0}
+                                        max={1}
+                                        valueLabelDisplay="auto"
+                                        aria-labelledby="vertical-slider"
+                                        marks={marks}
+                                        onChange={this.handleChange_first_dose_efficacy}
+                                    /></TableCell>
+                                    
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>  Eficácia da Vacina (segunda dose): </TableCell>
+                                    <TableCell align="left">
+                                        <TextField value={this.state.second_dose_efficacy}
+                                            onChange={this.handleChange_second_dose_efficacy_text_input} /></TableCell>
+
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell colSpan={2}><Slider
+                                        value={this.state.second_dose_efficacy}
+                                        orientation="horizontal"
+                                        defaultValue={0.5}
+                                        step={0.05}
+                                        min={0}
+                                        max={1}
+                                        valueLabelDisplay="auto"
+                                        aria-labelledby="vertical-slider"
+                                        marks={marks}
+                                        onChange={this.handleChange_second_dose_efficacy}
+                                    /></TableCell>
+
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>  Velocidade de  Vacinação (primeira dose)(K pessoas por dia):</TableCell>
+                                    <TableCell align="left">
+                                        <TextField value={this.state.speed_first_dose}
+                                            onChange={this.handleChange_first_dose_efficacy_text_input} /></TableCell>
+
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell colSpan={2}><Slider
+                          
+                                            orientation="horizontal"
+                                            defaultValue={9000}
+                                            step={1}
+                                            min={0}
+                                            max={300000}
+                                            valueLabelDisplay="auto"
+                                            aria-labelledby="vertical-slider"
+                                            marks={marks_velocidade}
+                                            onChange={this.handleChange_speed_first_dose}
+                        /></TableCell>
+
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>  Velocidade de  Vacinação (segunda dose)(K pessoas por dia):</TableCell>
+                                    <TableCell align="left">
+                                        <TextField value={this.state.speed_second_dose}
+                                            onChange={this.handleChange_second_dose_efficacy_text_input} /></TableCell>
+
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell colSpan={2}><Slider
+
+                                        orientation="horizontal"
+                                        defaultValue={9000}
+                                        step={1}
+                                        min={0}
+                                        max={300000}
+                                        valueLabelDisplay="auto"
+                                        aria-labelledby="vertical-slider"
+                                        marks={marks_velocidade}
+                                        onChange={this.handleChange_speed_second_dose}
+                                    /></TableCell>
+
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>   Eficacia ponderada da vacina :</TableCell>
+                                    <TableCell align="left">
+                                        <TextField value={this.state.vaccine_efficacy}
+                                            /></TableCell>
+
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell colSpan={2}> <Slider
+                                        value={this.state.vaccine_efficacy}
+                                        orientation="horizontal"
+                                        defaultValue={0.5}
+                                        step={0.05}
+                                        min={0}
+                                        max={1}
+                                        valueLabelDisplay="auto"
+                                        marks={marks}
+                                        onChange={this.handleChange_velocidade}
+                                    /></TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>   Quantidade de novos infectados no modelo:</TableCell>
+                                        <TableCell align="left">
+                                            <TextField value={this.state.quantidade_infectados}
+                                                onChange={this.handleChange_quantidade_infectados_text_input} /></TableCell>
+
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell colSpan={2}>    <Slider
+                                        value={this.state.quantidade_infectados}
+                                            orientation="horizontal"
+                                            defaultValue={0}
+                                            step={1}
+                                            min={0}
+                                            max={60000}
+                                            valueLabelDisplay="auto"
+                                            aria-labelledby="vertical-slider"
+                                            marks={marks_infectados}
+                                            onChange={this.handleChange_quantidade_infectados}
+                                        /></TableCell>
+
+                                    </TableRow>
+                                <TableRow>
+                                    <TableCell>   Quantidade de dias entre novas infecções:</TableCell>
+                                    <TableCell align="left">
+                                        <TextField value={this.state.dias_nova_infeccao}
+                                            onChange={this.handleChange_dias_text_input} /></TableCell>
+
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell colSpan={2}>      <Slider
+                                        value={this.state.dias_nova_infeccao}
+                                        orientation="horizontal"
+                                        defaultValue={0}
+                                        step={1}
+                                        min={0}
+                                        max={90}
+                                        aria-labelledby="vertical-slider"
+                                        marks={marks_dias}
+                                        valueLabelDisplay="auto"
+                                        onChange={this.handleChange_dias_nova_infeccao}
+                                    /></TableCell>
+
+                                </TableRow>
+                            </TableBody>
+                         </Table>   
+                    </TableContainer>
+                    <br/>
+
+
            
 
-                 <label>
-                        Eficácia da Vacina (primeira dose):
-                        <TextField value={this.state.first_dose_efficacy}
-                            onChange={this.handleChange_first_dose_efficacy_text_input} />
-                <Slider
 
-                    value={this.state.first_dose_efficacy}
-                    orientation="horizontal"
-                    defaultValue={0.5}
-                    step={0.05}
-                    min={0}
-                    max={1}
-                    valueLabelDisplay="auto"
-                    aria-labelledby="vertical-slider"
-                            marks={marks}
-                            onChange={this.handleChange_first_dose_efficacy}
-                    />
-                    </label><br />
-
-                    <label>
-                        Eficácia da Vacina (segunda dose):
-                        <TextField value={this.state.second_dose_efficacy}
-                            onChange={this.handleChange_second_dose_efficacy_text_input} />
-                    <Slider
-                        value={this.state.second_dose_efficacy}
-                        orientation="horizontal"
-                        defaultValue={0.5}
-                        step={0.05}
-                        min={0}
-                        max={1}
-                        valueLabelDisplay="auto"
-                        aria-labelledby="vertical-slider"
-                            marks={marks}
-                            onChange={this.handleChange_second_dose_efficacy}
-                    />
-                    </label><br />
-
-                    <label>
-                        Velocidade de  Vacinação (primeira dose) (K pessoas por dia):
-                         <TextField value={this.state.speed_first_dose}
-                            onChange={this.handleChange_first_dose_speed_text_input} />
-                        <Slider
-                          
-                            orientation="horizontal"
-                            defaultValue={9000}
-                            step={1}
-                            min={0}
-                            max={300000}
-                            valueLabelDisplay="auto"
-                            aria-labelledby="vertical-slider"
-                            marks={marks_velocidade}
-                            onChange={this.handleChange_speed_first_dose}
-                        />
-                    </label><br />
+                 
 
 
-                    <label>
-                        Velocidade de  Vacinação (segunda dose)(K pessoas por dia):
-                        <TextField value={this.state.speed_second_dose}
-                            onChange={this.handleChange_second_dose_speed_text_input} />
-                        <Slider
-                            value={this.state.speed_second_dose}
-                            orientation="horizontal"
-                            defaultValue={9000}
-                            step={1}
-                            min={0}
-                            max={300000}
-                            valueLabelDisplay="auto"
-                            aria-labelledby="vertical-slider"
-                            marks={marks_velocidade}
-                            onChange={this.handleChange_speed_second_dose}
-                        />
-                    </label><br />
 
 
-                    <label>
-                        Eficacia ponderada da vacina :
-                        <Slider
-                            value={this.state.vaccine_efficacy}
-                            orientation="horizontal"
-                            defaultValue={0.5}
-                            step={0.05}
-                            min={0}
-                            max={1}
-                            valueLabelDisplay="auto"
-                            marks={marks}
-                            onChange={this.handleChange_velocidade}
-                        />
-                    </label><br />
+                   
 
-                    <label>
-                        Quantidade de novos infectados no modelo:
-                        <Slider
-                            id='quantidade_de_infectados'
-                            orientation="horizontal"
-                            defaultValue={0}
-                            step={1}
-                            min={0}
-                            max={60000}
-                            valueLabelDisplay="auto"
-                            aria-labelledby="vertical-slider"
-                            marks={marks_infectados}
-                            onChange={this.handleChange_quantidade_infectados}
-                        />
-                    </label><br />
-
-
-                    <label>
-                        Quantidade de dias entre novas infecções:
-                        <Slider
-                            orientation="horizontal"
-                            defaultValue={0}
-                            step={1}
-                            min={0}
-                            max={90}
-                            aria-labelledby="vertical-slider"
-                            marks={marks_dias}
-                            valueLabelDisplay="auto"
-                            onChange={this.handleChange_dias_nova_infeccao}
-                        />
-                    </label><br />
                     <button onClick={() => { this.resetIframe(); }}>Simular</button><br />
 
-                    <iframe key={this.state.random} src={process.env.REACT_APP_BASE_URL_ + "/" + this.state.vaccine_efficacy + "/" + (this.state.velocidade_vacinacao / 9000000) + "/" + (this.state.quantidade_infectados / 9000000) + "/" + this.state.dias_nova_infeccao+"/0/"} width="90%"
-                        height="500px"></iframe>
+                    <iframe frameBorder="0" key={this.state.random} src={process.env.REACT_APP_BASE_URL_ + "/" + this.state.vaccine_efficacy + "/" + (this.state.velocidade_vacinacao / 9000000) + "/" + (this.state.quantidade_infectados / 9000000) + "/" + this.state.dias_nova_infeccao+"/0/"} width="90%"
+                        height="2000px" scrolling="no" ></iframe>
 
                 
                     
