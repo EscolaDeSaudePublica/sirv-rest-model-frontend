@@ -10,7 +10,15 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Slider from '@material-ui/core/Slider';
 import TextField from '@material-ui/core/TextField';
-
+import { Footnotes } from 'react-footnotes'
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import { Equation, EquationEvaluate, EquationOptions, defaultErrorHandler } from 'react-equation'
+import { defaultVariables, defaultFunctions } from 'equation-resolver'
 
 console.log(process.env.REACT_APP_BASE_URL_);
 const domain = process.env.REACT_APP_BASE_URL_;
@@ -239,25 +247,29 @@ const marks = [
 class FormSIRV extends React.Component {
     private stepInput: React.RefObject<HTMLSpanElement>;
     
+    componentDidMount() {
+        this.calc_vaccine_efficacy_with_vacine_data();
     
+    }
 
 
     constructor(props) {
         super(props);
         this.stepInput = React.createRef();
+        this.calc_vaccine_efficacy_with_vacine_data();
     }
    
 
 
     state = {
-        number_of_people_with_astrazenica_1: 1000.0,
-        number_of_people_with_pfizer_1: 1000.0,
-        number_of_people_with_coronavac_1: 1000.0,
-        number_of_people_with_janssen_1: 1000.0,
-        number_of_people_with_astrazenica_2: 1000.0,
-        number_of_people_with_pfizer_2: 1000.0,
-        number_of_people_with_coronavac_2: 1000.0,
-        number_of_people_with_janssen_2: 1000.0,
+        number_of_people_with_astrazenica_1: 0,
+        number_of_people_with_pfizer_1: 0,
+        number_of_people_with_coronavac_1: 0,
+        number_of_people_with_janssen_1: 0,
+        number_of_people_with_astrazenica_2: 838633,
+        number_of_people_with_pfizer_2: 123789,
+        number_of_people_with_coronavac_2: 1765080,
+        number_of_people_with_janssen_2:7,
         eficacia_pfizer_1: 0.487,
         eficacia_pfizer_2: 0.95,
         eficacia_astrazenica_1: 0.77,
@@ -266,7 +278,7 @@ class FormSIRV extends React.Component {
         eficacia_coronavac_2: 0.507,
         eficacia_janssen_1: 0.669,
         eficacia_janssen_2: 0.669,
-        vaccine_efficacy: 0.5,
+        vaccine_efficacy: 0.66,
         velocidade_vacinacao: 0.001,
         quantidade_infectados: 0,
         dias_nova_infeccao:10,
@@ -293,9 +305,7 @@ class FormSIRV extends React.Component {
 
 
 
-    
-
-
+  
  
 
    
@@ -333,6 +343,9 @@ class FormSIRV extends React.Component {
 
         this.setState({ first_dose_efficacy: first_dose_eff });
         this.setState({ second_dose_efficacy: second_dose_eff });
+
+
+       
 
         this.resetIframe();
 
@@ -538,6 +551,8 @@ class FormSIRV extends React.Component {
     
      
 
+
+
   
     public render() {
         return (
@@ -551,7 +566,80 @@ class FormSIRV extends React.Component {
 
                             <TableBody>
                                 <TableRow>
-                                    <TableCell>Número de Pessoas com a vacina Aztrazência (primeira dose):</TableCell>
+                                    <Card>
+                                        <CardContent>
+                                            <Typography color="primary" variant="subtitle1" gutterBottom>
+                                                Eficácia das vacinas aplicadas a partir do COVID-19 VACCINE COMPARISON CHART from The Medical Letter disponível em https://secure.medicalletter.org/w1621g.
+                                                O presente modelo é uma adaptação do modelo SIRV publicado por Ishikawa no paper Optimal Strategies for Vaccination
+using the Stochastic SIRV Model
+                                                , aplicando-se uma media ponderada das vacinas em suas primeira e segunda doses. Segundo as equações: 
+
+                                             </Typography>
+                                            <EquationOptions
+                                                variables={defaultVariables}
+                                                functions={defaultFunctions}
+                                                errorHandler={defaultErrorHandler}
+                                            >
+                                                <Equation
+                                                    value=' dS = (-beta*I[t]*(S[t]/(1+speed_factor*S[t]))-alpha*u[t]) * dt'
+                                                />
+                                               
+
+                                            </EquationOptions>
+                                            <br/>
+                                            <EquationOptions
+                                                variables={defaultVariables}
+                                                functions={defaultFunctions}
+                                                errorHandler={defaultErrorHandler}
+                                            >
+
+                                                <Equation
+                                                    value='  dI = (beta*I[t]*(S[t]/(1+speed_factor*S[t])) - gamma*I[t]) * dt'
+                                                />
+                                            </EquationOptions>
+                                            <br />
+                                            <EquationOptions
+                                                variables={defaultVariables}
+                                                functions={defaultFunctions}
+                                                errorHandler={defaultErrorHandler}
+                                            >
+
+                                                <Equation
+                                                    value=' dR = (gamma*I[t]) * dt'
+                                                />
+                                            </EquationOptions>
+                                            <br />
+                                            <EquationOptions
+                                                variables={defaultVariables}
+                                                functions={defaultFunctions}
+                                                errorHandler={defaultErrorHandler}
+                                            >
+
+                                                <Equation
+                                                    value='  dV=alpha*u[t] * dt'
+                                                />
+                                                <br/>
+
+                                            </EquationOptions>
+                                            
+                                               Parametros do modelo:
+                                                    beta (rate of infection)
+                                                    ,gamma  (rate of removal)
+                                                    ,alpha (vaccine efficacy)
+                                                    ,mu (mortality rate) <br />
+
+                                                Parâmetros:  beta = 9.76e-2; 
+    gamma =7.81e-2;
+    mu=1.9e-2; <br/>
+
+                                                
+
+                                        </CardContent>
+
+                                    </Card>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Número de Pessoas com a vacina AstraZeneca (primeira dose):</TableCell>
                                     <TableCell align="left"><TextField value={this.state.number_of_people_with_astrazenica_1}
                                         onChange={this.handleChange_astrazenica_text_input} /></TableCell>
                                    
@@ -569,13 +657,13 @@ class FormSIRV extends React.Component {
 
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell>Número de Pessoas com a vacina Janssen (primeira dose):</TableCell>
+                                    <TableCell>Número de Pessoas com a vacina Janssen (para o calculo da eficácia ponderada da primeira dose):</TableCell>
                                     <TableCell align="left"><TextField value={this.state.number_of_people_with_janssen_1}
                                         onChange={this.handleChange_janssen_text_input} /></TableCell>
 
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell>Número de Pessoas com a vacina Aztrazência (segunda dose):</TableCell>
+                                    <TableCell>Número de Pessoas com a vacina AstraZeneca (segunda dose):</TableCell>
                                     <TableCell align="left"><TextField value={this.state.number_of_people_with_astrazenica_2}
                                         onChange={this.handleChange_astrazenica_text_input_2} /></TableCell>
 
@@ -593,15 +681,41 @@ class FormSIRV extends React.Component {
 
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell>Número de Pessoas com a vacina Janssen (segunda dose):</TableCell>
+                                    <TableCell>Número de Pessoas com a vacina Janssen ( para o calculo da eficácia ponderada da segunda dose):</TableCell>
                                     <TableCell align="left"><TextField value={this.state.number_of_people_with_janssen_2}
                                         onChange={this.handleChange_janssen_text_input_2} /></TableCell>
 
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell> Eficácia da Vacina (primeira dose):</TableCell>
+                                    <TableCell> Eficácia da Vacina (primeira dose):
+                                           <Card>
+                                            <CardContent>
+                                                <Typography color="primary" variant="subtitle1"  gutterBottom>
+                                                    Eficácia informada pelo usuário ou calculada de acordo com a equação:
+
+                                             </Typography>
+                                            <EquationOptions
+                                                variables={defaultVariables}
+                                                functions={defaultFunctions}
+                                                errorHandler={defaultErrorHandler}
+                                            >
+                                                <Equation
+                                                        value='((numero_vacinados_pfizer*eficacia_vacina_pfizer)+(numero_vacinados_AstraZeneca*eficacia_vacina_AstraZeneca)+(numero_vacinados_coronavac*eficacia_vacina_coronavac)+(numero_vacinados_janssen*eficacia_vacina_janssen))/ (numero_vacinados_pfizer+numero_vacinados_AstraZeneca+numero_vacinados_coronava+numero_vacinados_janssen)'
+                                                />
+                                              
+                                            </EquationOptions>
+                                            </CardContent>
+
+                                        </Card>
+                                        </TableCell>
                                     <TableCell align="left"><TextField value={this.state.first_dose_efficacy}
-                                        onChange={this.handleChange_first_dose_efficacy_text_input} /></TableCell>
+                                        onChange={this.handleChange_first_dose_efficacy_text_input}
+                                    />
+
+                                     
+                    
+
+                                    </TableCell>
 
                                 </TableRow>
                                 <TableRow>
@@ -621,8 +735,29 @@ class FormSIRV extends React.Component {
                                     
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell>  Eficácia da Vacina (segunda dose): </TableCell>
-                                    <TableCell align="left">
+                                    <TableCell> Eficácia da Vacina (segunda dose):
+                                   <Card>
+                                            <CardContent>
+                                                <Typography color="primary" variant="subtitle1" gutterBottom>
+                                                    Eficácia informada pelo usuário ou calculada de acordo com a equação:
+
+                                             </Typography>
+                                                <EquationOptions
+                                                    variables={defaultVariables}
+                                                    functions={defaultFunctions}
+                                                    errorHandler={defaultErrorHandler}
+                                                >
+                                                    <Equation
+                                                        value='((numero_vacinados_pfizer*eficacia_vacina_pfizer)+(numero_vacinados_AstraZeneca*eficacia_vacina_AstraZeneca)+(numero_vacinados_coronavac*eficacia_vacina_coronavac)+(numero_vacinados_janssen*eficacia_vacina_janssen))/ (numero_vacinados_pfizer+numero_vacinados_AstraZeneca+numero_vacinados_coronava+numero_vacinados_janssen)'
+                                                    />
+
+                                                </EquationOptions>
+                                            </CardContent>
+
+                                        </Card>
+                                    </TableCell>
+                                    <TableCell>
+
                                         <TextField value={this.state.second_dose_efficacy}
                                             onChange={this.handleChange_second_dose_efficacy_text_input} /></TableCell>
 
@@ -687,7 +822,29 @@ class FormSIRV extends React.Component {
 
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell>   Eficacia ponderada da vacina :</TableCell>
+                                    <TableCell>   Eficácia ponderada da vacina :
+                                        <Card>
+                                            <CardContent>
+                                                <Typography color="primary" variant="subtitle1" gutterBottom>
+                                                    Eficácia calculada de acordo com a equação:
+
+                                             </Typography>
+                                                <EquationOptions
+                                                    variables={defaultVariables}
+                                                    functions={defaultFunctions}
+                                                    errorHandler={defaultErrorHandler}
+                                                >
+                                                    <Equation
+                                                        value='((numero_vacinados_primeira_dose*eficacia_vacina_primeira_dose)+(numero_vacinados_segunda_dose*eficacia_vacina_segunda_dose))/ (numero_vacinados_primeira_dose+numero_vacinados_segunda_dose)'
+                                                    />
+
+                                                </EquationOptions>
+                                            </CardContent>
+
+                                        </Card>
+                                     
+                                    
+                                        </TableCell>
                                     <TableCell align="left">
                                         <TextField value={this.state.vaccine_efficacy}
                                             /></TableCell>
