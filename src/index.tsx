@@ -255,18 +255,17 @@ class FormSIRV extends React.Component {
         console.log('speed second dose ' + this.state.speed_second_dose);
 
         this.setState({
-            vaccine_efficacy: ((this.state.first_dose_efficacy *
-                this.state.speed_first_dose) + (this.state.second_dose_efficacy *
-                    this.state.speed_second_dose)) / (this.state.speed_first_dose +
-                        this.state.speed_second_dose
-                )
+            vaccine_efficacy: (((Number(this.state.first_dose_efficacy) *
+                Number(this.state.speed_first_dose)) + (Number(this.state.second_dose_efficacy) *
+                Number(this.state.speed_second_dose))) / (Number(this.state.speed_first_dose) +
+                Number(this.state.speed_second_dose)))
 
         });
 
 
         this.setState({
-            velocidade_vacinacao:(this.state.speed_first_dose +
-                        this.state.speed_second_dose
+            velocidade_vacinacao: (Number(this.state.speed_first_dose) +
+                Number(this.state.speed_second_dose)
                 )
 
         });
@@ -295,6 +294,7 @@ class FormSIRV extends React.Component {
 
         this.setState({ first_dose_efficacy: event.target.value });
 
+       
         this.calc_vaccine_efficacy()
         
     };
@@ -302,38 +302,44 @@ class FormSIRV extends React.Component {
 
     handleChange_astrazenica_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
 
-        this.setState({ number_of_people_with_astrazenica_1: event.target.value })
-        console.log('Number of people with astranenica');
-        console.log(this.state.number_of_people_with_astrazenica_1);
-        this.calc_vaccine_efficacy_with_vacine_data();
-        this.calc_vaccine_efficacy();
+        this.setState({ number_of_people_with_astrazenica_1: event.target.value }, function (this: FormSIRV) {
+            this.calc_vaccine_efficacy_with_vacine_data();
+            this.calc_vaccine_efficacy();
+
+        }) 
     };
 
 
 
     handleChange_pfizer_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
 
-        this.setState({ number_of_people_with_pfizer_1: event.target.value });
-        this.calc_vaccine_efficacy_with_vacine_data();
-        this.calc_vaccine_efficacy();
+        this.setState({ number_of_people_with_pfizer_1: event.target.value }, function (this: FormSIRV) {
+            this.calc_vaccine_efficacy_with_vacine_data();
+            this.calc_vaccine_efficacy();
+
+        }) 
     };
 
 
 
     handleChange_janssen_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
 
-        this.setState({ number_of_people_with_janssen_1: event.target.value });
-        this.calc_vaccine_efficacy_with_vacine_data();
-        this.calc_vaccine_efficacy();
+        this.setState({ number_of_people_with_janssen_1: event.target.value }, function (this: FormSIRV) {
+            this.calc_vaccine_efficacy_with_vacine_data();
+            this.calc_vaccine_efficacy();
+
+        }) 
     };
 
 
 
     handleChange_coronavac_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
 
-        this.setState({ number_of_people_with_coronavac_1: event.target.value });
-        this.calc_vaccine_efficacy_with_vacine_data();
-        this.calc_vaccine_efficacy();
+        this.setState({ number_of_people_with_coronavac_1: event.target.value }, function (this: FormSIRV) {
+            this.calc_vaccine_efficacy_with_vacine_data();
+            this.calc_vaccine_efficacy();
+
+        }) 
     };
 
 
@@ -348,81 +354,103 @@ class FormSIRV extends React.Component {
 
     handleChange_pfizer_text_input_2 = (event: React.ChangeEvent<HTMLInputElement>) => {
 
-        this.setState({ number_of_people_with_pfizer_2: event.target.value });
-        this.calc_vaccine_efficacy_with_vacine_data();
-        this.calc_vaccine_efficacy();
+        this.setState({ number_of_people_with_pfizer_2: event.target.value }, function (this: FormSIRV) {
+            this.calc_vaccine_efficacy_with_vacine_data();
+            this.calc_vaccine_efficacy();
+
+        }) 
     };
 
 
 
     handleChange_janssen_text_input_2 = (event: React.ChangeEvent<HTMLInputElement>) => {
 
-        this.setState({ number_of_people_with_janssen_2: event.target.value });
-        this.calc_vaccine_efficacy_with_vacine_data();
-        this.calc_vaccine_efficacy();
+        this.setState({ number_of_people_with_janssen_2: event.target.value }, function (this: FormSIRV) {
+            this.calc_vaccine_efficacy_with_vacine_data();
+            this.calc_vaccine_efficacy();
+
+        }) 
     };
 
 
 
     handleChange_coronavac_text_input_2 = (event: React.ChangeEvent<HTMLInputElement>) => {
 
-        this.setState({ number_of_people_with_coronavac_2: event.target.value });
+        this.setState({ number_of_people_with_coronavac_2: event.target.value }, function (this: FormSIRV) {
         this.calc_vaccine_efficacy_with_vacine_data();
         this.calc_vaccine_efficacy();
+
+        }) 
     };
 
 
 
     handleChange_second_dose_efficacy = (event, newValue) => {
-        this.setState({ second_dose_efficacy: newValue });
+        this.setState({ second_dose_efficacy: newValue }, function (this: FormSIRV) {
 
-        this.calc_vaccine_efficacy();
+            this.calc_vaccine_efficacy();
+
+        })  
     };
 
 
     handleChange_second_dose_efficacy_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
 
-        this.setState({ second_dose_efficacy: event.target.value });
+        this.setState({ second_dose_efficacy: event.target.value }, function (this: FormSIRV) {
 
-        this.calc_vaccine_efficacy();
+            this.calc_vaccine_efficacy();
+
+        })  
 
     };
 
     handleChange_speed_first_dose = (event, newValue) => {
-        this.setState({ speed_first_dose: newValue });
-
-        this.calc_vaccine_efficacy();
+        this.setState({ speed_first_dose: newValue }, function (this: FormSIRV) {
+            console.log('speed first dose ');
+            console.log(this.state.speed_first_dose);
+            this.calc_vaccine_efficacy();
+        })   
     };
 
     handleChange_first_dose_speed_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
 
-        this.setState({ speed_first_dose: event.target.value });
-
-        this.calc_vaccine_efficacy();
+        this.setState({ speed_first_dose: event.target.value }, function (this: FormSIRV) {
+            console.log('speed first dose: ');
+            console.log(this.state.speed_first_dose);
+            this.calc_vaccine_efficacy();
+        })
+        
 
     };
 
 
 
     handleChange_speed_second_dose = (event, newValue) => {
-        this.setState({ speed_second_dose: newValue });
+        this.setState({ speed_second_dose: newValue }, function (this: FormSIRV) {
 
-        this.calc_vaccine_efficacy();
+            this.calc_vaccine_efficacy();
+
+        })  
     };
 
 
     handleChange_second_dose_speed_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
 
-        this.setState({ speed_second_dose: event.target.value });
+        this.setState({ speed_second_dose: event.target.value }, function (this: FormSIRV) {
 
-        this.calc_vaccine_efficacy();
+            this.calc_vaccine_efficacy();
+
+        })  
 
     };
 
     handleChange_quantidade_infectados_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
 
-        this.setState({ quantidade_infectados: event.target.value });
+        this.setState({ quantidade_infectados: event.target.value }, function (this: FormSIRV) {
 
+            this.calc_vaccine_efficacy();
+
+        })  
        
 
     };
@@ -430,8 +458,11 @@ class FormSIRV extends React.Component {
 
     handleChange_dias_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
 
-        this.setState({ dias_nova_infeccao: event.target.value });
+        this.setState({ dias_nova_infeccao: event.target.value }, function (this: FormSIRV) {
 
+            this.calc_vaccine_efficacy();
+
+        })  
         
 
     };
@@ -443,11 +474,19 @@ class FormSIRV extends React.Component {
 
 
     handleChange_quantidade_infectados = (event, newValue) => {
-        this.setState({ quantidade_infectados: newValue });
+        this.setState({ quantidade_infectados: newValue }, function (this: FormSIRV) {
+
+            this.calc_vaccine_efficacy();
+
+        })  
     };
 
     handleChange_dias_nova_infeccao = (event, newValue) => {
-        this.setState({ dias_nova_infeccao: newValue });
+        this.setState({ dias_nova_infeccao: newValue }, function (this: FormSIRV) {
+
+            this.calc_vaccine_efficacy();
+
+        })  
 
     };
 
