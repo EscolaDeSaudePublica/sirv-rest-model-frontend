@@ -306,6 +306,7 @@ class FormSIRV extends React.Component {
         console.log('Number of people with astranenica');
         console.log(this.state.number_of_people_with_astrazenica_1);
         this.calc_vaccine_efficacy_with_vacine_data();
+        this.calc_vaccine_efficacy();
     };
 
 
@@ -314,6 +315,7 @@ class FormSIRV extends React.Component {
 
         this.setState({ number_of_people_with_pfizer_1: event.target.value });
         this.calc_vaccine_efficacy_with_vacine_data();
+        this.calc_vaccine_efficacy();
     };
 
 
@@ -322,6 +324,7 @@ class FormSIRV extends React.Component {
 
         this.setState({ number_of_people_with_janssen_1: event.target.value });
         this.calc_vaccine_efficacy_with_vacine_data();
+        this.calc_vaccine_efficacy();
     };
 
 
@@ -330,6 +333,7 @@ class FormSIRV extends React.Component {
 
         this.setState({ number_of_people_with_coronavac_1: event.target.value });
         this.calc_vaccine_efficacy_with_vacine_data();
+        this.calc_vaccine_efficacy();
     };
 
 
@@ -337,6 +341,7 @@ class FormSIRV extends React.Component {
 
         this.setState({ number_of_people_with_astrazenica_2: event.target.value });
         this.calc_vaccine_efficacy_with_vacine_data();
+        this.calc_vaccine_efficacy();
     };
 
 
@@ -345,6 +350,7 @@ class FormSIRV extends React.Component {
 
         this.setState({ number_of_people_with_pfizer_2: event.target.value });
         this.calc_vaccine_efficacy_with_vacine_data();
+        this.calc_vaccine_efficacy();
     };
 
 
@@ -353,6 +359,7 @@ class FormSIRV extends React.Component {
 
         this.setState({ number_of_people_with_janssen_2: event.target.value });
         this.calc_vaccine_efficacy_with_vacine_data();
+        this.calc_vaccine_efficacy();
     };
 
 
@@ -361,6 +368,7 @@ class FormSIRV extends React.Component {
 
         this.setState({ number_of_people_with_coronavac_2: event.target.value });
         this.calc_vaccine_efficacy_with_vacine_data();
+        this.calc_vaccine_efficacy();
     };
 
 
@@ -368,7 +376,7 @@ class FormSIRV extends React.Component {
     handleChange_second_dose_efficacy = (event, newValue) => {
         this.setState({ second_dose_efficacy: newValue });
 
-        this.calc_vaccine_efficacy()
+        this.calc_vaccine_efficacy();
     };
 
 
@@ -376,21 +384,21 @@ class FormSIRV extends React.Component {
 
         this.setState({ second_dose_efficacy: event.target.value });
 
-        this.calc_vaccine_efficacy()
+        this.calc_vaccine_efficacy();
 
     };
 
     handleChange_speed_first_dose = (event, newValue) => {
         this.setState({ speed_first_dose: newValue });
 
-        this.calc_vaccine_efficacy()
+        this.calc_vaccine_efficacy();
     };
 
     handleChange_first_dose_speed_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
 
         this.setState({ speed_first_dose: event.target.value });
 
-        this.calc_vaccine_efficacy()
+        this.calc_vaccine_efficacy();
 
     };
 
@@ -399,7 +407,7 @@ class FormSIRV extends React.Component {
     handleChange_speed_second_dose = (event, newValue) => {
         this.setState({ speed_second_dose: newValue });
 
-        this.calc_vaccine_efficacy()
+        this.calc_vaccine_efficacy();
     };
 
 
@@ -407,7 +415,7 @@ class FormSIRV extends React.Component {
 
         this.setState({ speed_second_dose: event.target.value });
 
-        this.calc_vaccine_efficacy()
+        this.calc_vaccine_efficacy();
 
     };
 
@@ -824,12 +832,13 @@ class FormSIRV extends React.Component {
                                                                 <TableCell>  Velocidade de  Vacinação (primeira dose)(K pessoas por dia):</TableCell>
                                                                 <TableCell align="left">
                                                                     <TextField value={this.state.speed_first_dose}
-                                                                        onChange={this.handleChange_first_dose_efficacy_text_input} /></TableCell>
+                                                                        onChange={this.handleChange_first_dose_speed_text_input} /></TableCell>
 
                                                             </TableRow>
                                                             <TableRow>
                                                                 <TableCell colSpan={2}><Slider
-
+                                                                    key={this.state.random} 
+                                                                    value={this.state.speed_first_dose}
                                                                     orientation="horizontal"
                                                                     defaultValue={9000}
                                                                     step={1}
@@ -846,12 +855,13 @@ class FormSIRV extends React.Component {
                                                                 <TableCell>  Velocidade de  Vacinação (segunda dose)(K pessoas por dia):</TableCell>
                                                                 <TableCell align="left">
                                                                     <TextField value={this.state.speed_second_dose}
-                                                                        onChange={this.handleChange_second_dose_efficacy_text_input} /></TableCell>
+                                                                        onChange={this.handleChange_second_dose_speed_text_input} /></TableCell>
 
                                                             </TableRow>
                                                             <TableRow>
                                                                 <TableCell colSpan={2}><Slider
-
+                                                                    value={this.state.speed_second_dose}
+                                                                    key={this.state.random} 
                                                                     orientation="horizontal"
                                                                     defaultValue={9000}
                                                                     step={1}
