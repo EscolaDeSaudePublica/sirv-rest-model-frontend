@@ -146,6 +146,7 @@ class FormSIRV extends React.Component {
     
     componentDidMount() {
         this.calc_vaccine_efficacy_with_vacine_data();
+        this.calc_vaccine_efficacy();
     
     }
 
@@ -155,6 +156,7 @@ class FormSIRV extends React.Component {
         super(props);
         this.stepInput = React.createRef();
         this.calc_vaccine_efficacy_with_vacine_data();
+        this.calc_vaccine_efficacy();
     }
    
 
