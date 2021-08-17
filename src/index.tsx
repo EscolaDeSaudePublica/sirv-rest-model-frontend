@@ -189,6 +189,8 @@ class FormSIRV extends React.Component {
         second_dose_efficacy: 0.5,
         speed_first_dose: 9000,
         speed_second_dose: 9000,
+        death_factor: 0.028,
+        hospitalization_factor: 0.1,
         isOpen: false,
         isOption:false,
        
@@ -588,6 +590,53 @@ class FormSIRV extends React.Component {
 
     };
 
+
+    handleChange_death_factor = (event, newValue) => {
+        this.setState({ death_factor: newValue }, function (this: FormSIRV) {
+
+            this.calc_vaccine_efficacy();
+
+        })
+
+    };
+
+
+    handleChange_death_factor_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+        this.setState({ death_factor: event.target.value }, function (this: FormSIRV) {
+
+            this.calc_vaccine_efficacy();
+
+        })
+
+
+    };
+
+
+
+    handleChange_hospitalization_factor_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+        this.setState({ hospitalization_factor: event.target.value }, function (this: FormSIRV) {
+
+            this.calc_vaccine_efficacy();
+
+        })
+
+
+    };
+
+
+
+
+    handleChange_hospitalization_factor = (event, newValue) => {
+        this.setState({ hospitalization_factor: newValue }, function (this: FormSIRV) {
+
+            this.calc_vaccine_efficacy();
+
+        })
+
+    };
+
     
     change_state() {
         this.setState({
@@ -978,7 +1027,9 @@ class FormSIRV extends React.Component {
                                              </Button>
                                             
                                         </Card>
+
                                         {this.state.isOption ?
+
 
                                             <Card>
                                                 <CardHeader
@@ -999,6 +1050,55 @@ class FormSIRV extends React.Component {
                                                     <TableContainer component={Paper}>
                                                         <Table size="small" aria-label="a dense table">
                                                             <TableBody>
+                                                                <TableRow>
+                                                                    <TableCell> Percentual de Óbitos:</TableCell>
+                                                                <TableCell>
+
+                                                                    <TextField value={this.state.death_factor}
+                                                                            onChange={this.handleChange_death_factor_text_input} />
+                                                                </TableCell>
+                                                                </TableRow>
+                                                                <TableRow>
+                                                                    <TableCell> Percentual de Hospitalizações:</TableCell>
+                                                                    <TableCell>
+
+                                                                        <TextField value={this.state.hospitalization_factor}
+                                                                            onChange={this.handleChange_hospitalization_factor_text_input} />
+                                                                    </TableCell>
+                                                                </TableRow>
+                                                            </TableBody>
+                                                        </Table>
+                                                    </TableContainer>
+                                                </CardContent>
+                                            </Card>
+
+
+
+
+                                            : null}
+                                        {this.state.isOption ?
+
+                                           
+                                            <Card>
+                                                <CardHeader
+                                                    avatar={
+                                                        <Avatar aria-label="recipe" >
+                                                            Configuração
+                                                </Avatar>
+                                                    }
+                                                    action={
+                                                        <IconButton aria-label="settings">
+
+                                                        </IconButton>
+                                                    }
+                                                    title="Eficácia das Vacinas"
+                                                    subheader="Valor de 0 a 1"
+                                                />
+                                                <CardContent>
+                                                    <TableContainer component={Paper}>
+                                                        <Table size="small" aria-label="a dense table">
+                                                            <TableBody>
+                                                               
                                                                 <TableRow>
                                                                     <TableCell> Eficácia da Vacina (primeira dose):
                                                                     
@@ -1348,7 +1448,7 @@ class FormSIRV extends React.Component {
                                                     </IconButton>
                                                 }
                                                 title="Novos infectados no sistema"
-                                                subheader="Em quantidade de pessoas"
+                                                subheader="Novo grupo de infectados adicionados ao sistema"
                                             />
                                             <CardContent>
                                                 <TableContainer component={Paper}>
@@ -1409,7 +1509,7 @@ class FormSIRV extends React.Component {
                                     <TableCell width="50%">
                                         <Card>
                                             <CardContent>
-                                                <iframe frameBorder="0" key={this.state.random} src={process.env.REACT_APP_BASE_URL_ + "/" + this.state.vaccine_efficacy + "/" + (this.state.velocidade_vacinacao / 9000000) + "/" + (this.state.quantidade_infectados / 9000000) + "/" + this.state.dias_nova_infeccao + "/0/"} width="90%"
+                                                <iframe frameBorder="0" key={this.state.random} src={process.env.REACT_APP_BASE_URL_ + "/" + this.state.vaccine_efficacy + "/" + (this.state.velocidade_vacinacao / 9000000) + "/" + (this.state.quantidade_infectados / 9000000) + "/" + this.state.dias_nova_infeccao + "/0/" + this.state.death_factor + "/" + this.state.hospitalization_factor + "/"} width="90%"
                                                     height="2000px" scrolling="no" ></iframe>
                                             </CardContent>
                                         </Card>
