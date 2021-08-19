@@ -143,7 +143,19 @@ const marks = [
 
 class FormSIRV extends React.Component {
     private stepInput: React.RefObject<HTMLSpanElement>;
-    
+
+    padLeadingZeros(num, size) {
+        var s = num + "";
+        while (s.length < size) s = "0" + s;
+        return s;
+    }
+
+    data = new Date();
+
+    formatedDate_start_date = `${this.data.getFullYear()}-${this.padLeadingZeros(this.data.getMonth()+1, 2)}-${this.padLeadingZeros(this.data.getDate(),2)}`
+    formatedDate_end_date = `${this.data.getFullYear()}-${this.padLeadingZeros(this.data.getMonth() + 2, 2)}-${this.padLeadingZeros(this.data.getDate(), 2)}`
+
+
     componentDidMount() {
         this.calc_vaccine_efficacy_with_vacine_data();
         this.calc_vaccine_efficacy();
@@ -157,6 +169,9 @@ class FormSIRV extends React.Component {
         this.stepInput = React.createRef();
         this.calc_vaccine_efficacy_with_vacine_data();
         this.calc_vaccine_efficacy();
+
+        
+
     }
    
 
@@ -183,6 +198,7 @@ class FormSIRV extends React.Component {
         quantidade_infectados: 0,
         dias_nova_infeccao:10,
         random: 0,
+        random_2: 0,
         figure: '',
         domain: '',
         first_dose_efficacy: 0.5,
@@ -192,7 +208,9 @@ class FormSIRV extends React.Component {
         death_factor: 0.028,
         hospitalization_factor: 0.1,
         isOpen: false,
-        isOption:false,
+        isOption: false,
+        start_date: this.formatedDate_start_date,
+        end_date: this.formatedDate_end_date,
        
 
         
@@ -217,6 +235,10 @@ class FormSIRV extends React.Component {
 
     resetIframe() {
         this.setState({ random: this.state.random + 1 });
+    }
+
+    resetIframe_2() {
+        this.setState({ random_2: this.state.random_2 + 1 });
     }
 
 
@@ -287,15 +309,48 @@ class FormSIRV extends React.Component {
 
     }
 
+
+
     handleChange = (event, newValue) => {
 
        this.calc_vaccine_efficacy()
     };
 
-    handleChange_first_dose_efficacy = (event, newValue) => {
-        this.setState({ first_dose_efficacy: newValue });
 
-        this.calc_vaccine_efficacy()
+
+    handleChange_start_date_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+
+        this.setState({ start_date: event.target.value }, function (this: FormSIRV) {
+            console.log(this.state.start_date);
+            console.log(this.state.end_date);
+            this.resetIframe_2();
+            
+
+        })
+
+       
+    };
+
+
+
+    handleChange_end_date_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+
+        this.setState({ end_date: event.target.value }, function (this: FormSIRV) {
+            console.log(this.state.start_date);
+            console.log(this.state.end_date);
+            this.resetIframe_2();
+            
+
+        })
+    };
+
+
+    handleChange_first_dose_efficacy = (event, newValue) => {
+        this.setState({ first_dose_efficacy: newValue }, function (this: FormSIRV) {
+            this.calc_vaccine_efficacy();
+        })
     };
 
 
@@ -1043,7 +1098,7 @@ class FormSIRV extends React.Component {
 
                                                         </IconButton>
                                                     }
-                                                    title="Eficácia das Vacinas"
+                                                    title="Percentual de Óbitos e Hospitalização"
                                                     subheader="Valor de 0 a 1"
                                                 />
                                                 <CardContent>
@@ -1505,12 +1560,72 @@ class FormSIRV extends React.Component {
                                                 </TableContainer>
                                             </CardContent>
                                         </Card>
+                                        <Card>
+                                            <CardHeader
+                                                avatar={
+                                                    <Avatar aria-label="recipe" >
+                                                        8
+                                                </Avatar>
+                                                }
+                                                action={
+                                                    <IconButton aria-label="settings">
+
+                                                    </IconButton>
+                                                }
+                                                title="Filtro de Datas para tabela"
+                                                subheader="Data de Início e fim do filtro"
+                                            />
+                                            <CardContent>
+                                                <TableContainer component={Paper}>
+                                                    <Table size="small" aria-label="a dense table">
+                                                        <TableBody>
+                                                            <TableRow>
+                                                                <TableCell>   Data de Início:</TableCell>
+                                                                <TableCell align="left">
+                                                                    <TextField
+                                                                        id="data"
+                                                                        label="Data de Início"
+                                                                        type="date"
+                                                                        defaultValue={this.formatedDate_start_date}
+                                                                        onChange={this.handleChange_start_date_text_input}
+                                                                        InputLabelProps={{
+                                                                            shrink: true,
+                                                                        }}
+                                                                    />
+                                                                 </TableCell>
+                                                            </TableRow>
+                                                            <TableRow>
+                                                                <TableCell>   Data de Fim:</TableCell>
+                                                                <TableCell align="left">
+                                                                    <TextField
+                                                                        id="data"
+                                                                        label="Data de Fim"
+                                                                        type="date"
+                                                                        defaultValue={this.formatedDate_end_date}
+                                                                        onChange={this.handleChange_end_date_text_input}
+                                                                        InputLabelProps={{
+                                                                            shrink: true,
+                                                                        }}
+                                                                    />
+                                                                </TableCell>
+                                                            </TableRow>
+
+
+                                                        </TableBody>
+                                                    </Table>
+                                                </TableContainer>
+                                            </CardContent>
+                                        </Card>
                                     </TableCell>
                                     <TableCell width="50%">
                                         <Card>
                                             <CardContent>
+                                                <iframe frameBorder="0" key={this.state.random_2} src={"http://localhost:5100" + "/filter_date/" + this.state.vaccine_efficacy + "/" + (this.state.velocidade_vacinacao / 9000000) + "/" + (this.state.quantidade_infectados / 9000000) + "/" + this.state.dias_nova_infeccao + "/0/" + this.state.death_factor + "/" + this.state.hospitalization_factor + "/" + this.state.start_date + "/" + this.state.end_date+"/"} width="90%"
+                                                    height="500px" scrolling="yes" ></iframe>
+                                            </CardContent>
+                                            <CardContent>
                                                 <iframe frameBorder="0" key={this.state.random} src={process.env.REACT_APP_BASE_URL_ + "/" + this.state.vaccine_efficacy + "/" + (this.state.velocidade_vacinacao / 9000000) + "/" + (this.state.quantidade_infectados / 9000000) + "/" + this.state.dias_nova_infeccao + "/0/" + this.state.death_factor + "/" + this.state.hospitalization_factor + "/"} width="90%"
-                                                    height="2000px" scrolling="no" ></iframe>
+                                                    height="3000px" scrolling="no" ></iframe>
                                             </CardContent>
                                         </Card>
                                     </TableCell>
