@@ -12,6 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { useState } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Slider from '@material-ui/core/Slider';
+import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import { Footnotes } from 'react-footnotes'
 import { makeStyles } from '@material-ui/core/styles';
@@ -27,11 +28,78 @@ import Chip from '@material-ui/core/Chip';
 import { Collapse } from "@material-ui/core";
 import Icon from '@material-ui/core/Icon';
 import Fab from '@material-ui/core/Fab';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import PropTypes from 'prop-types';
+import Box from '@material-ui/core/Box';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 
 console.log(process.env.REACT_APP_BASE_URL_);
 const domain = process.env.REACT_APP_BASE_URL_;
 
+
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+    },
+    paper: {
+        height: "100%",
+        width: "100%",
+    },
+    control: {
+        padding: theme.spacing(2),
+    },
+}));
+
+
+
+
+interface TabPanelProps {
+    children?: React.ReactNode;
+    index: any;
+    value: any;
+}
+
+
+function a11yProps(index: any) {
+    return {
+        id: `scrollable-auto-tab-${index}`,
+        'aria-controls': `scrollable-auto-tabpanel-${index}`,
+    };
+}
+
+function TabPanel(props: TabPanelProps) {
+    const { children, value, index, ...other } = props;
+
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`scrollable-force-tabpanel-${index}`}
+            aria-labelledby={`scrollable-force-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <Box p={3}>
+                    <Typography>{children}</Typography>
+                </Box>
+            )}
+        </div>
+    );
+}
+
+const theme = createMuiTheme({
+    typography: {
+        body1: {
+            fontWeight: 600 // or 'bold'
+        }
+    }
+})
 
 const marks_dias = [
 
@@ -211,6 +279,8 @@ class FormSIRV extends React.Component {
         isOption: false,
         start_date: this.formatedDate_start_date,
         end_date: this.formatedDate_end_date,
+        total_doses_aplicadas_1: 80000000,
+        tab_position: 0,
        
 
         
@@ -692,6 +762,12 @@ class FormSIRV extends React.Component {
 
     };
 
+
+
+    handleChange_tab = (event: React.ChangeEvent<{}>, newValue: number) => {
+        this.setState({ tab_position: newValue });
+    };
+
     
     change_state() {
         this.setState({
@@ -707,6 +783,15 @@ class FormSIRV extends React.Component {
 
     }
 
+
+
+
+   
+
+
+
+    
+
   
     public render() {
 
@@ -715,9 +800,661 @@ class FormSIRV extends React.Component {
         return (
 
             <React.Fragment >
-                <div>
+                <div style={{
+                    backgroundColor:'#E5E5E5;'}}>
 
 
+
+                    <Grid container spacing={2} style={{
+                        backgroundColor: '#E5E5E5;'
+                    }}>
+                        
+                        <Grid item xs={4} style={{ fontSize: '1vw' }}>
+
+                            <Card>
+                               
+                                <CardContent style={{ fontSize: '1vw' }}>
+
+                                    <Typography style={{ fontSize: '2vw', color: "#367938" }} >
+                                        Primeira Dose:
+                                     </Typography>
+
+                                    
+                                    <Typography style={{ fontSize: '2vw', color: 'rgba(0, 0, 0, 0.54)' }} >
+                                                    Doses Aplicadas:
+                                        </Typography>
+                                    
+                                    <Typography gutterBottom style={{ fontSize: '3vw', color: 'rgba(0, 0, 0, 0.87)' }} >
+                                                {this.state.total_doses_aplicadas_1}
+                                            </Typography>
+                                    <Typography gutterBottom style={{ fontSize: '2vw', color: 'rgba(0, 0, 0, 0.54)'  }} >
+                                                Velocidade:
+                                                                </Typography>
+                                    <Typography gutterBottom style={{ fontSize: '3vw', color: 'rgba(0, 0, 0, 0.87)' }} >
+                                                {this.state.speed_first_dose}
+                                            </Typography>
+                                        </CardContent>
+
+
+                                       </Card>
+                            </Grid>
+                        <Grid item xs={4} style={{ fontSize: '1vw' }}>
+                           
+                        
+
+                                            <Card>
+                                               
+                                            <CardContent>
+
+                                            <Typography style={{ fontSize: '2vw', color: "#367938" }} >
+                                                Segunda Dose:
+                                             </Typography>
+
+                                    <Typography gutterBottom style={{ fontSize: '2vw', color: 'rgba(0, 0, 0, 0.54)' }} >
+                                                                Doses Aplicadas:
+                                                                            </Typography>
+                                    <Typography gutterBottom style={{ fontSize: '3vw', color: 'rgba(0, 0, 0, 0.87)' }}>
+                                                                {this.state.total_doses_aplicadas_1}
+                                                            </Typography>
+                                    <Typography gutterBottom style={{ fontSize: '2vw', color: 'rgba(0, 0, 0, 0.54)' }} >
+                                                                Velocidade:
+                                                                                </Typography>
+                                    <Typography gutterBottom style={{ fontSize: '3vw', color: 'rgba(0, 0, 0, 0.87)' }} >
+                                                                {this.state.speed_second_dose}
+                                                            </Typography>
+                                                </CardContent>
+
+
+                                            </Card>
+
+
+                             </Grid>
+
+                        <Grid item xs={4} style={{ fontSize: '1vw' }}>
+
+                            <Card>
+
+                            <CardContent>
+
+                                <Typography style={{ fontSize: '2vw', color: "#367938" }} >
+                                    Eficácida da Vacina:
+                                </Typography>
+
+                                <Typography gutterBottom style={{ fontSize: '2vw', color: 'rgba(0, 0, 0, 0.54)' }}>
+                                        PRIMEIRA DOSE:
+                                                    </Typography>
+                                <Typography gutterBottom style={{ fontSize: '3vw', color: 'rgba(0, 0, 0, 0.87)' }}>
+                                        {this.state.first_dose_efficacy}
+                                    </Typography>
+                                <Typography gutterBottom style={{ fontSize: '2vw', color: 'rgba(0, 0, 0, 0.54)' }}>
+                                        SEGUNDA DOSE
+                                                        </Typography>
+                                <Typography gutterBottom style={{ fontSize: '3vw', color: 'rgba(0, 0, 0, 0.87)' }}>
+                                        {this.state.second_dose_efficacy}
+                                    </Typography>
+                                </CardContent>
+
+
+
+
+                            </Card>
+                        </Grid>
+                        <Grid item xs={12} style={{ fontSize: '1vw' }}>
+                        <Button
+                            variant="contained"
+                                style={{ fontSize: '1vw', color:'#FFFFFF' }}
+                            color="primary"
+                            onClick={() => { this.change_state_option(); }}>
+                                Opções 
+                            </Button>
+
+                        </Grid>
+
+                    
+                   {this.state.isOption ?
+                    <Grid item xs={12} className="mainfont">
+
+
+
+                        <AppBar position="static">
+                            <Tabs value={this.state.tab_position} scrollButtons="on" variant="scrollable" onChange={this.handleChange_tab} aria-label="simple tabs example">
+                                <Tab label="Doses" {...a11yProps(0)} />
+                                <Tab label="Eficácia" {...a11yProps(2)} />
+                                <Tab label="Outras Opções" {...a11yProps(3)} />
+                                
+                            </Tabs>
+                        </AppBar>
+
+                            <TabPanel value={this.state.tab_position} index={0}>
+                                    <Card style={{ fontSize: '1vw' }}>
+                                    <CardHeader
+                                        avatar={
+                                            <Avatar aria-label="recipe" >
+                                                1
+                                                                </Avatar>
+                                        }
+                                        action={
+                                            <IconButton aria-label="settings">
+
+                                            </IconButton>
+                                        }
+                                        title="Primeira Dose"
+                                        subheader="Quantidade de Vacinados"
+                                    />
+                                        <CardContent style={{ fontSize: '1vw' }}>
+                                        <TableContainer component={Paper}>
+                                            <Table size="small" >
+                                                <TableBody>
+                                                    <TableRow>
+                                                        <TableCell>AstraZeneca</TableCell>
+                                                        <TableCell align="left"><TextField value={this.state.number_of_people_with_astrazenica_1}
+                                                            type="number"
+                                                            InputLabelProps={{
+                                                                shrink: true,
+                                                            }}
+                                                            label="Número de Pessoas"
+                                                            onChange={this.handleChange_astrazenica_text_input} /></TableCell>
+
+                                                    </TableRow>
+                                                    <TableRow>
+                                                        <TableCell>Pfizer</TableCell>
+                                                        <TableCell align="left"><TextField value={this.state.number_of_people_with_pfizer_1}
+                                                            type="number"
+                                                            InputLabelProps={{
+                                                                shrink: true,
+                                                            }}
+                                                            label="Número de Pessoas"
+                                                            onChange={this.handleChange_pfizer_text_input} /></TableCell>
+
+                                                    </TableRow>
+                                                    <TableRow>
+                                                        <TableCell>Coronavac</TableCell>
+                                                        <TableCell align="left"><TextField value={this.state.number_of_people_with_coronavac_1}
+                                                            type="number"
+                                                            InputLabelProps={{
+                                                                shrink: true,
+                                                            }}
+                                                            label="Número de Pessoas"
+                                                            onChange={this.handleChange_coronavac_text_input} /></TableCell>
+
+                                                    </TableRow>
+                                                    <TableRow>
+                                                        <TableCell>Janssen </TableCell>
+                                                        <TableCell align="left"><TextField value={this.state.number_of_people_with_janssen_1}
+                                                            type="number"
+                                                            InputLabelProps={{
+                                                                shrink: true,
+                                                            }}
+                                                            label="Número de Pessoas"
+                                                            onChange={this.handleChange_janssen_text_input} /></TableCell>
+
+                                                    </TableRow>
+                                                </TableBody>
+                                            </Table>
+                                        </TableContainer>
+                                    </CardContent>
+                                    </Card>
+                                    <Card style={{ fontSize: '1vw' }}>
+                                        <CardHeader
+                                            avatar={
+                                                <Avatar aria-label="recipe" >
+                                                    2
+                                                </Avatar>
+                                            }
+                                            action={
+                                                <IconButton aria-label="settings">
+
+                                                </IconButton>
+                                            }
+                                            title="Segunda Dose"
+                                            subheader="Quantidade de Vacinados"
+                                        />
+                                        <CardContent>
+                                            <TableContainer component={Paper}>
+                                                <Table size="small" aria-label="a dense table">
+                                                    <TableBody>
+                                                        <TableRow>
+                                                            <TableCell>AstraZeneca</TableCell>
+                                                            <TableCell align="left"><TextField value={this.state.number_of_people_with_astrazenica_2}
+                                                                type="number"
+                                                                InputLabelProps={{
+                                                                    shrink: true,
+                                                                }}
+                                                                label="Número de Pessoas"
+                                                                onChange={this.handleChange_astrazenica_text_input_2} /></TableCell>
+
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell>Pfizer</TableCell>
+                                                            <TableCell align="left"><TextField value={this.state.number_of_people_with_pfizer_2}
+                                                                type="number"
+                                                                InputLabelProps={{
+                                                                    shrink: true,
+                                                                }}
+                                                                label="Número de Pessoas"
+                                                                onChange={this.handleChange_pfizer_text_input_2} /></TableCell>
+
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell>Coronavac</TableCell>
+                                                            <TableCell align="left"><TextField value={this.state.number_of_people_with_coronavac_2}
+                                                                type="number"
+                                                                InputLabelProps={{
+                                                                    shrink: true,
+                                                                }}
+                                                                label="Número de Pessoas"
+                                                                onChange={this.handleChange_coronavac_text_input_2} /></TableCell>
+
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell>Janssen</TableCell>
+                                                            <TableCell align="left"><TextField value={this.state.number_of_people_with_janssen_2}
+                                                                type="number"
+                                                                InputLabelProps={{
+                                                                    shrink: true,
+                                                                }}
+                                                                label="Número de Pessoas"
+                                                                onChange={this.handleChange_janssen_text_input_2} /></TableCell>
+
+                                                        </TableRow>
+                                                    </TableBody>
+                                                </Table>
+                                            </TableContainer>
+                                        </CardContent>
+                                    </Card>
+                                </TabPanel>
+                                <TabPanel value={this.state.tab_position} index={1}>
+                                    <Card style={{ fontSize: '1vw' }}>
+                                        <CardHeader
+                                            avatar={
+                                                <Avatar aria-label="recipe" >
+                                                    3
+                                                    </Avatar>
+                                            }
+                                            action={
+                                                <IconButton aria-label="settings">
+
+                                                </IconButton>
+                                            }
+                                            title="Eficácia de Cada Vacina"
+                                            subheader="Primeira Dose"
+                                        />
+                                        <CardContent>
+                                            <TableContainer component={Paper}>
+                                                <Table size="small" aria-label="a dense table">
+                                                    <TableBody>
+                                                        <TableRow>
+                                                            <TableCell>AstraZeneca</TableCell>
+                                                            <TableCell align="left">
+                                                                <Chip label={Number(this.state.eficacia_astrazenica_1)} variant="outlined" />
+                                                            </TableCell>
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell>Pfizer</TableCell>
+                                                            <TableCell align="left">
+                                                                <Chip label={Number(this.state.eficacia_pfizer_1)} variant="outlined" />
+                                                            </TableCell>
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell>Coronavac</TableCell>
+                                                            <TableCell align="left"> <Chip label={Number(this.state.eficacia_coronavac_1)} variant="outlined" />
+                                                            </TableCell>
+
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell>Janssen (Dose Única)</TableCell>
+                                                            <TableCell align="left"> <Chip label={Number(this.state.eficacia_janssen_1)} variant="outlined" />
+                                                            </TableCell>
+
+                                                        </TableRow>
+                                                    </TableBody>
+                                                </Table>
+                                            </TableContainer>
+                                        </CardContent>
+                                    </Card>
+                                    <Card style={{ fontSize: '1vw' }}>
+                                        <CardHeader
+                                            avatar={
+                                                <Avatar aria-label="recipe" >
+                                                    4
+                                                </Avatar>
+                                            }
+                                            action={
+                                                <IconButton aria-label="settings">
+
+                                                </IconButton>
+                                            }
+                                            title="Eficácia de Cada Vacina"
+                                            subheader="Segunda Dose"
+                                        />
+                                        <CardContent>
+                                            <TableContainer component={Paper}>
+                                                <Table size="small" aria-label="a dense table">
+                                                    <TableBody>
+                                                        <TableRow>
+                                                            <TableCell>AstraZeneca</TableCell>
+                                                            <TableCell align="left">
+                                                                <Chip label={Number(this.state.eficacia_astrazenica_2)} variant="outlined" />
+                                                            </TableCell>
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell>Pfizer</TableCell>
+                                                            <TableCell align="left">
+                                                                <Chip label={Number(this.state.eficacia_pfizer_2)} variant="outlined" />
+                                                            </TableCell>
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell>Coronavac</TableCell>
+                                                            <TableCell align="left"> <Chip label={Number(this.state.eficacia_coronavac_2)} variant="outlined" />
+                                                            </TableCell>
+
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell>Janssen (Dose Única)</TableCell>
+                                                            <TableCell align="left"> <Chip label={Number(this.state.eficacia_janssen_2)} variant="outlined" />
+                                                            </TableCell>
+
+                                                        </TableRow>
+                                                    </TableBody>
+                                                </Table>
+                                            </TableContainer>
+                                        </CardContent>
+                                    </Card>
+
+
+
+
+                                </TabPanel>
+                                <TabPanel value={this.state.tab_position} index={2}>
+
+
+                                    <Card style={{ fontSize: '1vw' }}>
+                                        <CardHeader
+                                            avatar={
+                                                <Avatar aria-label="recipe" >
+                                                    5
+                                                </Avatar>
+                                            }
+                                            action={
+                                                <IconButton aria-label="settings">
+
+                                                </IconButton>
+                                            }
+                                            title="Velocidade da Vacinação"
+                                            subheader="Número de Pessoas por dia"
+                                        />
+                                        <CardContent>
+                                            <TableContainer component={Paper}>
+                                                <Table size="small" aria-label="a dense table">
+                                                    <TableBody>
+                                                        <TableRow>
+                                                            <TableCell>  Velocidade de  Vacinação (primeira dose)(K pessoas por dia):</TableCell>
+                                                            <TableCell align="left">
+                                                                <TextField value={this.state.speed_first_dose}
+                                                                    onChange={this.handleChange_first_dose_speed_text_input} /></TableCell>
+
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell colSpan={2}><Slider
+                                                                key={this.state.random}
+                                                                value={this.state.speed_first_dose}
+                                                                orientation="horizontal"
+                                                                defaultValue={9000}
+                                                                step={1}
+                                                                min={0}
+                                                                max={300000}
+                                                                valueLabelDisplay="auto"
+                                                                aria-labelledby="vertical-slider"
+                                                                marks={marks_velocidade}
+                                                                onChange={this.handleChange_speed_first_dose}
+                                                            /></TableCell>
+
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell>  Velocidade de  Vacinação (segunda dose)(K pessoas por dia):</TableCell>
+                                                            <TableCell align="left">
+                                                                <TextField value={this.state.speed_second_dose}
+                                                                    onChange={this.handleChange_second_dose_speed_text_input} /></TableCell>
+
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell colSpan={2}><Slider
+                                                                value={this.state.speed_second_dose}
+                                                                key={this.state.random}
+                                                                orientation="horizontal"
+                                                                defaultValue={9000}
+                                                                step={1}
+                                                                min={0}
+                                                                max={300000}
+                                                                valueLabelDisplay="auto"
+                                                                aria-labelledby="vertical-slider"
+                                                                marks={marks_velocidade}
+                                                                onChange={this.handleChange_speed_second_dose}
+                                                            /></TableCell>
+
+                                                        </TableRow>
+
+
+                                                    </TableBody>
+                                                </Table>
+                                            </TableContainer>
+                                        </CardContent>
+                                    </Card>
+                                    <Card style={{ fontSize: '1vw' }}>
+                                        <CardHeader
+                                            avatar={
+                                                <Avatar aria-label="recipe" >
+                                                    6
+                                                </Avatar>
+                                            }
+                                            action={
+                                                <IconButton aria-label="settings">
+
+                                                </IconButton>
+                                            }
+                                            title="Eficácia Ponderada das Vacinas"
+                                            subheader="Calculando Primeira e Segunda dose"
+                                        />
+                                        <CardContent>
+                                            <TableContainer component={Paper}>
+                                                <Table size="small" aria-label="a dense table">
+                                                    <TableBody>
+
+                                                        <TableRow>
+                                                            <TableCell>   Eficácia ponderada da vacina :
+                                                                </TableCell>
+                                                            <TableCell align="left">
+                                                                <TextField value={this.state.vaccine_efficacy}
+                                                                /></TableCell>
+
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell colSpan={2}> <Slider
+                                                                value={this.state.vaccine_efficacy}
+                                                                orientation="horizontal"
+                                                                defaultValue={0.5}
+                                                                step={0.05}
+                                                                min={0}
+                                                                max={1}
+                                                                valueLabelDisplay="auto"
+                                                                marks={marks}
+                                                                onChange={this.handleChange_velocidade}
+                                                            /></TableCell>
+                                                        </TableRow>
+
+                                                    </TableBody>
+                                                </Table>
+                                            </TableContainer>
+                                        </CardContent>
+                                    </Card>
+                                    <Card style={{ fontSize: '1vw' }}>
+                                        <CardHeader
+                                            avatar={
+                                                <Avatar aria-label="recipe" >
+                                                    7
+                                                </Avatar>
+                                            }
+                                            action={
+                                                <IconButton aria-label="settings">
+
+                                                </IconButton>
+                                            }
+                                            title="Novos infectados no sistema"
+                                            subheader="Novo grupo de infectados adicionados ao sistema"
+                                        />
+                                        <CardContent>
+                                            <TableContainer component={Paper}>
+                                                <Table size="small" aria-label="a dense table">
+                                                    <TableBody>
+                                                        <TableRow>
+                                                            <TableCell>   Quantidade de novos infectados no modelo:</TableCell>
+                                                            <TableCell align="left">
+                                                                <TextField value={this.state.quantidade_infectados}
+                                                                    onChange={this.handleChange_quantidade_infectados_text_input} /></TableCell>
+
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell colSpan={2}>    <Slider
+                                                                value={this.state.quantidade_infectados}
+                                                                orientation="horizontal"
+                                                                defaultValue={0}
+                                                                step={1}
+                                                                min={0}
+                                                                max={60000}
+                                                                valueLabelDisplay="auto"
+                                                                aria-labelledby="vertical-slider"
+                                                                marks={marks_infectados}
+                                                                onChange={this.handleChange_quantidade_infectados}
+                                                            /></TableCell>
+
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell>   Quantidade de dias entre novas infecções:</TableCell>
+                                                            <TableCell align="left">
+                                                                <TextField value={this.state.dias_nova_infeccao}
+                                                                    onChange={this.handleChange_dias_text_input} /></TableCell>
+
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell colSpan={2}>      <Slider
+                                                                value={this.state.dias_nova_infeccao}
+                                                                orientation="horizontal"
+                                                                defaultValue={0}
+                                                                step={1}
+                                                                min={0}
+                                                                max={90}
+                                                                aria-labelledby="vertical-slider"
+                                                                marks={marks_dias}
+                                                                valueLabelDisplay="auto"
+                                                                onChange={this.handleChange_dias_nova_infeccao}
+                                                            /></TableCell>
+
+                                                        </TableRow>
+
+
+                                                    </TableBody>
+                                                </Table>
+                                            </TableContainer>
+                                        </CardContent>
+                                    </Card>
+                                    <Card style={{ fontSize: '1vw' }}>
+                                        <CardHeader
+                                            avatar={
+                                                <Avatar aria-label="recipe" >
+                                                    8
+                                                </Avatar>
+                                            }
+                                            action={
+                                                <IconButton aria-label="settings">
+
+                                                </IconButton>
+                                            }
+                                            title="Filtro de Datas para tabela"
+                                            subheader="Data de Início e fim do filtro"
+                                        />
+                                        <CardContent>
+                                            <TableContainer component={Paper}>
+                                                <Table size="small" aria-label="a dense table">
+                                                    <TableBody>
+                                                        <TableRow>
+                                                            <TableCell>   Data de Início:</TableCell>
+                                                            <TableCell align="left">
+                                                                <TextField
+                                                                    id="data"
+                                                                    label="Data de Início"
+                                                                    type="date"
+                                                                    defaultValue={this.formatedDate_start_date}
+                                                                    onChange={this.handleChange_start_date_text_input}
+                                                                    InputLabelProps={{
+                                                                        shrink: true,
+                                                                    }}
+                                                                />
+                                                            </TableCell>
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell>   Data de Fim:</TableCell>
+                                                            <TableCell align="left">
+                                                                <TextField
+                                                                    id="data"
+                                                                    label="Data de Fim"
+                                                                    type="date"
+                                                                    defaultValue={this.formatedDate_end_date}
+                                                                    onChange={this.handleChange_end_date_text_input}
+                                                                    InputLabelProps={{
+                                                                        shrink: true,
+                                                                    }}
+                                                                />
+                                                            </TableCell>
+                                                        </TableRow>
+
+
+                                                    </TableBody>
+                                                </Table>
+                                            </TableContainer>
+                                        </CardContent>
+                                    </Card>
+
+
+                                </TabPanel>
+
+                            </Grid>
+
+
+                            : null}
+                    </Grid>
+                     
+                     
+
+
+
+
+
+
+
+                    <TableContainer component={Paper}>
+                        <Table size="small" aria-label="a dense table" style={{ verticalAlign: 'top' }}>
+                            <TableBody>
+                                
+                               
+                                <TableRow>
+                                    <TableCell colSpan={3} align='center' width="100%" >
+                                        <Card>
+                                         
+                                            <CardContent>
+                                                <iframe frameBorder="0" key={this.state.random} src={process.env.REACT_APP_BASE_URL_ + "/" + this.state.vaccine_efficacy + "/" + (this.state.velocidade_vacinacao / 9000000) + "/" + (this.state.quantidade_infectados / 9000000) + "/" + this.state.dias_nova_infeccao + "/0/" + this.state.death_factor + "/" + this.state.hospitalization_factor + "/"} width="90%"
+                                                    height="3000px" scrolling="no" ></iframe>
+                                            </CardContent>
+                                            <CardContent>
+                                                <iframe frameBorder="0" key={this.state.random_2} src={process.env.REACT_APP_BASE_URL_ + "/filter_date/" + this.state.vaccine_efficacy + "/" + (this.state.velocidade_vacinacao / 9000000) + "/" + (this.state.quantidade_infectados / 9000000) + "/" + this.state.dias_nova_infeccao + "/0/" + this.state.death_factor + "/" + this.state.hospitalization_factor + "/" + this.state.start_date + "/" + this.state.end_date + "/"} width="90%"
+                                                    height="500px" scrolling="yes" ></iframe>
+                                            </CardContent>
+                                        </Card>
+                                    </TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                  
                     <TableContainer component={Paper}>
                         <Table size="small" aria-label="a dense table" style={{ verticalAlign:'top' }}>
 
@@ -840,246 +1577,13 @@ class FormSIRV extends React.Component {
                              
                                 <TableRow style={{ verticalAlign: 'top' }}>
                                     <TableCell width="20%">
-                                        <Card>
-                                            <CardHeader
-                                                avatar={
-                                                    <Avatar aria-label="recipe" >
-                                                        1
-                                                </Avatar>
-                                                }
-                                                action={
-                                                    <IconButton aria-label="settings">
-                                                        
-                                                    </IconButton>
-                                                }
-                                                title="Primeira Dose"
-                                                subheader="Quantidade de Vacinados"
-                                            />
-                                            <CardContent>
-                                                <TableContainer component={Paper}>
-                                                    <Table size="small" aria-label="a dense table">
-                                                        <TableBody>
-                                                            <TableRow>
-                                                                <TableCell>AstraZeneca</TableCell>
-                                                                <TableCell align="left"><TextField value={this.state.number_of_people_with_astrazenica_1}
-                                                                                            type="number"
-                                                                                            InputLabelProps={{
-                                                                                                shrink: true,
-                                                                                             }}
-                                                                                            label="Número de Pessoas"
-                                                                                            onChange={this.handleChange_astrazenica_text_input} /></TableCell>
-                                   
-                                                             </TableRow>
-                                                            <TableRow>
-                                                                <TableCell>Pfizer</TableCell>
-                                                                <TableCell align="left"><TextField value={this.state.number_of_people_with_pfizer_1}
-                                                                    type="number"
-                                                                    InputLabelProps={{
-                                                                        shrink: true,
-                                                                    }}
-                                                                    label="Número de Pessoas"
-                                                                    onChange={this.handleChange_pfizer_text_input} /></TableCell>
-
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell>Coronavac</TableCell>
-                                                                <TableCell align="left"><TextField value={this.state.number_of_people_with_coronavac_1}
-                                                                    type="number"
-                                                                    InputLabelProps={{
-                                                                        shrink: true,
-                                                                    }}
-                                                                    label="Número de Pessoas"
-                                                                    onChange={this.handleChange_coronavac_text_input} /></TableCell>
-
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell>Janssen </TableCell>
-                                                                <TableCell align="left"><TextField value={this.state.number_of_people_with_janssen_1}
-                                                                    type="number"
-                                                                    InputLabelProps={{
-                                                                        shrink: true,
-                                                                    }}
-                                                                    label="Número de Pessoas"
-                                                                    onChange={this.handleChange_janssen_text_input} /></TableCell>
-
-                                                            </TableRow>
-                                                        </TableBody>
-                                                    </Table>
-                                                </TableContainer>
-                                             </CardContent>
-                                        </Card>
-                                        <Card>
-                                            <CardHeader
-                                                avatar={
-                                                    <Avatar aria-label="recipe" >
-                                                        2
-                                                </Avatar>
-                                                }
-                                                action={
-                                                    <IconButton aria-label="settings">
-
-                                                    </IconButton>
-                                                }
-                                                title="Segunda Dose"
-                                                subheader="Quantidade de Vacinados"
-                                            />
-                                            <CardContent>
-                                                <TableContainer component={Paper}>
-                                                    <Table size="small" aria-label="a dense table">
-                                                        <TableBody>
-                                                            <TableRow>
-                                                                <TableCell>AstraZeneca</TableCell>
-                                                                <TableCell align="left"><TextField value={this.state.number_of_people_with_astrazenica_2}
-                                                                    type="number"
-                                                                    InputLabelProps={{
-                                                                        shrink: true,
-                                                                    }}
-                                                                    label="Número de Pessoas"
-                                                                    onChange={this.handleChange_astrazenica_text_input_2} /></TableCell>
-
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell>Pfizer</TableCell>
-                                                                <TableCell align="left"><TextField value={this.state.number_of_people_with_pfizer_2}
-                                                                    type="number"
-                                                                    InputLabelProps={{
-                                                                        shrink: true,
-                                                                    }}
-                                                                    label="Número de Pessoas"
-                                                                    onChange={this.handleChange_pfizer_text_input_2} /></TableCell>
-
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell>Coronavac</TableCell>
-                                                                <TableCell align="left"><TextField value={this.state.number_of_people_with_coronavac_2}
-                                                                    type="number"
-                                                                    InputLabelProps={{
-                                                                        shrink: true,
-                                                                    }}
-                                                                    label="Número de Pessoas"
-                                                                    onChange={this.handleChange_coronavac_text_input_2} /></TableCell>
-
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell>Janssen</TableCell>
-                                                                <TableCell align="left"><TextField value={this.state.number_of_people_with_janssen_2}
-                                                                    type="number"
-                                                                    InputLabelProps={{
-                                                                        shrink: true,
-                                                                    }}
-                                                                    label="Número de Pessoas"
-                                                                    onChange={this.handleChange_janssen_text_input_2} /></TableCell>
-
-                                                            </TableRow>
-                                                        </TableBody>
-                                                    </Table>
-                                                </TableContainer>
-                                            </CardContent>
-                                        </Card>
-                                        <Card>
-                                            <CardHeader
-                                                avatar={
-                                                    <Avatar aria-label="recipe" >
-                                                        3
-                                                </Avatar>
-                                                }
-                                                action={
-                                                    <IconButton aria-label="settings">
-
-                                                    </IconButton>
-                                                }
-                                                title="Eficácia de Cada Vacina"
-                                                subheader="Primeira Dose"
-                                            />
-                                            <CardContent>
-                                                <TableContainer component={Paper}>
-                                                    <Table size="small" aria-label="a dense table">
-                                                        <TableBody>
-                                                            <TableRow>
-                                                                <TableCell>AstraZeneca</TableCell>
-                                                                <TableCell align="left">
-                                                                    <Chip label={Number(this.state.eficacia_astrazenica_1)} variant="outlined" />
-                                                                </TableCell>
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell>Pfizer</TableCell>
-                                                                <TableCell align="left">
-                                                                    <Chip label={Number(this.state.eficacia_pfizer_1)} variant="outlined" />
-                                                                </TableCell>
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell>Coronavac</TableCell>
-                                                                <TableCell align="left"> <Chip label={Number(this.state.eficacia_coronavac_1)} variant="outlined" />
-                                                                </TableCell>
-
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell>Janssen (Dose Única)</TableCell>
-                                                                <TableCell align="left"> <Chip label={Number(this.state.eficacia_janssen_1)} variant="outlined" />
-                                                                </TableCell>
-
-                                                            </TableRow>
-                                                        </TableBody>
-                                                    </Table>
-                                                </TableContainer>
-                                            </CardContent>
-                                        </Card>
-                                        <Card>
-                                            <CardHeader
-                                                avatar={
-                                                    <Avatar aria-label="recipe" >
-                                                        4
-                                                </Avatar>
-                                                }
-                                                action={
-                                                    <IconButton aria-label="settings">
-
-                                                    </IconButton>
-                                                }
-                                                title="Eficácia de Cada Vacina"
-                                                subheader="Segunda Dose"
-                                            />
-                                            <CardContent>
-                                                <TableContainer component={Paper}>
-                                                    <Table size="small" aria-label="a dense table">
-                                                        <TableBody>
-                                                            <TableRow>
-                                                                <TableCell>AstraZeneca</TableCell>
-                                                                <TableCell align="left">
-                                                                    <Chip label={Number(this.state.eficacia_astrazenica_2)} variant="outlined" />
-                                                                </TableCell>
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell>Pfizer</TableCell>
-                                                                <TableCell align="left">
-                                                                    <Chip label={Number(this.state.eficacia_pfizer_2)} variant="outlined" />
-                                                                </TableCell>
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell>Coronavac</TableCell>
-                                                                <TableCell align="left"> <Chip label={Number(this.state.eficacia_coronavac_2)} variant="outlined" />
-                                                                </TableCell>
-
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell>Janssen (Dose Única)</TableCell>
-                                                                <TableCell align="left"> <Chip label={Number(this.state.eficacia_janssen_2)} variant="outlined" />
-                                                                </TableCell>
-
-                                                            </TableRow>
-                                                        </TableBody>
-                                                    </Table>
-                                                </TableContainer>
-                                            </CardContent>
-                                        </Card>
+                                       
+                                       
+                                       
+                                      
                                         <Card>
                                             
-                                            <Button
-                                                variant="contained"
-                                                color="primary"
-                                                onClick={() => { this.change_state_option(); }}>
-                                                Opções Avançadas
-                                             </Button>
+                                           
                                             
                                         </Card>
 
@@ -1371,264 +1875,8 @@ class FormSIRV extends React.Component {
                                     </TableCell>
                                     <TableCell width="25%">
                                        
-                                        <Card>
-                                            <CardHeader
-                                                avatar={
-                                                    <Avatar aria-label="recipe" >
-                                                        5
-                                                </Avatar>
-                                                }
-                                                action={
-                                                    <IconButton aria-label="settings">
-
-                                                    </IconButton>
-                                                }
-                                                title="Velocidade da Vacinação"
-                                                subheader="Número de Pessoas por dia"
-                                            />
-                                            <CardContent>
-                                                <TableContainer component={Paper}>
-                                                    <Table size="small" aria-label="a dense table">
-                                                        <TableBody>
-                                                            <TableRow>
-                                                                <TableCell>  Velocidade de  Vacinação (primeira dose)(K pessoas por dia):</TableCell>
-                                                                <TableCell align="left">
-                                                                    <TextField value={this.state.speed_first_dose}
-                                                                        onChange={this.handleChange_first_dose_speed_text_input} /></TableCell>
-
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell colSpan={2}><Slider
-                                                                    key={this.state.random} 
-                                                                    value={this.state.speed_first_dose}
-                                                                    orientation="horizontal"
-                                                                    defaultValue={9000}
-                                                                    step={1}
-                                                                    min={0}
-                                                                    max={300000}
-                                                                    valueLabelDisplay="auto"
-                                                                    aria-labelledby="vertical-slider"
-                                                                    marks={marks_velocidade}
-                                                                    onChange={this.handleChange_speed_first_dose}
-                                                                /></TableCell>
-
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell>  Velocidade de  Vacinação (segunda dose)(K pessoas por dia):</TableCell>
-                                                                <TableCell align="left">
-                                                                    <TextField value={this.state.speed_second_dose}
-                                                                        onChange={this.handleChange_second_dose_speed_text_input} /></TableCell>
-
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell colSpan={2}><Slider
-                                                                    value={this.state.speed_second_dose}
-                                                                    key={this.state.random} 
-                                                                    orientation="horizontal"
-                                                                    defaultValue={9000}
-                                                                    step={1}
-                                                                    min={0}
-                                                                    max={300000}
-                                                                    valueLabelDisplay="auto"
-                                                                    aria-labelledby="vertical-slider"
-                                                                    marks={marks_velocidade}
-                                                                    onChange={this.handleChange_speed_second_dose}
-                                                                /></TableCell>
-
-                                                            </TableRow>
-                                                          
-                                                             
-                                                        </TableBody>
-                                                    </Table>
-                                                </TableContainer>
-                                            </CardContent>
-                                        </Card>
-                                        <Card>
-                                            <CardHeader
-                                                avatar={
-                                                    <Avatar aria-label="recipe" >
-                                                        6
-                                                </Avatar>
-                                                }
-                                                action={
-                                                    <IconButton aria-label="settings">
-
-                                                    </IconButton>
-                                                }
-                                                title="Eficácia Ponderada das Vacinas"
-                                                subheader="Calculando Primeira e Segunda dose"
-                                            />
-                                            <CardContent>
-                                                <TableContainer component={Paper}>
-                                                    <Table size="small" aria-label="a dense table">
-                                                        <TableBody>
-
-                                                            <TableRow>
-                                                                <TableCell>   Eficácia ponderada da vacina :
-                                                                </TableCell>
-                                                                <TableCell align="left">
-                                                                    <TextField value={this.state.vaccine_efficacy}
-                                                                    /></TableCell>
-
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell colSpan={2}> <Slider
-                                                                    value={this.state.vaccine_efficacy}
-                                                                    orientation="horizontal"
-                                                                    defaultValue={0.5}
-                                                                    step={0.05}
-                                                                    min={0}
-                                                                    max={1}
-                                                                    valueLabelDisplay="auto"
-                                                                    marks={marks}
-                                                                    onChange={this.handleChange_velocidade}
-                                                                /></TableCell>
-                                                            </TableRow>
-
-                                                        </TableBody>
-                                                    </Table>
-                                                </TableContainer>
-                                            </CardContent>
-                                        </Card>
-                                        <Card>
-                                            <CardHeader
-                                                avatar={
-                                                    <Avatar aria-label="recipe" >
-                                                        7
-                                                </Avatar>
-                                                }
-                                                action={
-                                                    <IconButton aria-label="settings">
-
-                                                    </IconButton>
-                                                }
-                                                title="Novos infectados no sistema"
-                                                subheader="Novo grupo de infectados adicionados ao sistema"
-                                            />
-                                            <CardContent>
-                                                <TableContainer component={Paper}>
-                                                    <Table size="small" aria-label="a dense table">
-                                                        <TableBody>
-                                                            <TableRow>
-                                                                <TableCell>   Quantidade de novos infectados no modelo:</TableCell>
-                                                                <TableCell align="left">
-                                                                    <TextField value={this.state.quantidade_infectados}
-                                                                        onChange={this.handleChange_quantidade_infectados_text_input} /></TableCell>
-
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell colSpan={2}>    <Slider
-                                                                    value={this.state.quantidade_infectados}
-                                                                    orientation="horizontal"
-                                                                    defaultValue={0}
-                                                                    step={1}
-                                                                    min={0}
-                                                                    max={60000}
-                                                                    valueLabelDisplay="auto"
-                                                                    aria-labelledby="vertical-slider"
-                                                                    marks={marks_infectados}
-                                                                    onChange={this.handleChange_quantidade_infectados}
-                                                                /></TableCell>
-
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell>   Quantidade de dias entre novas infecções:</TableCell>
-                                                                <TableCell align="left">
-                                                                    <TextField value={this.state.dias_nova_infeccao}
-                                                                        onChange={this.handleChange_dias_text_input} /></TableCell>
-
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell colSpan={2}>      <Slider
-                                                                    value={this.state.dias_nova_infeccao}
-                                                                    orientation="horizontal"
-                                                                    defaultValue={0}
-                                                                    step={1}
-                                                                    min={0}
-                                                                    max={90}
-                                                                    aria-labelledby="vertical-slider"
-                                                                    marks={marks_dias}
-                                                                    valueLabelDisplay="auto"
-                                                                    onChange={this.handleChange_dias_nova_infeccao}
-                                                                /></TableCell>
-
-                                                            </TableRow>
-                                                        
-
-                                                        </TableBody>
-                                                    </Table>
-                                                </TableContainer>
-                                            </CardContent>
-                                        </Card>
-                                        <Card>
-                                            <CardHeader
-                                                avatar={
-                                                    <Avatar aria-label="recipe" >
-                                                        8
-                                                </Avatar>
-                                                }
-                                                action={
-                                                    <IconButton aria-label="settings">
-
-                                                    </IconButton>
-                                                }
-                                                title="Filtro de Datas para tabela"
-                                                subheader="Data de Início e fim do filtro"
-                                            />
-                                            <CardContent>
-                                                <TableContainer component={Paper}>
-                                                    <Table size="small" aria-label="a dense table">
-                                                        <TableBody>
-                                                            <TableRow>
-                                                                <TableCell>   Data de Início:</TableCell>
-                                                                <TableCell align="left">
-                                                                    <TextField
-                                                                        id="data"
-                                                                        label="Data de Início"
-                                                                        type="date"
-                                                                        defaultValue={this.formatedDate_start_date}
-                                                                        onChange={this.handleChange_start_date_text_input}
-                                                                        InputLabelProps={{
-                                                                            shrink: true,
-                                                                        }}
-                                                                    />
-                                                                 </TableCell>
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell>   Data de Fim:</TableCell>
-                                                                <TableCell align="left">
-                                                                    <TextField
-                                                                        id="data"
-                                                                        label="Data de Fim"
-                                                                        type="date"
-                                                                        defaultValue={this.formatedDate_end_date}
-                                                                        onChange={this.handleChange_end_date_text_input}
-                                                                        InputLabelProps={{
-                                                                            shrink: true,
-                                                                        }}
-                                                                    />
-                                                                </TableCell>
-                                                            </TableRow>
-
-
-                                                        </TableBody>
-                                                    </Table>
-                                                </TableContainer>
-                                            </CardContent>
-                                        </Card>
                                     </TableCell>
-                                    <TableCell width="50%">
-                                        <Card>
-                                            <CardContent>
-                                                <iframe frameBorder="0" key={this.state.random_2} src={process.env.REACT_APP_BASE_URL_ + "/filter_date/" + this.state.vaccine_efficacy + "/" + (this.state.velocidade_vacinacao / 9000000) + "/" + (this.state.quantidade_infectados / 9000000) + "/" + this.state.dias_nova_infeccao + "/0/" + this.state.death_factor + "/" + this.state.hospitalization_factor + "/" + this.state.start_date + "/" + this.state.end_date+"/"} width="90%"
-                                                    height="500px" scrolling="yes" ></iframe>
-                                            </CardContent>
-                                            <CardContent>
-                                                <iframe frameBorder="0" key={this.state.random} src={process.env.REACT_APP_BASE_URL_ + "/" + this.state.vaccine_efficacy + "/" + (this.state.velocidade_vacinacao / 9000000) + "/" + (this.state.quantidade_infectados / 9000000) + "/" + this.state.dias_nova_infeccao + "/0/" + this.state.death_factor + "/" + this.state.hospitalization_factor + "/"} width="90%"
-                                                    height="3000px" scrolling="no" ></iframe>
-                                            </CardContent>
-                                        </Card>
-                                    </TableCell>
+                                 
                                 </TableRow>
                            
                                 
