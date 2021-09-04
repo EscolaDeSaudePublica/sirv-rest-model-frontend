@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
+    "\\public",
     "\\src"
   ],
-  "SelectedNode": "\\docker-compose.yml",
+  "SelectedNode": "\\public\\index.html",
   "PreviewInSolutionExplorer": false
 }
