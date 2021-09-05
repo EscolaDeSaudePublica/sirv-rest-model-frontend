@@ -35,7 +35,9 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
+import TouchApp from '@material-ui/icons/TouchApp';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+
 
 
 console.log(process.env.REACT_APP_BASE_URL_);
@@ -225,6 +227,7 @@ class FormSIRV extends React.Component {
 
 
     componentDidMount() {
+        
         this.calc_vaccine_efficacy_with_vacine_data();
         this.calc_vaccine_efficacy();
     
@@ -234,9 +237,15 @@ class FormSIRV extends React.Component {
 
     constructor(props) {
         super(props);
+        console.log('constructor');
+        this.requestVacinados();
+        this.requestCasos();
+        
         this.stepInput = React.createRef();
         this.calc_vaccine_efficacy_with_vacine_data();
         this.calc_vaccine_efficacy();
+        this.resetIframe();
+        this.resetIframe_2();
 
         
 
@@ -280,7 +289,12 @@ class FormSIRV extends React.Component {
         start_date: this.formatedDate_start_date,
         end_date: this.formatedDate_end_date,
         total_doses_aplicadas_1: 80000000,
+        total_doses_aplicadas_2: 80000000,
         tab_position: 0,
+        json_casos: [],
+        hospitalizacoes: 0,
+        infectados: 0,
+        obitos:0,
        
 
         
@@ -297,17 +311,63 @@ class FormSIRV extends React.Component {
 
 
 
-  
- 
+   requestCasos = async () => {
+
+            console.log('Request Casos');
+       const response = await fetch(process.env.REACT_APP_BASE_URL_ +  "/filter_date/" + this.state.vaccine_efficacy + "/" + (this.state.velocidade_vacinacao / 9000000) + "/" + (this.state.quantidade_infectados / 9000000) + "/" + this.state.dias_nova_infeccao + "/0/" + this.state.death_factor + "/" + this.state.hospitalization_factor + "/" + this.state.start_date + "/" + this.state.end_date + "/");
+            const json = await response.json();
+            const lastRow = json[json.length - 1];
+            this.setState({ hospitalizacoes: lastRow.Hospitalizações });
+            this.setState({ infectados: lastRow.Infectados })
+            this.setState({ obitos: lastRow.Óbitos })
+            console.log(lastRow);
+        
+    }
+
+
+
+    requestVacinados = async () => {
+
+        console.log('Request Casos');
+        const response = await fetch(process.env.REACT_APP_BASE_URL_ +  "/total_vacinados/");
+        const json = await response.json();
+        const primeira_dose = json[0].qtd_primeira_DOSE;
+        const segunda_dose = json[0].qtd_segunda_DOSE;
+        console.log('Vacinados');
+        console.log(json);
+        console.log('primeira dose');
+        console.log(primeira_dose);
+        const total_primeira_dose = primeira_dose[0] + primeira_dose[1] + primeira_dose[2] + primeira_dose[3] + primeira_dose[4];
+        const total_segunda_dose = segunda_dose[0] + segunda_dose[1] + segunda_dose[2] + segunda_dose[3] + segunda_dose[4];
+        console.log(total_primeira_dose);
+        console.log(total_segunda_dose);
+        this.setState({ total_doses_aplicadas_1: total_primeira_dose });
+        this.setState({ total_doses_aplicadas_2: total_segunda_dose });
+
+
+        var msDiff = new Date().getTime() - new Date("January 18, 2021").getTime() ;    //Future date - current date
+        var daysTill30June2035 = Math.floor(msDiff / (1000 * 60 * 60 * 24));
+        console.log('days until vaccine begins');
+        console.log(daysTill30June2035);
+
+        this.setState({ speed_first_dose: total_primeira_dose/ daysTill30June2035 });
+        this.setState({ speed_second_dose: total_segunda_dose / daysTill30June2035 });
+
+
+    }
+
 
    
 
 
     resetIframe() {
+        this.requestCasos();
         this.setState({ random: this.state.random + 1 });
+
     }
 
     resetIframe_2() {
+        this.requestCasos();
         this.setState({ random_2: this.state.random_2 + 1 });
     }
 
@@ -394,7 +454,9 @@ class FormSIRV extends React.Component {
         this.setState({ start_date: event.target.value }, function (this: FormSIRV) {
             console.log(this.state.start_date);
             console.log(this.state.end_date);
-            this.resetIframe_2();
+
+
+            this.resetIframe();
             
 
         })
@@ -410,7 +472,8 @@ class FormSIRV extends React.Component {
         this.setState({ end_date: event.target.value }, function (this: FormSIRV) {
             console.log(this.state.start_date);
             console.log(this.state.end_date);
-            this.resetIframe_2();
+           
+            this.resetIframe();
             
 
         })
@@ -807,9 +870,9 @@ class FormSIRV extends React.Component {
 
                     <Grid container spacing={2} >
 
-                        <Grid item xs={4} >
+                        <Grid item xs={3}>
 
-                            <Card>
+                            <Card style={{ minHeight: '100%' }}>
                                
                                 <CardContent >
 
@@ -832,18 +895,18 @@ class FormSIRV extends React.Component {
                                         Velocidade:
                                                                 </Typography>
                                     <Typography gutterBottom style={{ fontSize: 'min(3vw, 40px)', color: 'rgba(0, 0, 0, 0.87)' }} >
-                                                {this.state.speed_first_dose}
+                                        {this.state.speed_first_dose.toFixed(0)}
                                             </Typography>
                                         </CardContent>
 
 
                                        </Card>
                             </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={3}>
                            
                         
 
-                                            <Card>
+                            <Card style={{ minHeight: '100%' }}>
                                                
                                             <CardContent>
 
@@ -855,13 +918,13 @@ class FormSIRV extends React.Component {
                                                                 Doses Aplicadas:
                                                                             </Typography>
                                     <Typography gutterBottom style={{ fontSize: 'min(3vw, 40px)', color: 'rgba(0, 0, 0, 0.87)' }}>
-                                                                {this.state.total_doses_aplicadas_1}
+                                                                {this.state.total_doses_aplicadas_2}
                                                             </Typography>
                                     <Typography gutterBottom style={{ fontSize: 'min(2vw, 20px)', color: 'rgba(0, 0, 0, 0.54)' }} >
                                                                 Velocidade:
                                                                                 </Typography>
                                     <Typography gutterBottom style={{ fontSize: 'min(3vw, 40px)', color: 'rgba(0, 0, 0, 0.87)' }} >
-                                                                {this.state.speed_second_dose}
+                                        {this.state.speed_second_dose.toFixed(0)}
                                                             </Typography>
                                                 </CardContent>
 
@@ -871,9 +934,9 @@ class FormSIRV extends React.Component {
 
                              </Grid>
 
-                        <Grid item xs={4} >
+                        <Grid item xs={3} >
 
-                            <Card>
+                            <Card style={{ minHeight: '100%' }}>
 
                             <CardContent>
 
@@ -893,6 +956,47 @@ class FormSIRV extends React.Component {
                                     <Typography gutterBottom style={{ fontSize: 'min(3vw, 40px)', color: 'rgba(0, 0, 0, 0.87)' }}>
                                         {this.state.second_dose_efficacy.toFixed(2)}
                                     </Typography>
+                                </CardContent>
+
+
+
+
+                            </Card>
+                        </Grid>
+
+                        <Grid item xs={3} key={this.state.random} >
+
+                            <Card key={this.state.random}>
+
+                                <CardContent>
+                                    <Typography gutterBottom style={{ fontSize: 'min(2vw, 20px)', color: 'rgba(0, 0, 0, 0.54)' }}>
+                                        Dados simulados para as datas de  {this.state.start_date} a {this.state.end_date} 
+                                                    </Typography>
+                                  
+                                    <Typography gutterBottom style={{ fontSize: 'min(2vw, 20px)', color: 'rgba(0, 0, 0, 0.54)' }}>
+                                        Hospitalizações:
+                                                    </Typography>
+                                    <Typography gutterBottom style={{ fontSize: 'min(3vw, 40px)', color: 'rgba(0, 0, 0, 0.87)' }}>
+                                        {this.state.hospitalizacoes.toFixed(0)}
+                                    </Typography>
+
+                                    <Typography gutterBottom style={{ fontSize: 'min(2vw, 20px)', color: 'rgba(0, 0, 0, 0.54)' }}>
+                                        Novas Infecções:
+                                                    </Typography>
+                                    <Typography gutterBottom style={{ fontSize: 'min(3vw, 40px)', color: 'rgba(0, 0, 0, 0.87)' }}>
+                                        {this.state.infectados.toFixed(0)}
+                                    </Typography>
+
+
+
+                                    <Typography gutterBottom style={{ fontSize: 'min(2vw, 20px)', color: 'rgba(0, 0, 0, 0.54)' }}>
+                                        Óbitos:
+                                                    </Typography>
+                                    <Typography gutterBottom style={{ fontSize: 'min(3vw, 40px)', color: 'rgba(0, 0, 0, 0.87)' }}>
+                                        {this.state.obitos.toFixed(0)}
+                                    </Typography>
+
+                                 
                                 </CardContent>
 
 
@@ -1796,8 +1900,15 @@ class FormSIRV extends React.Component {
                             : null}
                     </Grid>
                     <Grid item xs={12} justify="center" >
-                        <iframe frameBorder="0" key={this.state.random} src={process.env.REACT_APP_BASE_URL_ + "/" + this.state.vaccine_efficacy + "/" + (this.state.velocidade_vacinacao / 9000000) + "/" + (this.state.quantidade_infectados / 9000000) + "/" + this.state.dias_nova_infeccao + "/0/" + this.state.death_factor + "/" + this.state.hospitalization_factor + "/"} width="90%"
-                        height="3000px" scrolling="no" ></iframe>
+                        
+                        <Typography gutterBottom style={{ fontSize: 'min(2vw, 20px)', color: "#000000" }} >
+                            <TouchApp />  Deslize o gráfico caso use um celular
+                         </Typography>
+                    </Grid>
+
+                    <Grid item xs={12} justify="center" >
+                        <iframe frameBorder="0" key={this.state.random} src={process.env.REACT_APP_BASE_URL_ + "/" + this.state.vaccine_efficacy + "/" + (this.state.velocidade_vacinacao / 9000000) + "/" + (this.state.quantidade_infectados / 9000000) + "/" + this.state.dias_nova_infeccao + "/0/" + this.state.death_factor + "/" + this.state.hospitalization_factor + "/"} width="90%;"
+                        height="3000px" scrolling="yes" ></iframe>
                      </Grid>
                    
 
