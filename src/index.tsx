@@ -337,10 +337,26 @@ class FormSIRV extends React.Component {
         console.log(json);
         console.log('primeira dose');
         console.log(primeira_dose);
-        const total_primeira_dose = primeira_dose[0] + primeira_dose[1] + primeira_dose[2] + primeira_dose[3] + primeira_dose[4];
-        const total_segunda_dose = segunda_dose[0] + segunda_dose[1] + segunda_dose[2] + segunda_dose[3] + segunda_dose[4];
+        const total_primeira_dose = primeira_dose[0] + primeira_dose[1] + primeira_dose[2] + primeira_dose[3] + primeira_dose[4] ;
+        const total_segunda_dose = segunda_dose[0] + segunda_dose[1] + segunda_dose[2] + segunda_dose[3] + segunda_dose[4] ;
         console.log(total_primeira_dose);
         console.log(total_segunda_dose);
+
+        this.setState({ number_of_people_with_astrazenica_1: primeira_dose[0] + primeira_dose[1] });
+        this.setState({ number_of_people_with_astrazenica_2: segunda_dose[0] + segunda_dose[1] });
+
+        this.setState({ number_of_people_with_coronavac_1: primeira_dose[2]  });
+        this.setState({ number_of_people_with_coronavac_2: segunda_dose[2] });
+
+
+        this.setState({ number_of_people_with_pfizer_1: primeira_dose[3] });
+        this.setState({ number_of_people_with_pfizer_2: segunda_dose[3] });
+
+
+        this.setState({ number_of_people_with_jansen_1: primeira_dose[4] });
+        this.setState({ number_of_people_with_jansen_2: segunda_dose[4] });
+
+
         this.setState({ total_doses_aplicadas_1: total_primeira_dose });
         this.setState({ total_doses_aplicadas_2: total_segunda_dose });
 
@@ -1908,7 +1924,7 @@ class FormSIRV extends React.Component {
 
                     <Grid item xs={12} justify="center" >
                         <iframe frameBorder="0" key={this.state.random} src={process.env.REACT_APP_BASE_URL_ + "/" + this.state.vaccine_efficacy + "/" + (this.state.velocidade_vacinacao / 9000000) + "/" + (this.state.quantidade_infectados / 9000000) + "/" + this.state.dias_nova_infeccao + "/0/" + this.state.death_factor + "/" + this.state.hospitalization_factor + "/"} width="90%;"
-                        height="3000px" scrolling="yes" ></iframe>
+                            height="3000px" scrolling="yes" style={{backgroundColor: 'Snow'}} ></iframe>
                      </Grid>
                    
 
@@ -1923,6 +1939,7 @@ class FormSIRV extends React.Component {
 
 
            
+
 
 
                  
