@@ -353,8 +353,8 @@ class FormSIRV extends React.Component {
         this.setState({ number_of_people_with_pfizer_2: segunda_dose[3] });
 
 
-        this.setState({ number_of_people_with_jansen_1: primeira_dose[4] });
-        this.setState({ number_of_people_with_jansen_2: segunda_dose[4] });
+        this.setState({ number_of_people_with_janssen_1: primeira_dose[4] });
+        this.setState({ number_of_people_with_janssen_2: segunda_dose[4] });
 
 
         this.setState({ total_doses_aplicadas_1: total_primeira_dose });
