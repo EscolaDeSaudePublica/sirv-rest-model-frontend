@@ -37,6 +37,10 @@ import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import TouchApp from '@material-ui/icons/TouchApp';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import * as d3 from "d3";
+import Chart from "react-google-charts";
+
+
 
 
 
@@ -238,15 +242,23 @@ class FormSIRV extends React.Component {
     constructor(props) {
         super(props);
         console.log('constructor');
-        this.requestVacinados();
-        this.requestCasos();
-        
         this.stepInput = React.createRef();
-        this.calc_vaccine_efficacy_with_vacine_data();
-        this.calc_vaccine_efficacy();
-        this.resetIframe();
-        this.resetIframe_2();
+        this.requestVacinados().then((response) => {
+            this.requestCasos().then((response) => {
 
+                
+                this.calc_vaccine_efficacy_with_vacine_data();
+                this.calc_vaccine_efficacy();
+                this.requestGraphData();
+                this.resetIframe();
+                this.resetIframe_2();
+
+
+            })
+        });
+        
+        
+        
         
 
     }
@@ -292,6 +304,8 @@ class FormSIRV extends React.Component {
         total_doses_aplicadas_2: 80000000,
         tab_position: 0,
         json_casos: [],
+        projection_data: [] as any,
+        projection_infectados: [],
         hospitalizacoes: 0,
         infectados: 0,
         obitos:0,
@@ -324,6 +338,36 @@ class FormSIRV extends React.Component {
         
     }
 
+
+
+    requestGraphData = async () => {
+
+        console.log('Request Graph Data');
+        const response = await fetch(process.env.REACT_APP_BASE_URL_ +"/json_model_data/" + this.state.vaccine_efficacy + "/" + (this.state.velocidade_vacinacao / 9000000) + "/" + (this.state.quantidade_infectados / 9000000) + "/" + this.state.dias_nova_infeccao + "/0/" + this.state.death_factor + "/" + this.state.hospitalization_factor + "/");
+        const json = await response.json();
+        console.log('json of data');
+        console.log(json);
+
+        console.log('Request Graph Data');
+        const response_casos = await fetch(process.env.REACT_APP_BASE_URL_ +"/casos/");  
+        const json_casos = await response_casos.json();
+        console.log('json of data');
+        console.log(json_casos);
+        
+
+        const arr_data = [] as any;
+        arr_data.push(['Data', 'Simulação', 'Real']);
+        Object.keys(json.data).forEach(key => arr_data.push([json_casos.data[key].data, 0,parseInt(json_casos.data[key].quantidade)]));
+        Object.keys(json.data).forEach(key => arr_data.push([json.data[key].data, parseInt(json.data[key].infectados),0]));
+        console.log(arr_data);
+
+
+        this.setState({ projection_data: arr_data});
+
+
+
+
+    }
 
 
     requestVacinados = async () => {
@@ -378,12 +422,14 @@ class FormSIRV extends React.Component {
 
     resetIframe() {
         this.requestCasos();
+        this.requestGraphData();
         this.setState({ random: this.state.random + 1 });
 
     }
 
     resetIframe_2() {
         this.requestCasos();
+        this.requestGraphData();
         this.setState({ random_2: this.state.random_2 + 1 });
     }
 
@@ -911,7 +957,7 @@ class FormSIRV extends React.Component {
                                         Velocidade:
                                                                 </Typography>
                                     <Typography gutterBottom style={{ fontSize: 'min(3vw, 40px)', color: 'rgba(0, 0, 0, 0.87)' }} >
-                                        {this.state.speed_first_dose.toFixed(0)}
+                                        {parseInt(this.state.speed_first_dose.toString()).toFixed(0)}
                                             </Typography>
                                         </CardContent>
 
@@ -940,7 +986,7 @@ class FormSIRV extends React.Component {
                                                                 Velocidade:
                                                                                 </Typography>
                                     <Typography gutterBottom style={{ fontSize: 'min(3vw, 40px)', color: 'rgba(0, 0, 0, 0.87)' }} >
-                                        {this.state.speed_second_dose.toFixed(0)}
+                                        {parseInt(this.state.speed_second_dose.toString()).toFixed(0)}
                                                             </Typography>
                                                 </CardContent>
 
@@ -1923,8 +1969,26 @@ class FormSIRV extends React.Component {
                     </Grid>
 
                     <Grid item xs={12} justify="center" >
-                        <iframe frameBorder="0" key={this.state.random} src={process.env.REACT_APP_BASE_URL_ + "/" + this.state.vaccine_efficacy + "/" + (this.state.velocidade_vacinacao / 9000000) + "/" + (this.state.quantidade_infectados / 9000000) + "/" + this.state.dias_nova_infeccao + "/0/" + this.state.death_factor + "/" + this.state.hospitalization_factor + "/"} width="90%;"
-                            height="3000px" scrolling="yes" style={{backgroundColor: 'Snow'}} ></iframe>
+                        <Chart key={this.state.random} 
+                            width={window.innerWidth}
+                            height={500}
+                            chartType="LineChart"
+                            loader={<div>Loading Chart</div>}
+                            data={this.state.projection_data}
+                            options={{
+                                title: 'Número de infectados por Data',
+                                chartArea: { width: '70%' },
+                                hAxis: {
+                                    title: 'Data',
+                                    minValue: 0,
+                                },
+                                vAxis: {
+                                    title: 'Número de novos infectados',
+                                },
+                            }}
+                            legendToggle
+                        />
+                       
                      </Grid>
                    
 
