@@ -361,12 +361,19 @@ class FormSIRV extends React.Component {
     }
 
 
+    sleep = (milliseconds) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+    }
+
+
 
     requestGraphData = async () => {
 
         console.log('Request Graph Data');
         console.log('Request velocidade vacinacao '+this.state.velocidade_vacinacao);
-        const response = await fetch(process.env.REACT_APP_BASE_URL_ + "/json_model_data_municipio/" + this.state.vaccine_efficacy + "/" + this.state.velocidade_vacinacao + "/" + this.state.quantidade_infectados + "/" + this.state.dias_nova_infeccao + "/0/" + this.state.death_factor + "/" + this.state.hospitalization_factor + "/" + this.state.municipio_escolhido);
+        const response = await fetch(process.env.REACT_APP_BASE_URL_ + "/model_municipio/" + this.state.vaccine_efficacy + "/" + this.state.velocidade_vacinacao + "/" + this.state.quantidade_infectados + "/" + this.state.dias_nova_infeccao + "/" + this.state.death_factor + "/" + this.state.hospitalization_factor + "/" + this.state.municipio_escolhido+"/0");
+        await this.sleep(5000);
+        console.log(response);
         const json = await response.json();
         console.log('json of data');
         console.log(json);
@@ -376,7 +383,7 @@ class FormSIRV extends React.Component {
         const json_casos = await response_casos.json();
         console.log('json of data');
         console.log(json_casos);
-        
+       
 
         const arr_data = [] as any;
         arr_data.push(['Data', 'Simulação', 'Real']);
