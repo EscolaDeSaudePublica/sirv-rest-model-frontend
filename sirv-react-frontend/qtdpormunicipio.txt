@@ -1,0 +1,1 @@
+https://integrasus.saude.ce.gov.br/api/coronavirus/qtd-por-municipio?dataInicio=2020-01-01&dataFim=2021-09-09&minDate=2020-01-01&maxDate=2021-09-09&tipo=Confirmados&idMunicipio=&idRegiaoSaude=&idMacrorregiao=&casosHospitalizados=false&casosProfissionais=false&casosIndigenas=false&casosEstudante=false

@@ -243,6 +243,7 @@ class FormSIRV extends React.Component {
         super(props);
         console.log('constructor');
         this.stepInput = React.createRef();
+        this.requestPopulacao();
         this.requestVacinados().then((response) => {
             this.requestCasos().then((response) => {
 
@@ -306,9 +307,12 @@ class FormSIRV extends React.Component {
         json_casos: [],
         projection_data: [] as any,
         projection_infectados: [],
+        populacao_cidade: [] as any,
+        cidades_nomes: [] as any,
         hospitalizacoes: 0,
         infectados: 0,
-        obitos:0,
+        obitos: 0,
+        municipio_escolhido:'Todos',
        
 
         
@@ -326,9 +330,9 @@ class FormSIRV extends React.Component {
 
 
    requestCasos = async () => {
-
+       /*process.env.REACT_APP_BASE_URL_*/
             console.log('Request Casos');
-       const response = await fetch(process.env.REACT_APP_BASE_URL_ +  "/filter_date/" + this.state.vaccine_efficacy + "/" + (this.state.velocidade_vacinacao / 9000000) + "/" + (this.state.quantidade_infectados / 9000000) + "/" + this.state.dias_nova_infeccao + "/0/" + this.state.death_factor + "/" + this.state.hospitalization_factor + "/" + this.state.start_date + "/" + this.state.end_date + "/");
+       const response = await fetch(process.env.REACT_APP_BASE_URL_+  "/filter_date/" + this.state.vaccine_efficacy + "/" + (this.state.velocidade_vacinacao / 9000000) + "/" + (this.state.quantidade_infectados / 9000000) + "/" + this.state.dias_nova_infeccao + "/0/" + this.state.death_factor + "/" + this.state.hospitalization_factor + "/" + this.state.start_date + "/" + this.state.end_date + "/");
             const json = await response.json();
             const lastRow = json[json.length - 1];
             this.setState({ hospitalizacoes: lastRow.Hospitalizações });
@@ -339,17 +343,36 @@ class FormSIRV extends React.Component {
     }
 
 
+    requestPopulacao = async () => {
+
+        console.log('Request Populacao');
+        const response = await fetch(process.env.REACT_APP_BASE_URL_ + "/populacao_cidades/" );
+        const json = await response.json();
+        console.log(json);
+       
+        var arr_data = [] as any;
+        Object.keys(json.data).forEach(key => arr_data.push('<option key='+json.data[key].nome+'>'+json.data[key].nome+'</option>'));
+        console.log(arr_data);
+        await this.setState({ cidades_nomes: json.data });
+        console.log(this.state.cidades_nomes);
+        console.log('Log Populacao');
+
+        
+    }
+
+
 
     requestGraphData = async () => {
 
         console.log('Request Graph Data');
-        const response = await fetch(process.env.REACT_APP_BASE_URL_ +"/json_model_data/" + this.state.vaccine_efficacy + "/" + (this.state.velocidade_vacinacao / 9000000) + "/" + (this.state.quantidade_infectados / 9000000) + "/" + this.state.dias_nova_infeccao + "/0/" + this.state.death_factor + "/" + this.state.hospitalization_factor + "/");
+        console.log('Request velocidade vacinacao '+this.state.velocidade_vacinacao);
+        const response = await fetch(process.env.REACT_APP_BASE_URL_ + "/json_model_data_municipio/" + this.state.vaccine_efficacy + "/" + this.state.velocidade_vacinacao + "/" + this.state.quantidade_infectados + "/" + this.state.dias_nova_infeccao + "/0/" + this.state.death_factor + "/" + this.state.hospitalization_factor + "/" + this.state.municipio_escolhido);
         const json = await response.json();
         console.log('json of data');
         console.log(json);
 
-        console.log('Request Graph Data');
-        const response_casos = await fetch(process.env.REACT_APP_BASE_URL_ +"/casos/");  
+        console.log('Request Graph Data CASOS');
+        const response_casos = await fetch(process.env.REACT_APP_BASE_URL_ + "/casos/" + this.state.municipio_escolhido);  
         const json_casos = await response_casos.json();
         console.log('json of data');
         console.log(json_casos);
@@ -362,7 +385,7 @@ class FormSIRV extends React.Component {
         console.log(arr_data);
 
 
-        this.setState({ projection_data: arr_data});
+        await this.setState({ projection_data: arr_data});
 
 
 
@@ -372,47 +395,84 @@ class FormSIRV extends React.Component {
 
     requestVacinados = async () => {
 
+        try {
+
         console.log('Request Casos');
-        const response = await fetch(process.env.REACT_APP_BASE_URL_ +  "/total_vacinados/");
+            const response = await fetch(process.env.REACT_APP_BASE_URL_ + "/total_vacinados/" + this.state.municipio_escolhido);
         const json = await response.json();
-        const primeira_dose = json[0].qtd_primeira_DOSE;
-        const segunda_dose = json[0].qtd_segunda_DOSE;
+        const primeira_dose = json.data[0].qtd_primeira_DOSE;
+        const segunda_dose = json.data[0].qtd_segunda_DOSE;
         console.log('Vacinados');
         console.log(json);
         console.log('primeira dose');
         console.log(primeira_dose);
-        const total_primeira_dose = primeira_dose[0] + primeira_dose[1] + primeira_dose[2] + primeira_dose[3] + primeira_dose[4] ;
-        const total_segunda_dose = segunda_dose[0] + segunda_dose[1] + segunda_dose[2] + segunda_dose[3] + segunda_dose[4] ;
+        console.log(primeira_dose[0]);
+            const total_primeira_dose = primeira_dose[Object.keys(primeira_dose)[0]] + primeira_dose[Object.keys(primeira_dose)[1]] + primeira_dose[Object.keys(primeira_dose)[2]] + primeira_dose[Object.keys(primeira_dose)[3]] + primeira_dose[Object.keys(primeira_dose)[4]];
+            const total_segunda_dose = segunda_dose[Object.keys(segunda_dose)[0]] + segunda_dose[Object.keys(segunda_dose)[1]] + segunda_dose[Object.keys(segunda_dose)[2]] + segunda_dose[Object.keys(segunda_dose)[3]] + segunda_dose[Object.keys(segunda_dose)[4]];
         console.log(total_primeira_dose);
         console.log(total_segunda_dose);
 
-        this.setState({ number_of_people_with_astrazenica_1: primeira_dose[0] + primeira_dose[1] });
-        this.setState({ number_of_people_with_astrazenica_2: segunda_dose[0] + segunda_dose[1] });
+            await this.setState({ number_of_people_with_astrazenica_1: primeira_dose[Object.keys(primeira_dose)[0]] + primeira_dose[Object.keys(primeira_dose)[1]] });
+            await this.setState({ number_of_people_with_astrazenica_2: segunda_dose[Object.keys(segunda_dose)[0]] + segunda_dose[Object.keys(segunda_dose)[1]] });
 
-        this.setState({ number_of_people_with_coronavac_1: primeira_dose[2]  });
-        this.setState({ number_of_people_with_coronavac_2: segunda_dose[2] });
-
-
-        this.setState({ number_of_people_with_pfizer_1: primeira_dose[3] });
-        this.setState({ number_of_people_with_pfizer_2: segunda_dose[3] });
+            await this.setState({ number_of_people_with_coronavac_1: primeira_dose[Object.keys(primeira_dose)[2]] });
+            await this.setState({ number_of_people_with_coronavac_2: segunda_dose[Object.keys(segunda_dose)[2]]});
 
 
-        this.setState({ number_of_people_with_janssen_1: primeira_dose[4] });
-        this.setState({ number_of_people_with_janssen_2: segunda_dose[4] });
+            await this.setState({ number_of_people_with_pfizer_1: primeira_dose[Object.keys(primeira_dose)[3]] });
+            await this.setState({ number_of_people_with_pfizer_2: segunda_dose[Object.keys(segunda_dose)[3]] });
 
 
-        this.setState({ total_doses_aplicadas_1: total_primeira_dose });
-        this.setState({ total_doses_aplicadas_2: total_segunda_dose });
+            await this.setState({ number_of_people_with_janssen_1: primeira_dose[Object.keys(primeira_dose)[4]] });
+            await this.setState({ number_of_people_with_janssen_2: segunda_dose[Object.keys(segunda_dose)[4]] });
 
 
-        var msDiff = new Date().getTime() - new Date("January 18, 2021").getTime() ;    //Future date - current date
-        var daysTill30June2035 = Math.floor(msDiff / (1000 * 60 * 60 * 24));
+        await this.setState({ total_doses_aplicadas_1: total_primeira_dose });
+        await this.setState({ total_doses_aplicadas_2: total_segunda_dose });
+
+
+        var msDiff = new Date().getTime() - new Date("January 18, 2021").getTime();    //Future date - current date
+        var daysTill = Math.floor(msDiff / (1000 * 60 * 60 * 24));
         console.log('days until vaccine begins');
-        console.log(daysTill30June2035);
+        console.log(daysTill);
 
-        this.setState({ speed_first_dose: total_primeira_dose/ daysTill30June2035 });
-        this.setState({ speed_second_dose: total_segunda_dose / daysTill30June2035 });
+        await this.setState({ speed_first_dose: total_primeira_dose / daysTill });
+        await this.setState({ speed_second_dose: total_segunda_dose / daysTill });
 
+        await this.setState({
+                velocidade_vacinacao: (Number(this.state.speed_first_dose) +
+                    Number(this.state.speed_second_dose))});
+
+        console.log('velocidade vacinacao');
+
+        console.log(this.state.velocidade_vacinacao);
+        
+        }
+        catch (e) {
+            console.log('Error')
+
+            this.setState({ number_of_people_with_astrazenica_1: 0 });
+            this.setState({ number_of_people_with_astrazenica_2: 0 });
+
+            this.setState({ number_of_people_with_coronavac_1: 0 });
+            this.setState({ number_of_people_with_coronavac_2: 0 });
+
+
+            this.setState({ number_of_people_with_pfizer_1: 0 });
+            this.setState({ number_of_people_with_pfizer_2: 0 });
+
+
+            this.setState({ number_of_people_with_janssen_1: 0 });
+            this.setState({ number_of_people_with_janssen_2: 0});
+
+
+            this.setState({ total_doses_aplicadas_1: 0});
+            this.setState({ total_doses_aplicadas_2: 0 });
+
+            this.setState({ speed_first_dose: 0 });
+            this.setState({ speed_second_dose: 0});
+
+        }
 
     }
 
@@ -420,16 +480,23 @@ class FormSIRV extends React.Component {
    
 
 
-    resetIframe() {
-        this.requestCasos();
-        this.requestGraphData();
+    resetIframe = async () => {
+        console.log('request vacinados');
+        await this.requestVacinados();
+        console.log('request casos');
+        await this.requestCasos();
+        console.log('request graph data');
+        await this.requestGraphData();
+        
         this.setState({ random: this.state.random + 1 });
 
     }
 
     resetIframe_2() {
-        this.requestCasos();
-        this.requestGraphData();
+ 
+        
+       
+
         this.setState({ random_2: this.state.random_2 + 1 });
     }
 
@@ -502,6 +569,16 @@ class FormSIRV extends React.Component {
     }
 
 
+
+    handleChange_select_combo = (event) => {
+        this.setState({
+            municipio_escolhido: event.target.value}, function(this: FormSIRV) {
+                console.log("valor escolhido ");
+                console.log(this.state.municipio_escolhido);
+                this.resetIframe();
+                this.resetIframe_2();
+            })
+    };
 
     handleChange = (event, newValue) => {
 
@@ -1092,6 +1169,12 @@ class FormSIRV extends React.Component {
                                 Como funciona o simulador?
                                         </Button>
 
+                        </Grid>
+                        <Grid item xs={12}>
+                            <select onChange={this.handleChange_select_combo} >
+                                <option value="Todos">Todos</option>
+                                {this.state.cidades_nomes.map((linha) => <option value={linha.nome}>{linha.nome}</option>)}
+                            </select>
                         </Grid>
 
                         <Grid item xs={12} style={{ fontSize: '1vw' }}>
