@@ -2,7 +2,6 @@
   "name": "sirv-react-frontend-node",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://sirv-emulator.dev.org.br/",
   "dependencies": {
     "@material-ui/core": "^4.12.2",
     "@material-ui/icons": "^4.11.2",
@@ -21,6 +20,7 @@
     "react-equation": "^0.2.1",
     "react-footnotes": "^0.1.2",
     "react-google-charts": "^3.0.15",
+    "react-loadingg": "^1.7.2",
     "react-native-responsive-fontsize": "^0.5.1",
     "react-native-responsive-linechart": "^5.7.1",
     "react-responsive-tabs": "^4.4.3",

@@ -39,6 +39,7 @@ import TouchApp from '@material-ui/icons/TouchApp';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import * as d3 from "d3";
 import Chart from "react-google-charts";
+import { SemipolarLoading } from 'react-loadingg';
 
 
 
@@ -299,6 +300,7 @@ class FormSIRV extends React.Component {
         hospitalization_factor: 0.1,
         isOpen: false,
         isOption: false,
+        isGraph:false,
         start_date: this.formatedDate_start_date,
         end_date: this.formatedDate_end_date,
         total_doses_aplicadas_1: 80000000,
@@ -488,12 +490,15 @@ class FormSIRV extends React.Component {
 
 
     resetIframe = async () => {
+        await this.setState({isGraph:true});
+        
         console.log('request vacinados');
         await this.requestVacinados();
         console.log('request casos');
         await this.requestCasos();
         console.log('request graph data');
         await this.requestGraphData();
+        this.setState({ isGraph: false });
         
         this.setState({ random: this.state.random + 1 });
 
@@ -1016,6 +1021,7 @@ class FormSIRV extends React.Component {
 
                     <Grid container spacing={2} >
 
+                       
                         <Grid item xs={3}>
 
                             <Card style={{ minHeight: '100%' }}>
@@ -2057,7 +2063,12 @@ class FormSIRV extends React.Component {
                             <TouchApp />  Deslize o gráfico caso use um celular
                          </Typography>
                     </Grid>
-
+                    {this.state.isGraph ?
+                        <Grid item xs={12}>
+                            <SemipolarLoading />
+                        </Grid>
+                        : null}
+                    {!this.state.isGraph ?
                     <Grid item xs={12} justify="center" >
                         <Chart key={this.state.random} 
                             width={window.innerWidth}
@@ -2077,9 +2088,11 @@ class FormSIRV extends React.Component {
                                 },
                             }}
                             legendToggle
-                        />
+                            />
+                            
                        
-                     </Grid>
+                        </Grid>
+                        : null}
                    
 
 
