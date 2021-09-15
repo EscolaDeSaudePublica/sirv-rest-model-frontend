@@ -373,7 +373,7 @@ class FormSIRV extends React.Component {
 
         console.log('Request Graph Data');
         console.log('Request velocidade vacinacao '+this.state.velocidade_vacinacao);
-        const response = await fetch(process.env.REACT_APP_BASE_URL_ + "/model_municipio/" + this.state.vaccine_efficacy + "/" + this.state.velocidade_vacinacao + "/" + this.state.quantidade_infectados + "/" + this.state.dias_nova_infeccao + "/" + this.state.death_factor + "/" + this.state.hospitalization_factor + "/" + this.state.municipio_escolhido+"/0");
+        const response = await fetch(process.env.REACT_APP_BASE_URL_ + "/model_municipio/" + this.state.vaccine_efficacy + "/" + this.state.velocidade_vacinacao + "/" + this.state.quantidade_infectados/100 + "/" + this.state.dias_nova_infeccao + "/" + this.state.death_factor + "/" + this.state.hospitalization_factor + "/" + this.state.municipio_escolhido+"/0");
         await this.sleep(5000);
         console.log(response);
         const json = await response.json();
