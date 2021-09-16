@@ -1108,6 +1108,13 @@ class FormSIRV extends React.Component {
                                     <Typography gutterBottom style={{ fontSize: 'min(3vw, 40px)', color: 'rgba(0, 0, 0, 0.87)' }}>
                                         {this.state.second_dose_efficacy.toFixed(2)}
                                     </Typography>
+                                    <Typography gutterBottom style={{ fontSize: 'min(2vw, 20px)', color: 'rgba(0, 0, 0, 0.54)' }}>
+                                        EFICÁCIA PONDERADA
+                                                        </Typography>
+                                    <Typography gutterBottom style={{ fontSize: 'min(3vw, 40px)', color: 'rgba(0, 0, 0, 0.87)' }}>
+                                        {this.state.vaccine_efficacy.toFixed(2)}
+                                    </Typography>
+
                                 </CardContent>
 
 
