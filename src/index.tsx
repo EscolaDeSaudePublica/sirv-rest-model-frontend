@@ -1293,8 +1293,9 @@ class FormSIRV extends React.Component {
                         <AppBar position="static">
                             <Tabs value={this.state.tab_position} scrollButtons="on" variant="scrollable" onChange={this.handleChange_tab} aria-label="simple tabs example">
                                 <Tab label="Doses" {...a11yProps(0)} />
-                                <Tab label="Eficácia" {...a11yProps(2)} />
-                                <Tab label="Outras Opções" {...a11yProps(3)} />
+                                <Tab label="Parâmetros" {...a11yProps(2)} />
+                                <Tab label="Eficácia" {...a11yProps(3)} />
+                                
                                 
                             </Tabs>
                         </AppBar>
@@ -1437,109 +1438,8 @@ class FormSIRV extends React.Component {
                                         </CardContent>
                                     </Card>
                                 </TabPanel>
+                              
                                 <TabPanel value={this.state.tab_position} index={1}>
-                                    <Card style={{ fontSize: '1vw' }}>
-                                        <CardHeader
-                                            avatar={
-                                                <Avatar aria-label="recipe" >
-                                                    3
-                                                    </Avatar>
-                                            }
-                                            action={
-                                                <IconButton aria-label="settings">
-
-                                                </IconButton>
-                                            }
-                                            title="Eficácia de Cada Vacina"
-                                            subheader="Primeira Dose"
-                                        />
-                                        <CardContent>
-                                            <TableContainer component={Paper}>
-                                                <Table size="small" aria-label="a dense table">
-                                                    <TableBody>
-                                                        <TableRow>
-                                                            <TableCell>AstraZeneca</TableCell>
-                                                            <TableCell align="left">
-                                                                <Chip label={Number(this.state.eficacia_astrazenica_1)} variant="outlined" />
-                                                            </TableCell>
-                                                        </TableRow>
-                                                        <TableRow>
-                                                            <TableCell>Pfizer</TableCell>
-                                                            <TableCell align="left">
-                                                                <Chip label={Number(this.state.eficacia_pfizer_1)} variant="outlined" />
-                                                            </TableCell>
-                                                        </TableRow>
-                                                        <TableRow>
-                                                            <TableCell>Coronavac</TableCell>
-                                                            <TableCell align="left"> <Chip label={Number(this.state.eficacia_coronavac_1)} variant="outlined" />
-                                                            </TableCell>
-
-                                                        </TableRow>
-                                                        <TableRow>
-                                                            <TableCell>Janssen (Dose Única)</TableCell>
-                                                            <TableCell align="left"> <Chip label={Number(this.state.eficacia_janssen_1)} variant="outlined" />
-                                                            </TableCell>
-
-                                                        </TableRow>
-                                                    </TableBody>
-                                                </Table>
-                                            </TableContainer>
-                                        </CardContent>
-                                    </Card>
-                                    <Card style={{ fontSize: '1vw' }}>
-                                        <CardHeader
-                                            avatar={
-                                                <Avatar aria-label="recipe" >
-                                                    4
-                                                </Avatar>
-                                            }
-                                            action={
-                                                <IconButton aria-label="settings">
-
-                                                </IconButton>
-                                            }
-                                            title="Eficácia de Cada Vacina"
-                                            subheader="Segunda Dose"
-                                        />
-                                        <CardContent>
-                                            <TableContainer component={Paper}>
-                                                <Table size="small" aria-label="a dense table">
-                                                    <TableBody>
-                                                        <TableRow>
-                                                            <TableCell>AstraZeneca</TableCell>
-                                                            <TableCell align="left">
-                                                                <Chip label={Number(this.state.eficacia_astrazenica_2)} variant="outlined" />
-                                                            </TableCell>
-                                                        </TableRow>
-                                                        <TableRow>
-                                                            <TableCell>Pfizer</TableCell>
-                                                            <TableCell align="left">
-                                                                <Chip label={Number(this.state.eficacia_pfizer_2)} variant="outlined" />
-                                                            </TableCell>
-                                                        </TableRow>
-                                                        <TableRow>
-                                                            <TableCell>Coronavac</TableCell>
-                                                            <TableCell align="left"> <Chip label={Number(this.state.eficacia_coronavac_2)} variant="outlined" />
-                                                            </TableCell>
-
-                                                        </TableRow>
-                                                        <TableRow>
-                                                            <TableCell>Janssen (Dose Única)</TableCell>
-                                                            <TableCell align="left"> <Chip label={Number(this.state.eficacia_janssen_2)} variant="outlined" />
-                                                            </TableCell>
-
-                                                        </TableRow>
-                                                    </TableBody>
-                                                </Table>
-                                            </TableContainer>
-                                        </CardContent>
-                                    </Card>
-
-
-
-
-                                </TabPanel>
-                                <TabPanel value={this.state.tab_position} index={2}>
 
 
                                     <Card style={{ fontSize: '1vw' }}>
@@ -2049,6 +1949,108 @@ class FormSIRV extends React.Component {
 
 
                                 </TabPanel>
+                                <TabPanel value={this.state.tab_position} index={2}>
+                                    <Card style={{ fontSize: '1vw' }}>
+                                        <CardHeader
+                                            avatar={
+                                                <Avatar aria-label="recipe" >
+                                                    3
+                                                    </Avatar>
+                                            }
+                                            action={
+                                                <IconButton aria-label="settings">
+
+                                                </IconButton>
+                                            }
+                                            title="Eficácia de Cada Vacina"
+                                            subheader="Primeira Dose"
+                                        />
+                                        <CardContent>
+                                            <TableContainer component={Paper}>
+                                                <Table size="small" aria-label="a dense table">
+                                                    <TableBody>
+                                                        <TableRow>
+                                                            <TableCell>AstraZeneca</TableCell>
+                                                            <TableCell align="left">
+                                                                <Chip label={Number(this.state.eficacia_astrazenica_1)} variant="outlined" />
+                                                            </TableCell>
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell>Pfizer</TableCell>
+                                                            <TableCell align="left">
+                                                                <Chip label={Number(this.state.eficacia_pfizer_1)} variant="outlined" />
+                                                            </TableCell>
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell>Coronavac</TableCell>
+                                                            <TableCell align="left"> <Chip label={Number(this.state.eficacia_coronavac_1)} variant="outlined" />
+                                                            </TableCell>
+
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell>Janssen (Dose Única)</TableCell>
+                                                            <TableCell align="left"> <Chip label={Number(this.state.eficacia_janssen_1)} variant="outlined" />
+                                                            </TableCell>
+
+                                                        </TableRow>
+                                                    </TableBody>
+                                                </Table>
+                                            </TableContainer>
+                                        </CardContent>
+                                    </Card>
+                                    <Card style={{ fontSize: '1vw' }}>
+                                        <CardHeader
+                                            avatar={
+                                                <Avatar aria-label="recipe" >
+                                                    4
+                                                </Avatar>
+                                            }
+                                            action={
+                                                <IconButton aria-label="settings">
+
+                                                </IconButton>
+                                            }
+                                            title="Eficácia de Cada Vacina"
+                                            subheader="Segunda Dose"
+                                        />
+                                        <CardContent>
+                                            <TableContainer component={Paper}>
+                                                <Table size="small" aria-label="a dense table">
+                                                    <TableBody>
+                                                        <TableRow>
+                                                            <TableCell>AstraZeneca</TableCell>
+                                                            <TableCell align="left">
+                                                                <Chip label={Number(this.state.eficacia_astrazenica_2)} variant="outlined" />
+                                                            </TableCell>
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell>Pfizer</TableCell>
+                                                            <TableCell align="left">
+                                                                <Chip label={Number(this.state.eficacia_pfizer_2)} variant="outlined" />
+                                                            </TableCell>
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell>Coronavac</TableCell>
+                                                            <TableCell align="left"> <Chip label={Number(this.state.eficacia_coronavac_2)} variant="outlined" />
+                                                            </TableCell>
+
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell>Janssen (Dose Única)</TableCell>
+                                                            <TableCell align="left"> <Chip label={Number(this.state.eficacia_janssen_2)} variant="outlined" />
+                                                            </TableCell>
+
+                                                        </TableRow>
+                                                    </TableBody>
+                                                </Table>
+                                            </TableContainer>
+                                        </CardContent>
+                                    </Card>
+
+
+
+
+                                </TabPanel>
 
                             </Grid>
 
@@ -2076,8 +2078,8 @@ class FormSIRV extends React.Component {
                             chartType="LineChart"
                             loader={<div>Loading Chart</div>}
                             data={this.state.projection_data}
-                            options={{
-                                title: 'Número de infectados por Data',
+                                options={{
+                                    title: 'Número de infectados por Data ' + this.state.municipio_escolhido,
                                 chartArea: { width: '70%' },
                                 hAxis: {
                                     title: 'Data',
