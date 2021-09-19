@@ -388,13 +388,16 @@ class FormSIRV extends React.Component {
        
 
         const arr_data = [] as any;
-        arr_data.push(['Data', 'Simulação', 'Real']);
-        Object.keys(json.data).forEach(key => arr_data.push([json_casos.data[key].data, 0,parseInt(json_casos.data[key].quantidade)]));
-        Object.keys(json.data).forEach(key => arr_data.push([json.data[key].data, parseInt(json.data[key].infectados),0]));
-        console.log(arr_data);
+        arr_data.push(['Data', { role: 'annotation', type: 'string' }, 'Simulação', 'Real']);
+        // arr_data.push(['25/12/2021', 'line', 0, 0]);
+        Object.keys(json.data).forEach(key => arr_data.push([json_casos.data[key].data, null,0,parseInt(json_casos.data[key].quantidade)]));
+        Object.keys(json.data).forEach(key => arr_data.push([json.data[key].data, null, parseInt(json.data[key].infectados),0]));
+        let sorted_array = arr_data.sort((a, b) => String(a.Data).split('/').reverse().join().localeCompare(String(b.Data).split('/').reverse().join()));
+        console.log('Sorted data');
+        console.log(sorted_array);
 
 
-        await this.setState({ projection_data: arr_data});
+        await this.setState({ projection_data: sorted_array});
 
 
 
@@ -633,7 +636,7 @@ class FormSIRV extends React.Component {
 
     handleChange_first_dose_efficacy = (event, newValue) => {
         this.setState({ first_dose_efficacy: newValue }, function (this: FormSIRV) {
-            this.calc_vaccine_efficacy();
+            // this.calc_vaccine_efficacy();
         })
     };
 
@@ -643,7 +646,7 @@ class FormSIRV extends React.Component {
         this.setState({ first_dose_efficacy: event.target.value });
 
        
-        this.calc_vaccine_efficacy()
+        // this.calc_vaccine_efficacy()
         
     };
 
@@ -651,8 +654,8 @@ class FormSIRV extends React.Component {
     handleChange_astrazenica_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
 
         this.setState({ number_of_people_with_astrazenica_1: event.target.value }, function (this: FormSIRV) {
-            this.calc_vaccine_efficacy_with_vacine_data();
-            this.calc_vaccine_efficacy();
+            // this.calc_vaccine_efficacy_with_vacine_data();
+            // this.calc_vaccine_efficacy();
 
         }) 
     };
@@ -662,8 +665,8 @@ class FormSIRV extends React.Component {
     handleChange_pfizer_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
 
         this.setState({ number_of_people_with_pfizer_1: event.target.value }, function (this: FormSIRV) {
-            this.calc_vaccine_efficacy_with_vacine_data();
-            this.calc_vaccine_efficacy();
+            // this.calc_vaccine_efficacy_with_vacine_data();
+            // this.calc_vaccine_efficacy();
 
         }) 
     };
@@ -673,8 +676,8 @@ class FormSIRV extends React.Component {
     handleChange_janssen_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
 
         this.setState({ number_of_people_with_janssen_1: event.target.value }, function (this: FormSIRV) {
-            this.calc_vaccine_efficacy_with_vacine_data();
-            this.calc_vaccine_efficacy();
+            // this.calc_vaccine_efficacy_with_vacine_data();
+            // this.calc_vaccine_efficacy();
 
         }) 
     };
@@ -684,8 +687,8 @@ class FormSIRV extends React.Component {
     handleChange_coronavac_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
 
         this.setState({ number_of_people_with_coronavac_1: event.target.value }, function (this: FormSIRV) {
-            this.calc_vaccine_efficacy_with_vacine_data();
-            this.calc_vaccine_efficacy();
+            // this.calc_vaccine_efficacy_with_vacine_data();
+            // this.calc_vaccine_efficacy();
 
         }) 
     };
@@ -695,8 +698,8 @@ class FormSIRV extends React.Component {
     handleChange_eff_astrazenica_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
 
         this.setState({ eficacia_astrazenica_1 : event.target.value }, function (this: FormSIRV) {
-            this.calc_vaccine_efficacy_with_vacine_data();
-            this.calc_vaccine_efficacy();
+            // this.calc_vaccine_efficacy_with_vacine_data();
+            // this.calc_vaccine_efficacy();
 
         })
     };
@@ -706,8 +709,8 @@ class FormSIRV extends React.Component {
     handleChange_eff_pfizer_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
 
         this.setState({ eficacia_pfizer_1: event.target.value }, function (this: FormSIRV) {
-            this.calc_vaccine_efficacy_with_vacine_data();
-            this.calc_vaccine_efficacy();
+            // this.calc_vaccine_efficacy_with_vacine_data();
+            // this.calc_vaccine_efficacy();
 
         })
     };
@@ -717,8 +720,8 @@ class FormSIRV extends React.Component {
     handleChange_eff_janssen_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
 
         this.setState({ eficacia_janssen_1: event.target.value }, function (this: FormSIRV) {
-            this.calc_vaccine_efficacy_with_vacine_data();
-            this.calc_vaccine_efficacy();
+            // this.calc_vaccine_efficacy_with_vacine_data();
+            // this.calc_vaccine_efficacy();
 
         })
     };
@@ -728,8 +731,8 @@ class FormSIRV extends React.Component {
     handleChange_eff_coronavac_text_input = (event: React.ChangeEvent<HTMLInputElement>) => {
 
         this.setState({ eficacia_coronavac_1: event.target.value }, function (this: FormSIRV) {
-            this.calc_vaccine_efficacy_with_vacine_data();
-            this.calc_vaccine_efficacy();
+            // this.calc_vaccine_efficacy_with_vacine_data();
+            // this.calc_vaccine_efficacy();
 
         })
     };
@@ -739,8 +742,8 @@ class FormSIRV extends React.Component {
     handleChange_eff_astrazenica_text_input_2 = (event: React.ChangeEvent<HTMLInputElement>) => {
 
         this.setState({ eficacia_astrazenica_2: event.target.value }, function (this: FormSIRV) {
-            this.calc_vaccine_efficacy_with_vacine_data();
-            this.calc_vaccine_efficacy();
+            // this.calc_vaccine_efficacy_with_vacine_data();
+            // this.calc_vaccine_efficacy();
 
         })
     };
@@ -750,8 +753,8 @@ class FormSIRV extends React.Component {
     handleChange_eff_pfizer_text_input_2 = (event: React.ChangeEvent<HTMLInputElement>) => {
 
         this.setState({ eficacia_pfizer_2: event.target.value }, function (this: FormSIRV) {
-            this.calc_vaccine_efficacy_with_vacine_data();
-            this.calc_vaccine_efficacy();
+            // this.calc_vaccine_efficacy_with_vacine_data();
+            // this.calc_vaccine_efficacy();
 
         })
     };
@@ -761,8 +764,8 @@ class FormSIRV extends React.Component {
     handleChange_eff_janssen_text_input_2 = (event: React.ChangeEvent<HTMLInputElement>) => {
 
         this.setState({ eficacia_janssen_2: event.target.value }, function (this: FormSIRV) {
-            this.calc_vaccine_efficacy_with_vacine_data();
-            this.calc_vaccine_efficacy();
+            // this.calc_vaccine_efficacy_with_vacine_data();
+            // this.calc_vaccine_efficacy();
 
         })
     };
@@ -772,8 +775,8 @@ class FormSIRV extends React.Component {
     handleChange_eff_coronavac_text_input_2 = (event: React.ChangeEvent<HTMLInputElement>) => {
 
         this.setState({ eficacia_coronavac_2: event.target.value }, function (this: FormSIRV) {
-            this.calc_vaccine_efficacy_with_vacine_data();
-            this.calc_vaccine_efficacy();
+            // this.calc_vaccine_efficacy_with_vacine_data();
+            // this.calc_vaccine_efficacy();
 
         })
     };
@@ -785,8 +788,8 @@ class FormSIRV extends React.Component {
     handleChange_astrazenica_text_input_2 = (event: React.ChangeEvent<HTMLInputElement>) => {
 
         this.setState({ number_of_people_with_astrazenica_2: event.target.value });
-        this.calc_vaccine_efficacy_with_vacine_data();
-        this.calc_vaccine_efficacy();
+        // this.calc_vaccine_efficacy_with_vacine_data();
+        // this.calc_vaccine_efficacy();
     };
 
 
@@ -794,8 +797,8 @@ class FormSIRV extends React.Component {
     handleChange_pfizer_text_input_2 = (event: React.ChangeEvent<HTMLInputElement>) => {
 
         this.setState({ number_of_people_with_pfizer_2: event.target.value }, function (this: FormSIRV) {
-            this.calc_vaccine_efficacy_with_vacine_data();
-            this.calc_vaccine_efficacy();
+            // this.calc_vaccine_efficacy_with_vacine_data();
+            // this.calc_vaccine_efficacy();
 
         }) 
     };
@@ -805,8 +808,8 @@ class FormSIRV extends React.Component {
     handleChange_janssen_text_input_2 = (event: React.ChangeEvent<HTMLInputElement>) => {
 
         this.setState({ number_of_people_with_janssen_2: event.target.value }, function (this: FormSIRV) {
-            this.calc_vaccine_efficacy_with_vacine_data();
-            this.calc_vaccine_efficacy();
+            // this.calc_vaccine_efficacy_with_vacine_data();
+            // this.calc_vaccine_efficacy();
 
         }) 
     };
@@ -816,8 +819,8 @@ class FormSIRV extends React.Component {
     handleChange_coronavac_text_input_2 = (event: React.ChangeEvent<HTMLInputElement>) => {
 
         this.setState({ number_of_people_with_coronavac_2: event.target.value }, function (this: FormSIRV) {
-        this.calc_vaccine_efficacy_with_vacine_data();
-        this.calc_vaccine_efficacy();
+        // this.calc_vaccine_efficacy_with_vacine_data();
+        // this.calc_vaccine_efficacy();
 
         }) 
     };
@@ -827,7 +830,7 @@ class FormSIRV extends React.Component {
     handleChange_second_dose_efficacy = (event, newValue) => {
         this.setState({ second_dose_efficacy: newValue }, function (this: FormSIRV) {
 
-            this.calc_vaccine_efficacy();
+            // this.calc_vaccine_efficacy();
 
         })  
     };
@@ -837,7 +840,7 @@ class FormSIRV extends React.Component {
 
         this.setState({ second_dose_efficacy: event.target.value }, function (this: FormSIRV) {
 
-            this.calc_vaccine_efficacy();
+            // this.calc_vaccine_efficacy();
 
         })  
 
@@ -847,7 +850,7 @@ class FormSIRV extends React.Component {
         this.setState({ speed_first_dose: newValue }, function (this: FormSIRV) {
             console.log('speed first dose ');
             console.log(this.state.speed_first_dose);
-            this.calc_vaccine_efficacy();
+            // this.calc_vaccine_efficacy();
         })   
     };
 
@@ -856,7 +859,7 @@ class FormSIRV extends React.Component {
         this.setState({ speed_first_dose: event.target.value }, function (this: FormSIRV) {
             console.log('speed first dose: ');
             console.log(this.state.speed_first_dose);
-            this.calc_vaccine_efficacy();
+            // this.calc_vaccine_efficacy();
         })
         
 
@@ -867,7 +870,7 @@ class FormSIRV extends React.Component {
     handleChange_speed_second_dose = (event, newValue) => {
         this.setState({ speed_second_dose: newValue }, function (this: FormSIRV) {
 
-            this.calc_vaccine_efficacy();
+            // this.calc_vaccine_efficacy();
 
         })  
     };
@@ -877,7 +880,7 @@ class FormSIRV extends React.Component {
 
         this.setState({ speed_second_dose: event.target.value }, function (this: FormSIRV) {
 
-            this.calc_vaccine_efficacy();
+            // this.calc_vaccine_efficacy();
 
         })  
 
@@ -887,7 +890,7 @@ class FormSIRV extends React.Component {
 
         this.setState({ quantidade_infectados: event.target.value }, function (this: FormSIRV) {
 
-            this.calc_vaccine_efficacy();
+            // this.calc_vaccine_efficacy();
 
         })  
        
@@ -899,7 +902,7 @@ class FormSIRV extends React.Component {
 
         this.setState({ dias_nova_infeccao: event.target.value }, function (this: FormSIRV) {
 
-            this.calc_vaccine_efficacy();
+            // this.calc_vaccine_efficacy();
 
         })  
         
@@ -915,7 +918,7 @@ class FormSIRV extends React.Component {
     handleChange_quantidade_infectados = (event, newValue) => {
         this.setState({ quantidade_infectados: newValue }, function (this: FormSIRV) {
 
-            this.calc_vaccine_efficacy();
+            // this.calc_vaccine_efficacy();
 
         })  
     };
@@ -923,7 +926,7 @@ class FormSIRV extends React.Component {
     handleChange_dias_nova_infeccao = (event, newValue) => {
         this.setState({ dias_nova_infeccao: newValue }, function (this: FormSIRV) {
 
-            this.calc_vaccine_efficacy();
+            // this.calc_vaccine_efficacy();
 
         })  
 
@@ -933,7 +936,7 @@ class FormSIRV extends React.Component {
     handleChange_death_factor = (event, newValue) => {
         this.setState({ death_factor: newValue }, function (this: FormSIRV) {
 
-            this.calc_vaccine_efficacy();
+            // this.calc_vaccine_efficacy();
 
         })
 
@@ -944,7 +947,7 @@ class FormSIRV extends React.Component {
 
         this.setState({ death_factor: event.target.value }, function (this: FormSIRV) {
 
-            this.calc_vaccine_efficacy();
+            // this.calc_vaccine_efficacy();
 
         })
 
@@ -1041,13 +1044,13 @@ class FormSIRV extends React.Component {
                                         </Typography>
                                     
                                     <Typography gutterBottom style={{ fontSize: 'min(3vw, 40px)', color: 'rgba(0, 0, 0, 0.87)' }} >
-                                        {this.state.total_doses_aplicadas_1}
+                                        {this.state.total_doses_aplicadas_1} 
                                     </Typography>
                                     <Typography gutterBottom style={{ fontSize: 'min(2vw, 20px)', color: 'rgba(0, 0, 0, 0.54)'  }} >
                                         Velocidade:
                                                                 </Typography>
                                     <Typography gutterBottom style={{ fontSize: 'min(3vw, 40px)', color: 'rgba(0, 0, 0, 0.87)' }} >
-                                        {parseInt(this.state.speed_first_dose.toString()).toFixed(0)}
+                                        {parseInt(this.state.speed_first_dose.toString()).toFixed(0)} doses/dia
                                             </Typography>
                                         </CardContent>
 
@@ -1076,7 +1079,7 @@ class FormSIRV extends React.Component {
                                                                 Velocidade:
                                                                                 </Typography>
                                     <Typography gutterBottom style={{ fontSize: 'min(3vw, 40px)', color: 'rgba(0, 0, 0, 0.87)' }} >
-                                        {parseInt(this.state.speed_second_dose.toString()).toFixed(0)}
+                                        {parseInt(this.state.speed_second_dose.toString()).toFixed(0)} doses/dia
                                                             </Typography>
                                                 </CardContent>
 
@@ -1100,19 +1103,19 @@ class FormSIRV extends React.Component {
                                         PRIMEIRA DOSE:
                                                     </Typography>
                                     <Typography gutterBottom style={{ fontSize: 'min(3vw, 40px)', color: 'rgba(0, 0, 0, 0.87)' }}>
-                                        {this.state.first_dose_efficacy.toFixed(2)}
+                                        {this.state.first_dose_efficacy.toFixed(2)}%
                                     </Typography>
                                     <Typography gutterBottom style={{ fontSize: 'min(2vw, 20px)', color: 'rgba(0, 0, 0, 0.54)' }}>
                                         SEGUNDA DOSE
                                                         </Typography>
                                     <Typography gutterBottom style={{ fontSize: 'min(3vw, 40px)', color: 'rgba(0, 0, 0, 0.87)' }}>
-                                        {this.state.second_dose_efficacy.toFixed(2)}
+                                        {this.state.second_dose_efficacy.toFixed(2)}%
                                     </Typography>
                                     <Typography gutterBottom style={{ fontSize: 'min(2vw, 20px)', color: 'rgba(0, 0, 0, 0.54)' }}>
                                         EFICÁCIA PONDERADA
                                                         </Typography>
                                     <Typography gutterBottom style={{ fontSize: 'min(3vw, 40px)', color: 'rgba(0, 0, 0, 0.87)' }}>
-                                        {this.state.vaccine_efficacy.toFixed(2)}
+                                        {this.state.vaccine_efficacy.toFixed(2)}%
                                     </Typography>
 
                                 </CardContent>
@@ -1131,7 +1134,14 @@ class FormSIRV extends React.Component {
                                     <Typography gutterBottom style={{ fontSize: 'min(2vw, 20px)', color: 'rgba(0, 0, 0, 0.54)' }}>
                                         Dados simulados para as datas de  {this.state.start_date} a {this.state.end_date} 
                                                     </Typography>
-                                  
+
+                                    <Typography gutterBottom style={{ fontSize: 'min(2vw, 20px)', color: 'rgba(0, 0, 0, 0.54)' }}>
+                                        Infecções:
+                                                    </Typography>
+                                    <Typography gutterBottom style={{ fontSize: 'min(3vw, 40px)', color: 'rgba(0, 0, 0, 0.87)' }}>
+                                        {this.state.infectados.toFixed(0)}
+                                    </Typography>
+
                                     <Typography gutterBottom style={{ fontSize: 'min(2vw, 20px)', color: 'rgba(0, 0, 0, 0.54)' }}>
                                         Hospitalizações:
                                                     </Typography>
@@ -1139,13 +1149,7 @@ class FormSIRV extends React.Component {
                                         {this.state.hospitalizacoes.toFixed(0)}
                                     </Typography>
 
-                                    <Typography gutterBottom style={{ fontSize: 'min(2vw, 20px)', color: 'rgba(0, 0, 0, 0.54)' }}>
-                                        Novas Infecções:
-                                                    </Typography>
-                                    <Typography gutterBottom style={{ fontSize: 'min(3vw, 40px)', color: 'rgba(0, 0, 0, 0.87)' }}>
-                                        {this.state.infectados.toFixed(0)}
-                                    </Typography>
-
+                                    
 
 
                                     <Typography gutterBottom style={{ fontSize: 'min(2vw, 20px)', color: 'rgba(0, 0, 0, 0.54)' }}>
@@ -2094,7 +2098,11 @@ class FormSIRV extends React.Component {
                                 },
                                 vAxis: {
                                     title: 'Número de novos infectados',
-                                },
+                                    },
+                                annotations: {
+                                        style: 'line'
+                                    },
+                                colors: ['red', 'blue']
                             }}
                             legendToggle
                             />
