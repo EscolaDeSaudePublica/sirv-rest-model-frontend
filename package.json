@@ -26,6 +26,7 @@
     "react-responsive-tabs": "^4.4.3",
     "react-schedule-job": "^1.2.0",
     "react-scripts": "4.0.3",
+    "react-spinners": "^0.11.0",
     "typescript": "^4.3.5",
     "web-vitals": "^1.1.2"
   },

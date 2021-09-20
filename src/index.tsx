@@ -39,7 +39,9 @@ import TouchApp from '@material-ui/icons/TouchApp';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import * as d3 from "d3";
 import Chart from "react-google-charts";
-import { SemipolarLoading } from 'react-loadingg';
+import { PassThrouthLoading  } from 'react-loadingg';
+import { css } from "@emotion/react";
+import HashLoader from "react-spinners/HashLoader";
 
 
 
@@ -47,6 +49,7 @@ import { SemipolarLoading } from 'react-loadingg';
 
 console.log(process.env.REACT_APP_BASE_URL_);
 const domain = process.env.REACT_APP_BASE_URL_;
+
 
 
 
@@ -187,6 +190,15 @@ const marks_velocidade = [
 
 ];
 
+
+const section = {
+    height: "100%",
+    width: "100%",
+    paddingTop: 5,
+   
+};
+
+
 const marks = [
 
     {
@@ -218,6 +230,8 @@ const marks = [
 
 class FormSIRV extends React.Component {
     private stepInput: React.RefObject<HTMLSpanElement>;
+
+
 
     padLeadingZeros(num, size) {
         var s = num + "";
@@ -381,7 +395,7 @@ class FormSIRV extends React.Component {
         console.log(json);
 
         console.log('Request Graph Data CASOS');
-        const response_casos = await fetch(process.env.REACT_APP_BASE_URL_ + "/casos/" + this.state.municipio_escolhido);  
+        const response_casos = await fetch(process.env.REACT_APP_BASE_URL_+ "/casos/" + this.state.municipio_escolhido);  
         const json_casos = await response_casos.json();
         console.log('json of data');
         console.log(json_casos);
@@ -390,7 +404,7 @@ class FormSIRV extends React.Component {
         const arr_data = [] as any;
         arr_data.push(['Data', { role: 'annotation', type: 'string' }, 'Simulação', 'Real']);
         // arr_data.push(['25/12/2021', 'line', 0, 0]);
-        Object.keys(json.data).forEach(key => arr_data.push([json_casos.data[key].data, null,0,parseInt(json_casos.data[key].quantidade)]));
+        Object.keys(json_casos.data).forEach(key => arr_data.push([json_casos.data[key].data, null,0,parseInt(json_casos.data[key].quantidade)]));
         Object.keys(json.data).forEach(key => arr_data.push([json.data[key].data, null, parseInt(json.data[key].infectados),0]));
         let sorted_array = arr_data.sort((a, b) => String(a.Data).split('/').reverse().join().localeCompare(String(b.Data).split('/').reverse().join()));
         console.log('Sorted data');
@@ -503,6 +517,17 @@ class FormSIRV extends React.Component {
         await this.requestGraphData();
         this.setState({ isGraph: false });
         
+        this.setState({ random: this.state.random + 1 });
+
+    }
+
+
+    resetIframe_calc = async () => {
+        await this.setState({ isGraph: true });
+
+        await this.requestGraphData();
+        this.setState({ isGraph: false });
+
         this.setState({ random: this.state.random + 1 });
 
     }
@@ -1180,7 +1205,8 @@ class FormSIRV extends React.Component {
                         <Grid item xs={4} style={{ fontSize: '1vw' }}>
                             
                             <Button variant="contained"
-                                color="primary" onClick={() => { this.resetIframe(); }} style={{ fontSize: 'min(2vw, 20px)', backgroundColor: '#FF0000' }}>Simular</Button>
+                                color="primary" onClick={() => { this.resetIframe_calc(); }}
+                                style={{ fontSize: 'min(2vw, 20px)', backgroundColor: '#FF0000' }}>Simular</Button>
 
                         </Grid>
 
@@ -1451,6 +1477,76 @@ class FormSIRV extends React.Component {
                                 </TabPanel>
                               
                                 <TabPanel value={this.state.tab_position} index={1}>
+                                    <Card style={{ fontSize: '1vw' }}>
+                                        <CardHeader
+                                            avatar={
+                                                <Avatar aria-label="recipe" >
+                                                    Infectados
+                                                </Avatar>
+                                            }
+                                            action={
+                                                <IconButton aria-label="settings">
+
+                                                </IconButton>
+                                            }
+                                            title="Novos infectados no sistema"
+                                            subheader="Novo grupo de infectados adicionados ao sistema"
+                                        />
+                                        <CardContent>
+                                            <TableContainer component={Paper}>
+                                                <Table size="small" aria-label="a dense table">
+                                                    <TableBody>
+                                                        <TableRow>
+                                                            <TableCell>   Quantidade de novos infectados no modelo:</TableCell>
+                                                            <TableCell align="left">
+                                                                <TextField value={this.state.quantidade_infectados}
+                                                                    onChange={this.handleChange_quantidade_infectados_text_input} /></TableCell>
+
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell colSpan={2}>    <Slider
+                                                                value={this.state.quantidade_infectados}
+                                                                orientation="horizontal"
+                                                                defaultValue={0}
+                                                                step={1}
+                                                                min={0}
+                                                                max={60000}
+                                                                valueLabelDisplay="auto"
+                                                                aria-labelledby="vertical-slider"
+                                                                marks={marks_infectados}
+                                                                onChange={this.handleChange_quantidade_infectados}
+                                                            /></TableCell>
+
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell>   Quantidade de dias entre novas infecções:</TableCell>
+                                                            <TableCell align="left">
+                                                                <TextField value={this.state.dias_nova_infeccao}
+                                                                    onChange={this.handleChange_dias_text_input} /></TableCell>
+
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell colSpan={2}>      <Slider
+                                                                value={this.state.dias_nova_infeccao}
+                                                                orientation="horizontal"
+                                                                defaultValue={0}
+                                                                step={1}
+                                                                min={0}
+                                                                max={90}
+                                                                aria-labelledby="vertical-slider"
+                                                                marks={marks_dias}
+                                                                valueLabelDisplay="auto"
+                                                                onChange={this.handleChange_dias_nova_infeccao}
+                                                            /></TableCell>
+
+                                                        </TableRow>
+
+
+                                                    </TableBody>
+                                                </Table>
+                                            </TableContainer>
+                                        </CardContent>
+                                    </Card>
 
 
                                     <Card style={{ fontSize: '1vw' }}>
@@ -1572,76 +1668,7 @@ class FormSIRV extends React.Component {
                                             </TableContainer>
                                         </CardContent>
                                     </Card>
-                                    <Card style={{ fontSize: '1vw' }}>
-                                        <CardHeader
-                                            avatar={
-                                                <Avatar aria-label="recipe" >
-                                                    7
-                                                </Avatar>
-                                            }
-                                            action={
-                                                <IconButton aria-label="settings">
-
-                                                </IconButton>
-                                            }
-                                            title="Novos infectados no sistema"
-                                            subheader="Novo grupo de infectados adicionados ao sistema"
-                                        />
-                                        <CardContent>
-                                            <TableContainer component={Paper}>
-                                                <Table size="small" aria-label="a dense table">
-                                                    <TableBody>
-                                                        <TableRow>
-                                                            <TableCell>   Quantidade de novos infectados no modelo:</TableCell>
-                                                            <TableCell align="left">
-                                                                <TextField value={this.state.quantidade_infectados}
-                                                                    onChange={this.handleChange_quantidade_infectados_text_input} /></TableCell>
-
-                                                        </TableRow>
-                                                        <TableRow>
-                                                            <TableCell colSpan={2}>    <Slider
-                                                                value={this.state.quantidade_infectados}
-                                                                orientation="horizontal"
-                                                                defaultValue={0}
-                                                                step={1}
-                                                                min={0}
-                                                                max={60000}
-                                                                valueLabelDisplay="auto"
-                                                                aria-labelledby="vertical-slider"
-                                                                marks={marks_infectados}
-                                                                onChange={this.handleChange_quantidade_infectados}
-                                                            /></TableCell>
-
-                                                        </TableRow>
-                                                        <TableRow>
-                                                            <TableCell>   Quantidade de dias entre novas infecções:</TableCell>
-                                                            <TableCell align="left">
-                                                                <TextField value={this.state.dias_nova_infeccao}
-                                                                    onChange={this.handleChange_dias_text_input} /></TableCell>
-
-                                                        </TableRow>
-                                                        <TableRow>
-                                                            <TableCell colSpan={2}>      <Slider
-                                                                value={this.state.dias_nova_infeccao}
-                                                                orientation="horizontal"
-                                                                defaultValue={0}
-                                                                step={1}
-                                                                min={0}
-                                                                max={90}
-                                                                aria-labelledby="vertical-slider"
-                                                                marks={marks_dias}
-                                                                valueLabelDisplay="auto"
-                                                                onChange={this.handleChange_dias_nova_infeccao}
-                                                            /></TableCell>
-
-                                                        </TableRow>
-
-
-                                                    </TableBody>
-                                                </Table>
-                                            </TableContainer>
-                                        </CardContent>
-                                    </Card>
+                                  
                                     <Card style={{ fontSize: '1vw' }}>
                                         <CardHeader
                                             avatar={
@@ -2070,15 +2097,11 @@ class FormSIRV extends React.Component {
 
                             : null}
                     </Grid>
-                    <Grid item xs={12} justify="center" >
-                        
-                        <Typography gutterBottom style={{ fontSize: 'min(2vw, 20px)', color: "#000000" }} >
-                            <TouchApp />  Deslize o gráfico caso use um celular
-                         </Typography>
-                    </Grid>
+                  
                     {this.state.isGraph ?
-                        <Grid item xs={12}>
-                            <SemipolarLoading />
+                        <Grid item xs={12}  >
+                            < PassThrouthLoading width={window.innerWidth} height={2000} size={"large"} />
+                            <HashLoader color={"#ffffff"} loading={true} size={window.innerWidth} />
                         </Grid>
                         : null}
                     {!this.state.isGraph ?
